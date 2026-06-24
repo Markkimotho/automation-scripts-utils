@@ -92,11 +92,25 @@ check "creates CI workflow" "[ -f '$TMP4/proj/.github/workflows/ci.yml' ]"
 check "creates LICENSE"     "[ -f '$TMP4/proj/LICENSE' ]"
 check "git initialized"     "[ -d '$TMP4/proj/.git' ]"
 
+echo "== clean-artifacts.sh =="
+TMPA="$(mktemp -d)"
+mkdir -p "$TMPA/pkg/__pycache__"; printf x > "$TMPA/pkg/__pycache__/m.pyc"; printf y > "$TMPA/.DS_Store"
+out_art="$( "$BIN/clean-artifacts.sh" "$TMPA" 2>/dev/null || true )"
+if printf '%s' "$out_art" | grep -q '__pycache__'; then t_pass "dry-run lists __pycache__"; else t_fail "dry-run lists __pycache__"; fi
+check "dry-run leaves files"  "[ -d '$TMPA/pkg/__pycache__' ]"
+( "$BIN/clean-artifacts.sh" "$TMPA" --apply -y >/dev/null 2>&1 )
+check "apply removes __pycache__" "[ ! -d '$TMPA/pkg/__pycache__' ]"
+
+echo "== snapshot.sh =="
+TMPB="$(mktemp -d)"; printf data > "$TMPB/file.txt"; OUTB="$(mktemp -d)"
+( "$BIN/snapshot.sh" "$TMPB" --out "$OUTB" >/dev/null 2>&1 )
+check "creates a tar.gz" "ls '$OUTB'/*.tar.gz >/dev/null 2>&1"
+
 echo "== bash usage/help exits 0 =="
 for s in gh-merge-pr gh-create-repo gh-enable-pages gh-rename-repo \
          git-conflict-helper git-safe-checkout git-clean-branches gh-pr-open git-sync \
-         dev-doctor proj-bootstrap precommit-install \
-         py-venv-rebuild port-kill; do
+         dev-doctor proj-bootstrap precommit-install py-check \
+         clean-artifacts snapshot py-venv-rebuild port-kill; do
   ( "$BIN/$s.sh" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
 done
 
@@ -108,9 +122,23 @@ else
   t_pass "python3 available"
   check "common.py imports"  "$PY -c 'import sys;sys.path.insert(0,\"$ROOT/lib\");import common'"
   for s in gh-pr-status gh-release env-check version-bump lockfile-drift \
-           deps-unused deps-outdated vuln-scan lic-audit; do
+           deps-unused deps-outdated vuln-scan lic-audit data-convert secret-scan; do
     ( "$PY" "$BIN/$s.py" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
   done
+
+  echo "== data-convert.py (csv -> json) =="
+  TMPC="$(mktemp -d)"
+  printf 'name,age\nAda,36\nLin,28\n' > "$TMPC/in.csv"
+  out_json="$( "$PY" "$BIN/data-convert.py" "$TMPC/in.csv" --to json 2>/dev/null || true )"
+  if printf '%s' "$out_json" | grep -q '"name": "Ada"'; then t_pass "csv->json"; else t_fail "csv->json"; fi
+
+  echo "== secret-scan.py =="
+  TMPD="$(mktemp -d)"
+  printf 'key = "AKIAIOSFODNN7EXAMPLE"\n' > "$TMPD/leak.py"
+  ( "$PY" "$BIN/secret-scan.py" "$TMPD/leak.py" >/dev/null 2>&1 ); check "flags AWS key -> exit 2" "[ $? -eq 2 ]"
+  printf 'x = 1\n' > "$TMPD/clean.py"
+  ( "$PY" "$BIN/secret-scan.py" "$TMPD/clean.py" >/dev/null 2>&1 ); check "clean file -> exit 0" "[ $? -eq 0 ]"
+  rm -rf "$TMPC" "$TMPD"
 
   echo "== env-check.py =="
   TMP5="$(mktemp -d)"
@@ -151,7 +179,7 @@ else
   rm -rf "$TMP5" "$TMP6" "$TMP7" "$TMP8" "$TMP9"
 fi
 
-rm -rf "$TMP" "$TMP2" "$TMP3" "$TMP4"
+rm -rf "$TMP" "$TMP2" "$TMP3" "$TMP4" "$TMPA" "$TMPB" "$OUTB"
 echo ""
 echo "Passed: $PASS  Failed: $FAIL"
 [ "$FAIL" -eq 0 ]
