@@ -79,9 +79,23 @@ else
   t_fail "lists merged branch in dry-run"
 fi
 
+echo "== dev-doctor.sh =="
+( "$BIN/dev-doctor.sh" >/dev/null 2>&1 ); check "exits 0 (git+bash present)" "[ $? -eq 0 ]"
+
+echo "== proj-bootstrap.sh =="
+TMP4="$(mktemp -d)"
+( "$BIN/proj-bootstrap.sh" "$TMP4/proj" --name proj --flavor python --license mit -y >/dev/null 2>&1 )
+check "creates README"      "[ -f '$TMP4/proj/README.md' ]"
+check "creates .gitignore"  "[ -f '$TMP4/proj/.gitignore' ]"
+check "creates pre-commit"  "[ -f '$TMP4/proj/.pre-commit-config.yaml' ]"
+check "creates CI workflow" "[ -f '$TMP4/proj/.github/workflows/ci.yml' ]"
+check "creates LICENSE"     "[ -f '$TMP4/proj/LICENSE' ]"
+check "git initialized"     "[ -d '$TMP4/proj/.git' ]"
+
 echo "== bash usage/help exits 0 =="
 for s in gh-merge-pr gh-create-repo gh-enable-pages gh-rename-repo \
          git-conflict-helper git-safe-checkout git-clean-branches gh-pr-open git-sync \
+         dev-doctor proj-bootstrap precommit-install \
          py-venv-rebuild port-kill; do
   ( "$BIN/$s.sh" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
 done
@@ -98,7 +112,7 @@ else
   done
 fi
 
-rm -rf "$TMP" "$TMP2" "$TMP3"
+rm -rf "$TMP" "$TMP2" "$TMP3" "$TMP4"
 echo ""
 echo "Passed: $PASS  Failed: $FAIL"
 [ "$FAIL" -eq 0 ]
