@@ -62,7 +62,7 @@ check "clean tree -> exit 0"                "[ $rc_cleanwt -eq 0 ]"
 check "dirty tree -> exit 2"                "[ $rc_dirty -eq 2 ]"
 
 echo "== usage/help exits 0 =="
-for s in gh-merge-pr gh-create-repo gh-enable-pages git-conflict-helper git-safe-checkout py-venv-rebuild port-kill; do
+for s in gh-merge-pr gh-create-repo gh-enable-pages gh-rename-repo git-conflict-helper git-safe-checkout py-venv-rebuild port-kill; do
   ( "$BIN/$s.sh" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
 done
 

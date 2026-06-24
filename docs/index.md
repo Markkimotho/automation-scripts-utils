@@ -1,7 +1,9 @@
-# Bash Automation Scripts & Utils
+# Automation Scripts & Utils
 
-Small, reusable Bash scripts for the day-to-day git/GitHub and dev-environment
-chores — the kind you keep re-typing by hand.
+Reusable automation for the everyday tasks developers repeat — creating and
+merging repos, untangling git conflicts, rebuilding environments, freeing ports,
+and more. Not limited to git or environment chores: anything worth never typing
+by hand twice belongs here. Bash today, **Python utilities planned**.
 
 Every script:
 
@@ -13,12 +15,14 @@ Every script:
 ## Install
 
 ```bash
-git clone https://github.com/Markkimotho/bash-automation-scripts-utils.git
-export PATH="$PWD/bash-automation-scripts-utils/bin:$PATH"   # add to ~/.zshrc to persist
+git clone https://github.com/Markkimotho/automation-scripts-utils.git
+export PATH="$PWD/automation-scripts-utils/bin:$PATH"   # add to ~/.zshrc to persist
 ```
 
-Requirements: `bash`, `git`. The `gh-*` scripts need the
-[GitHub CLI](https://cli.github.com/) (`gh auth login`); `port-kill.sh` needs `lsof`.
+See [Prerequisites](prerequisites.md) for exactly what each script needs and the
+dev-environment edge cases worth knowing. In short: `bash` + `git`; the `gh-*`
+scripts need the [GitHub CLI](https://cli.github.com/) (`gh auth login`);
+`port-kill.sh` needs `lsof`; `py-venv-rebuild.sh` needs `python3`.
 
 ## The scripts
 
@@ -26,6 +30,7 @@ Requirements: `bash`, `git`. The `gh-*` scripts need the
 |--------|--------------|
 | `gh-merge-pr.sh` | Merge a PR from the CLI — polls mergeability, refuses conflicting PRs, confirms first. |
 | `gh-create-repo.sh` | Create a GitHub repo and optionally init/commit/push a local dir. |
+| `gh-rename-repo.sh` | Rename a GitHub repo and update the local `origin` remote. |
 | `gh-enable-pages.sh` | Enable GitHub Pages via the API (Actions or branch source). |
 | `git-conflict-helper.sh` | Rule-based guide to git conflicts: explains the likely cause and walks resolution. |
 | `git-safe-checkout.sh` | Switch branches without silently losing uncommitted work. |

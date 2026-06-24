@@ -1,8 +1,8 @@
-site_name: Bash Automation Scripts & Utils
-site_description: Small reusable Bash scripts for git/GitHub chores and dev-environment setup.
-site_url: https://markkimotho.github.io/bash-automation-scripts-utils/
-repo_url: https://github.com/Markkimotho/bash-automation-scripts-utils
-repo_name: Markkimotho/bash-automation-scripts-utils
+site_name: Automation Scripts & Utils
+site_description: Reusable automation scripts for the everyday tasks developers repeat.
+site_url: https://markkimotho.github.io/automation-scripts-utils/
+repo_url: https://github.com/Markkimotho/automation-scripts-utils
+repo_name: Markkimotho/automation-scripts-utils
 edit_uri: edit/main/docs/
 
 docs_dir: docs
@@ -33,6 +33,7 @@ theme:
 
 nav:
   - Home: index.md
+  - Prerequisites: prerequisites.md
   - Script reference: reference.md
   - Resolving conflicts: conflicts.md
 

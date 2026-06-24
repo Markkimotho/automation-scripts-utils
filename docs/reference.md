@@ -8,7 +8,7 @@ All examples assume `bin/` is on your `PATH`.
 
 Merge a GitHub PR from the CLI, safely.
 
-```
+```text
 gh-merge-pr.sh <pr-number> [options]
 
   -m, --method <merge|squash|rebase>   Merge method (default: squash)
@@ -32,7 +32,7 @@ gh-merge-pr.sh 7 -m merge -r owner/repo -y
 
 Create a GitHub repo and optionally push a local dir to it.
 
-```
+```text
 gh-create-repo.sh <name> [options]
 
   --public | --private        Visibility (default: private)
@@ -50,12 +50,35 @@ gh-create-repo.sh private-notes              # empty private repo
 
 ---
 
+## `gh-rename-repo.sh`
+
+Rename a GitHub repo and update the local `origin` remote.
+
+```text
+gh-rename-repo.sh <new-name> [options]
+
+  -r, --repo <owner/name>     Repo to rename (default: current repo)
+  --no-remote-update          Don't rewrite the local 'origin' URL
+  -y, --yes                   Skip confirmation
+```
+
+GitHub keeps a redirect from the old name, but `origin` is rewritten so the next
+push just works. A repo with Pages keeps Pages, but the project-site URL changes
+to the new name — update `site_url`/links and redeploy.
+
+```bash
+gh-rename-repo.sh new-name
+gh-rename-repo.sh new-name -r owner/old-name --yes
+```
+
+---
+
 ## `gh-enable-pages.sh`
 
 Enable GitHub Pages via the API. Requires repo-owner access and a `gh` token
 with the `repo`/Pages scope.
 
-```
+```text
 gh-enable-pages.sh [owner/name] [options]
 
   --workflow              Source = GitHub Actions (default).
@@ -79,7 +102,7 @@ gh-enable-pages.sh owner/site --branch gh-pages
 Rule-based guide for git merge/rebase/cherry-pick conflicts. See
 [Resolving conflicts](conflicts.md) for the full rule set.
 
-```
+```text
 git-conflict-helper.sh [--check]
 
   --check    Non-interactive. Report state + conflicted files only.
@@ -97,7 +120,7 @@ git-conflict-helper.sh --check    # for scripts/CI
 
 Switch branches without silently losing uncommitted work.
 
-```
+```text
 git-safe-checkout.sh <branch> [options]
 
   -b, --create     Create the branch (git checkout -b)
@@ -120,7 +143,7 @@ git-safe-checkout.sh main
 Rebuild a virtualenv whose interpreter went stale (the base Python moved or was
 removed, so `.venv/bin/python` is a dangling symlink).
 
-```
+```text
 py-venv-rebuild.sh [options]
 
   --python <bin|version>   Interpreter: a path, or a version like 3.12.4
@@ -143,7 +166,7 @@ Kill the process **listening** on one or more TCP ports. By default it targets
 only listeners — so it won't kill a process that merely holds an *outbound*
 connection to that port (a common, painful mistake).
 
-```
+```text
 port-kill.sh <port> [port...] [options]
 
   --all        Match ANY socket on the port, not just listeners.
