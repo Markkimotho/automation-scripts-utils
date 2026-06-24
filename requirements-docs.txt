@@ -1,0 +1,2 @@
+# Docs toolchain. Build:  mkdocs serve  (preview)  /  mkdocs build --strict
+mkdocs-material>=9.5

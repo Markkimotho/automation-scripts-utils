@@ -1,0 +1,9 @@
+# MkDocs build output
+_site/
+.cache/
+
+# Python venv (if used for docs tooling)
+.venv/
+
+# OS noise
+.DS_Store
