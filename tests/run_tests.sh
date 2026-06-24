@@ -61,12 +61,44 @@ echo "== git-safe-checkout.sh --check =="
 check "clean tree -> exit 0"                "[ $rc_cleanwt -eq 0 ]"
 check "dirty tree -> exit 2"                "[ $rc_dirty -eq 2 ]"
 
-echo "== usage/help exits 0 =="
-for s in gh-merge-pr gh-create-repo gh-enable-pages gh-rename-repo git-conflict-helper git-safe-checkout py-venv-rebuild port-kill; do
+echo "== git-clean-branches.sh --dry-run =="
+TMP3="$(mktemp -d)"
+(
+  cd "$TMP3"
+  git init -q -b main
+  printf base > f; git add f; git commit -qm init
+  git checkout -q -b done-feature
+  printf more >> f; git commit -qam feature
+  git checkout -q main
+  git merge -q --no-edit done-feature   # cleanly merged -> eligible for cleanup
+)
+out_clean="$( cd "$TMP3"; "$BIN/git-clean-branches.sh" --dry-run 2>/dev/null || true )"
+if printf '%s' "$out_clean" | grep -q 'done-feature'; then
+  t_pass "lists merged branch in dry-run"
+else
+  t_fail "lists merged branch in dry-run"
+fi
+
+echo "== bash usage/help exits 0 =="
+for s in gh-merge-pr gh-create-repo gh-enable-pages gh-rename-repo \
+         git-conflict-helper git-safe-checkout git-clean-branches gh-pr-open git-sync \
+         py-venv-rebuild port-kill; do
   ( "$BIN/$s.sh" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
 done
 
-rm -rf "$TMP" "$TMP2"
+echo "== python lane =="
+PY="$(command -v python3 || true)"
+if [[ -z "$PY" ]]; then
+  t_fail "python3 available"
+else
+  t_pass "python3 available"
+  check "common.py imports"  "$PY -c 'import sys;sys.path.insert(0,\"$ROOT/lib\");import common'"
+  for s in gh-pr-status gh-release; do
+    ( "$PY" "$BIN/$s.py" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
+  done
+fi
+
+rm -rf "$TMP" "$TMP2" "$TMP3"
 echo ""
 echo "Passed: $PASS  Failed: $FAIL"
 [ "$FAIL" -eq 0 ]
