@@ -11,19 +11,28 @@ and works on stock macOS bash 3.2.
 
 ## Scripts
 
-| Script | What it does |
-|--------|--------------|
-| [`bin/gh-merge-pr.sh`](bin/gh-merge-pr.sh) | Merge a PR from the CLI — polls mergeability, refuses conflicting PRs, confirms first. |
-| [`bin/gh-create-repo.sh`](bin/gh-create-repo.sh) | Create a GitHub repo and optionally init/commit/push a local dir to it. |
-| [`bin/gh-rename-repo.sh`](bin/gh-rename-repo.sh) | Rename a GitHub repo and update the local `origin` remote. |
-| [`bin/gh-enable-pages.sh`](bin/gh-enable-pages.sh) | Enable GitHub Pages via the API (Actions or branch source) — repo owner. |
-| [`bin/git-conflict-helper.sh`](bin/git-conflict-helper.sh) | Rule-based guide to git conflicts: explains the likely cause and walks resolution. |
-| [`bin/git-safe-checkout.sh`](bin/git-safe-checkout.sh) | Switch branches without silently losing uncommitted work. |
-| [`bin/py-venv-rebuild.sh`](bin/py-venv-rebuild.sh) | Rebuild a virtualenv whose interpreter went stale; reinstall requirements. |
-| [`bin/port-kill.sh`](bin/port-kill.sh) | Kill the process *listening* on a TCP port (not a client connected to it). |
+28 scripts across four areas. Full options and examples are in the
+[script reference](docs/reference.md); per-script prerequisites in
+[docs/prerequisites.md](docs/prerequisites.md).
 
-[`lib/common.sh`](lib/common.sh) holds the shared helpers (logging, `confirm`,
-`require_cmd`, git/gh checks).
+**Git & GitHub** — `gh-merge-pr`, `gh-create-repo`, `gh-rename-repo`,
+`gh-enable-pages`, `gh-pr-open`, `gh-pr-status.py`, `gh-release.py`,
+`git-conflict-helper`, `git-safe-checkout`, `git-clean-branches`, `git-sync`.
+
+**Dev environment** — `dev-doctor`, `proj-bootstrap`, `precommit-install`,
+`py-venv-rebuild`, `py-check`.
+
+**Cross-language dependency & library tooling** (Python, polyglot — handle pip,
+npm, cargo, go, bundler in one run) — `deps-outdated.py`, `deps-unused.py`,
+`lockfile-drift.py`, `vuln-scan.py`, `lic-audit.py`, `version-bump.py`,
+`env-check.py`.
+
+**Data & housekeeping** — `data-convert.py`, `clean-artifacts`, `secret-scan.py`,
+`snapshot`, `port-kill`.
+
+Shared helpers live in [`lib/common.sh`](lib/common.sh) (bash) and
+[`lib/common.py`](lib/common.py) (Python): logging, `confirm`, dependency checks,
+and manifest detection for the polyglot tools.
 
 ## Install
 

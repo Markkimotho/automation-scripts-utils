@@ -26,18 +26,55 @@ scripts need the [GitHub CLI](https://cli.github.com/) (`gh auth login`);
 
 ## The scripts
 
+### Git & GitHub
+
 | Script | What it does |
 |--------|--------------|
-| `gh-merge-pr.sh` | Merge a PR from the CLI — polls mergeability, refuses conflicting PRs, confirms first. |
-| `gh-create-repo.sh` | Create a GitHub repo and optionally init/commit/push a local dir. |
-| `gh-rename-repo.sh` | Rename a GitHub repo and update the local `origin` remote. |
+| `gh-merge-pr.sh` | Merge a PR — polls mergeability, refuses conflicting PRs, confirms. |
+| `gh-create-repo.sh` | Create a repo and optionally init/commit/push a local dir. |
+| `gh-rename-repo.sh` | Rename a repo and update the local `origin` remote. |
 | `gh-enable-pages.sh` | Enable GitHub Pages via the API (Actions or branch source). |
-| `git-conflict-helper.sh` | Rule-based guide to git conflicts: explains the likely cause and walks resolution. |
-| `git-safe-checkout.sh` | Switch branches without silently losing uncommitted work. |
-| `py-venv-rebuild.sh` | Rebuild a virtualenv whose interpreter went stale; reinstall requirements. |
-| `port-kill.sh` | Kill the process *listening* on a TCP port (not a client connected to it). |
+| `gh-pr-open.sh` | Push the current branch and open a PR in one step. |
+| `gh-pr-status.py` | One table of every open PR with CI / review / mergeable state. |
+| `gh-release.py` | Bump, changelog from commits, tag, GitHub release. |
+| `git-conflict-helper.sh` | Rule-based guide to git conflicts. |
+| `git-safe-checkout.sh` | Switch branches without losing uncommitted work. |
+| `git-clean-branches.sh` | Delete branches already merged into the base. |
+| `git-sync.sh` | Fetch, fast-forward base, prune, rebase current branch. |
 
-See the [script reference](reference.md) for full options and examples, and
+### Dev environment
+
+| Script | What it does |
+|--------|--------------|
+| `dev-doctor.sh` | Report missing tools with install hints. |
+| `proj-bootstrap.sh` | Scaffold git/ignore/README/pre-commit/CI/license. |
+| `precommit-install.sh` | Install (and scaffold) pre-commit hooks. |
+| `py-venv-rebuild.sh` | Rebuild a stale virtualenv; reinstall requirements. |
+| `py-check.sh` | ruff + mypy + pytest in one pass. |
+
+### Cross-language dependency & library tooling (Python, polyglot)
+
+| Script | What it does |
+|--------|--------------|
+| `deps-outdated.py` | Outdated packages across pip / npm / cargo / go. |
+| `deps-unused.py` | Declared-but-never-imported dependencies. |
+| `lockfile-drift.py` | Lockfile missing or older than its manifest. |
+| `vuln-scan.py` | Run each ecosystem's audit tool, normalize findings. |
+| `lic-audit.py` | Collect licenses; flag copyleft / unknown. |
+| `version-bump.py` | Bump the version in whatever manifest(s) exist. |
+| `env-check.py` | Diff `.env` against `.env.example`. |
+
+### Data & housekeeping
+
+| Script | What it does |
+|--------|--------------|
+| `data-convert.py` | CSV ↔ JSON ↔ YAML. |
+| `clean-artifacts.sh` | Remove build/cache junk (dry-run default). |
+| `secret-scan.py` | Scan staged files for likely secrets. |
+| `snapshot.sh` | Timestamped backup before risky ops. |
+| `port-kill.sh` | Kill the process *listening* on a TCP port. |
+
+See the [script reference](reference.md) for options and examples, and
 [resolving conflicts](conflicts.md) for the conflict-helper's rule set.
 
 ## Conventions

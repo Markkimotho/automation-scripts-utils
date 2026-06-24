@@ -5,21 +5,43 @@ that bite when setting up a dev environment.
 
 ## Per-script requirements
 
-Every script needs **`bash` (3.2+, the macOS default is fine)**. Beyond that:
+Every bash script needs **`bash` (3.2+, the macOS default is fine)**; every
+Python script needs **`python3`**. Beyond that:
 
 | Script | Mandatory | Notes |
 |--------|-----------|-------|
-| `gh-merge-pr.sh` | `gh` (authenticated), `git`, `jq` | `gh` must be logged in; `jq` parses the API JSON. |
-| `gh-create-repo.sh` | `gh` (authenticated), `git` | — |
-| `gh-enable-pages.sh` | `gh` (authenticated) | Token needs the **`repo`** scope (and you must own the repo). |
-| `gh-rename-repo.sh` | `gh` (authenticated), `git` | `git` only used to rewrite `origin`. |
+| `gh-merge-pr.sh` | `gh` (auth), `git`, `jq` | `jq` parses the API JSON. |
+| `gh-create-repo.sh` | `gh` (auth), `git` | — |
+| `gh-rename-repo.sh` | `gh` (auth), `git` | `git` rewrites `origin`. |
+| `gh-enable-pages.sh` | `gh` (auth) | Token needs the **`repo`** scope; you must own the repo. |
+| `gh-pr-open.sh` | `gh` (auth), `git` | — |
+| `gh-pr-status.py` | `python3`, `gh` (auth) | — |
+| `gh-release.py` | `python3`, `gh` (auth), `git` | — |
 | `git-conflict-helper.sh` | `git` | — |
 | `git-safe-checkout.sh` | `git` | — |
-| `py-venv-rebuild.sh` | `python3` | `pyenv` optional (used to resolve a version like `3.12.4`). |
+| `git-clean-branches.sh` | `git` | — |
+| `git-sync.sh` | `git` | — |
+| `dev-doctor.sh` | `bash` | Checks for everything else and reports. |
+| `proj-bootstrap.sh` | `bash` | `git` optional (skips init with `--no-git`). |
+| `precommit-install.sh` | `git`, `pre-commit` | Offers to pip-install `pre-commit`. |
+| `py-venv-rebuild.sh` | `python3` | `pyenv` optional (resolves a version like `3.12.4`). |
+| `py-check.sh` | `bash` | Runs whichever of `ruff`/`mypy`/`pytest` exist. |
+| `deps-outdated.py` | `python3` | Plus the toolchains to query: `pip`/`npm`/`go`/`cargo-outdated`. |
+| `deps-unused.py` | `python3` | Pure Python (heuristic). |
+| `lockfile-drift.py` | `python3` | Pure Python. |
+| `vuln-scan.py` | `python3` | Plus audit tools: `pip-audit`/`npm`/`cargo-audit`/`govulncheck`. |
+| `lic-audit.py` | `python3` | Reads installed metadata + `node_modules`. |
+| `version-bump.py` | `python3` | Pure Python. |
+| `env-check.py` | `python3` | Pure Python. |
+| `data-convert.py` | `python3` | `PyYAML` only if you use YAML. |
+| `secret-scan.py` | `python3` | `git` only for the default (staged-files) mode. |
+| `clean-artifacts.sh` | `bash`, `find` | — |
+| `snapshot.sh` | `bash`, `tar` | — |
 | `port-kill.sh` | `lsof` | Present on macOS by default; install on minimal Linux. |
 
-Scripts fail fast with a clear message (`Required command not found: …`) when a
-prerequisite is missing — they won't half-run.
+The polyglot tools (`deps-*`, `vuln-scan`, `lic-audit`) **skip** any ecosystem
+whose toolchain isn't installed rather than failing. Scripts that need a tool
+outright fail fast with a clear message (`Required command not found: …`).
 
 ## Install the prerequisites
 

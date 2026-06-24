@@ -1,180 +1,249 @@
 # Script reference
 
-All examples assume `bin/` is on your `PATH`.
+All scripts self-document with `--help`. Examples assume `bin/` is on your `PATH`.
+Bash scripts run on macOS bash 3.2+; Python scripts need `python3`.
 
 ---
 
-## `gh-merge-pr.sh`
+## Git & GitHub
 
-Merge a GitHub PR from the CLI, safely.
+### `gh-merge-pr.sh`
+
+Merge a PR safely: polls mergeability, refuses `CONFLICTING`, confirms first.
 
 ```text
-gh-merge-pr.sh <pr-number> [options]
-
-  -m, --method <merge|squash|rebase>   Merge method (default: squash)
-  -d, --delete-branch                  Delete the head branch after merge
-  -r, --repo <owner/name>              Target repo (default: current)
-  -y, --yes                            Skip confirmation
+gh-merge-pr.sh <pr-number> [-m merge|squash|rebase] [-d] [-r owner/name] [-y]
 ```
 
-- Verifies `gh` auth and polls the PR's mergeable state (~30s).
-- **Refuses** to merge a `CONFLICTING` PR — run `git-conflict-helper.sh` first.
-- Confirms before merging (outward-facing).
+### `gh-create-repo.sh`
 
-```bash
-gh-merge-pr.sh 12 --squash --delete-branch
-gh-merge-pr.sh 7 -m merge -r owner/repo -y
-```
-
----
-
-## `gh-create-repo.sh`
-
-Create a GitHub repo and optionally push a local dir to it.
+Create a repo and optionally init/commit/push a local dir.
 
 ```text
-gh-create-repo.sh <name> [options]
-
-  --public | --private        Visibility (default: private)
-  -d, --description <text>     Repo description
-  -s, --source <dir>           Local dir to push (default: current dir)
-  -p, --push                   Init/commit/push the source dir
-  -b, --branch <name>          Default branch when initializing (default: main)
-  -y, --yes                    Skip confirmation
+gh-create-repo.sh <name> [--public|--private] [-d desc] [-s dir] [-p] [-y]
 ```
 
-```bash
-gh-create-repo.sh my-tool --public -d "Handy tool" --source . --push
-gh-create-repo.sh private-notes              # empty private repo
-```
+### `gh-rename-repo.sh`
 
----
-
-## `gh-rename-repo.sh`
-
-Rename a GitHub repo and update the local `origin` remote.
+Rename a repo and rewrite the local `origin`.
 
 ```text
-gh-rename-repo.sh <new-name> [options]
-
-  -r, --repo <owner/name>     Repo to rename (default: current repo)
-  --no-remote-update          Don't rewrite the local 'origin' URL
-  -y, --yes                   Skip confirmation
+gh-rename-repo.sh <new-name> [-r owner/name] [--no-remote-update] [-y]
 ```
 
-GitHub keeps a redirect from the old name, but `origin` is rewritten so the next
-push just works. A repo with Pages keeps Pages, but the project-site URL changes
-to the new name — update `site_url`/links and redeploy.
+### `gh-enable-pages.sh`
 
-```bash
-gh-rename-repo.sh new-name
-gh-rename-repo.sh new-name -r owner/old-name --yes
-```
-
----
-
-## `gh-enable-pages.sh`
-
-Enable GitHub Pages via the API. Requires repo-owner access and a `gh` token
-with the `repo`/Pages scope.
+Enable GitHub Pages via the API (Actions or branch source). Repo owner.
 
 ```text
-gh-enable-pages.sh [owner/name] [options]
-
-  --workflow              Source = GitHub Actions (default).
-  --branch <branch>       Source = a branch (classic), e.g. gh-pages.
-  --path </ or /docs>     Path for branch source (default: /).
-  -y, --yes               Skip confirmation
+gh-enable-pages.sh [owner/name] [--workflow | --branch <b> --path </>] [-y]
 ```
 
-- No repo argument → uses the current repo.
-- If Pages already exists, its build type is updated instead of failing.
+### `gh-pr-open.sh`
 
-```bash
-gh-enable-pages.sh                           # current repo, Actions source
-gh-enable-pages.sh owner/site --branch gh-pages
+Push the current branch and open a PR in one step.
+
+```text
+gh-pr-open.sh [-t title] [-b base] [-d] [-w] [-y]
 ```
 
----
+### `gh-pr-status.py`
 
-## `git-conflict-helper.sh`
+One table of every open PR with CI / review / mergeable state.
 
-Rule-based guide for git merge/rebase/cherry-pick conflicts. See
-[Resolving conflicts](conflicts.md) for the full rule set.
+```text
+gh-pr-status.py [-r owner/name] [-a @me]
+```
+
+### `gh-release.py`
+
+Bump version, build a changelog from commits since the last tag, tag, and release.
+
+```text
+gh-release.py [major|minor|patch] [--set X.Y.Z] [-n]
+```
+
+### `git-conflict-helper.sh`
+
+Rule-based guide to merge/rebase conflicts. See [Resolving conflicts](conflicts.md).
 
 ```text
 git-conflict-helper.sh [--check]
-
-  --check    Non-interactive. Report state + conflicted files only.
-             Exit 0 = clean, 2 = conflicts present.
 ```
 
-```bash
-git-conflict-helper.sh            # interactive guide
-git-conflict-helper.sh --check    # for scripts/CI
-```
-
----
-
-## `git-safe-checkout.sh`
+### `git-safe-checkout.sh`
 
 Switch branches without silently losing uncommitted work.
 
 ```text
-git-safe-checkout.sh <branch> [options]
-
-  -b, --create     Create the branch (git checkout -b)
-  --check          Report dirty state only. Exit 0 = clean, 2 = dirty.
-  -y, --yes        Assume "stash" for the dirty prompt (non-interactive)
+git-safe-checkout.sh <branch> [-b] [--check] [-y]
 ```
 
-When the tree is dirty it shows what's dirty and asks you to **commit / stash /
-discard / abort** before switching.
+### `git-clean-branches.sh`
 
-```bash
-git-safe-checkout.sh feature -b
-git-safe-checkout.sh main
+Delete branches already merged into the base (local, and `--remote`).
+
+```text
+git-clean-branches.sh [-b base] [--remote] [-n] [-y]
+```
+
+### `git-sync.sh`
+
+Catch up: fetch, fast-forward base, prune, rebase current branch. Refuses a dirty tree.
+
+```text
+git-sync.sh [-b base] [--no-rebase] [-y]
 ```
 
 ---
 
-## `py-venv-rebuild.sh`
+## Dev environment
 
-Rebuild a virtualenv whose interpreter went stale (the base Python moved or was
-removed, so `.venv/bin/python` is a dangling symlink).
+### `dev-doctor.sh`
+
+Report which required tools are present, with install hints. Non-zero if a core tool is missing.
 
 ```text
-py-venv-rebuild.sh [options]
-
-  --python <bin|version>   Interpreter: a path, or a version like 3.12.4
-                           (resolved via pyenv, then pythonX.Y, python3)
-  --venv <dir>             Venv directory (default: .venv)
-  -r, --requirements <f>   Requirements file (default: requirements.txt if present)
-  -y, --yes                Skip the delete confirmation
+dev-doctor.sh
 ```
 
-```bash
-py-venv-rebuild.sh --python 3.12.4
-py-venv-rebuild.sh --venv .venv -r requirements.txt -y
+### `proj-bootstrap.sh`
+
+Scaffold a new project: git, ignore, README, pre-commit, CI, optional license.
+
+```text
+proj-bootstrap.sh [dir] [--name n] [--flavor python|node|generic] [--license mit|none] [--no-git] [-y]
+```
+
+### `precommit-install.sh`
+
+Install (and optionally scaffold) pre-commit hooks; offers to pip-install pre-commit.
+
+```text
+precommit-install.sh [--with-config] [-y]
+```
+
+### `py-venv-rebuild.sh`
+
+Rebuild a virtualenv whose interpreter went stale; reinstall requirements.
+
+```text
+py-venv-rebuild.sh [--python bin|version] [--venv dir] [-r requirements.txt] [-y]
+```
+
+### `py-check.sh`
+
+Run ruff + mypy + pytest (+ coverage) in one pass; skips missing tools.
+
+```text
+py-check.sh [path] [--no-cov]
 ```
 
 ---
 
-## `port-kill.sh`
+## Cross-language dependency & library tooling
 
-Kill the process **listening** on one or more TCP ports. By default it targets
-only listeners — so it won't kill a process that merely holds an *outbound*
-connection to that port (a common, painful mistake).
+Python-powered, **polyglot**: each detects the manifests present
+(`requirements.txt`/`pyproject.toml`, `package.json`, `go.mod`, `Cargo.toml`,
+`Gemfile`, `pom.xml`) and acts on all of them. Toolchains that aren't installed
+are skipped with a note rather than failing.
+
+### `deps-outdated.py`
+
+Outdated packages across pip / npm / cargo / go, one table.
 
 ```text
-port-kill.sh <port> [port...] [options]
-
-  --all        Match ANY socket on the port, not just listeners.
-  -9, --force  Use SIGKILL instead of SIGTERM.
-  -y, --yes    Skip confirmation.
+deps-outdated.py [--root .]
 ```
 
-```bash
-port-kill.sh 8080 8090          # free up two listener ports
-port-kill.sh 6380 --force -y
+### `deps-unused.py`
+
+Declared-but-never-imported dependencies (Python + Node, heuristic).
+
+```text
+deps-unused.py [--root .] [--warn-only]
+```
+
+### `lockfile-drift.py`
+
+Flag manifests whose lockfile is missing or older than the manifest.
+
+```text
+lockfile-drift.py [--root .]
+```
+
+### `vuln-scan.py`
+
+Run each ecosystem's audit tool (pip-audit/npm audit/cargo audit/govulncheck) and normalize.
+
+```text
+vuln-scan.py [--root .] [--warn-only]
+```
+
+### `lic-audit.py`
+
+Collect dependency licenses; flag GPL/AGPL/LGPL and unknown.
+
+```text
+lic-audit.py [--root .] [--strict]
+```
+
+### `version-bump.py`
+
+Bump the project version in whatever manifest(s) the repo uses, atomically.
+
+```text
+version-bump.py [major|minor|patch] [--set X.Y.Z] [--root .] [-n]
+```
+
+### `env-check.py`
+
+Diff `.env` against `.env.example`; report missing/extra keys. Language-agnostic.
+
+```text
+env-check.py [--env .env] [--example .env.example] [--strict]
+```
+
+---
+
+## Data & housekeeping
+
+### `data-convert.py`
+
+Convert between CSV, JSON, and YAML (YAML needs PyYAML).
+
+```text
+data-convert.py <input|-> --to csv|json|yaml [--from fmt] [-o out]
+```
+
+### `clean-artifacts.sh`
+
+Delete build/cache junk (`__pycache__`, `dist`, caches, `.DS_Store`, …). Dry-run by default.
+
+```text
+clean-artifacts.sh [dir] [--apply] [--node] [-y]
+```
+
+### `secret-scan.py`
+
+Scan staged files (or given paths) for likely secrets; exits non-zero on a hit.
+
+```text
+secret-scan.py [paths...] [--all] [--root .]
+```
+
+### `snapshot.sh`
+
+Timestamped `tar.gz` of a directory before a risky operation.
+
+```text
+snapshot.sh [dir] [-o out-dir]
+```
+
+### `port-kill.sh`
+
+Kill the process **listening** on a TCP port (not a client connected to it).
+
+```text
+port-kill.sh <port> [port...] [--all] [-9] [-y]
 ```
