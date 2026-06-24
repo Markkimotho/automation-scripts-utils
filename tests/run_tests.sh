@@ -107,9 +107,48 @@ if [[ -z "$PY" ]]; then
 else
   t_pass "python3 available"
   check "common.py imports"  "$PY -c 'import sys;sys.path.insert(0,\"$ROOT/lib\");import common'"
-  for s in gh-pr-status gh-release; do
+  for s in gh-pr-status gh-release env-check version-bump lockfile-drift \
+           deps-unused deps-outdated vuln-scan lic-audit; do
     ( "$PY" "$BIN/$s.py" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
   done
+
+  echo "== env-check.py =="
+  TMP5="$(mktemp -d)"
+  printf 'A=1\nB=2\nC=3\n' > "$TMP5/.env.example"
+  printf 'A=x\nB=y\n' > "$TMP5/.env"           # missing C
+  ( cd "$TMP5"; "$PY" "$BIN/env-check.py" >/dev/null 2>&1 ); check "missing key -> exit 2" "[ $? -eq 2 ]"
+  printf 'A=x\nB=y\nC=z\n' > "$TMP5/.env"      # complete
+  ( cd "$TMP5"; "$PY" "$BIN/env-check.py" >/dev/null 2>&1 ); check "complete -> exit 0" "[ $? -eq 0 ]"
+
+  echo "== version-bump.py =="
+  TMP6="$(mktemp -d)"
+  printf '{"name":"x","version":"1.2.3"}\n' > "$TMP6/package.json"
+  ( cd "$TMP6"; "$PY" "$BIN/version-bump.py" patch >/dev/null 2>&1 )
+  check "package.json bumped to 1.2.4" "grep -q '1.2.4' '$TMP6/package.json'"
+  ( cd "$TMP6"; "$PY" "$BIN/version-bump.py" minor >/dev/null 2>&1 )
+  check "minor bump -> 1.3.0" "grep -q '1.3.0' '$TMP6/package.json'"
+
+  echo "== lockfile-drift.py =="
+  TMP7="$(mktemp -d)"
+  printf '{"name":"x"}\n' > "$TMP7/package.json"   # no lockfile -> drift
+  ( cd "$TMP7"; "$PY" "$BIN/lockfile-drift.py" >/dev/null 2>&1 ); check "missing lock -> exit 2" "[ $? -eq 2 ]"
+  printf '{}' > "$TMP7/package-lock.json"; sleep 1; touch "$TMP7/package-lock.json"
+  ( cd "$TMP7"; "$PY" "$BIN/lockfile-drift.py" >/dev/null 2>&1 ); check "lock present+newer -> exit 0" "[ $? -eq 0 ]"
+
+  echo "== deps-unused.py =="
+  TMP8="$(mktemp -d)"
+  printf 'requests\nclick\n' > "$TMP8/requirements.txt"
+  printf 'import requests\nrequests.get("x")\n' > "$TMP8/app.py"   # click unused
+  out_unused="$( cd "$TMP8"; "$PY" "$BIN/deps-unused.py" 2>/dev/null || true )"
+  if printf '%s' "$out_unused" | grep -q 'click'; then t_pass "flags unused click"; else t_fail "flags unused click"; fi
+  if printf '%s' "$out_unused" | grep -q 'requests'; then t_fail "does not flag used requests"; else t_pass "does not flag used requests"; fi
+
+  echo "== empty-dir behavior (polyglot tools exit 0) =="
+  TMP9="$(mktemp -d)"
+  for s in lockfile-drift deps-outdated vuln-scan; do
+    ( cd "$TMP9"; "$PY" "$BIN/$s.py" >/dev/null 2>&1 ); check "$s empty dir -> exit 0" "[ $? -eq 0 ]"
+  done
+  rm -rf "$TMP5" "$TMP6" "$TMP7" "$TMP8" "$TMP9"
 fi
 
 rm -rf "$TMP" "$TMP2" "$TMP3" "$TMP4"
