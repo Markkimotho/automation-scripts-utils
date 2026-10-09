@@ -126,6 +126,10 @@ check "split drops tags"                    "[ -z \"\$(git -C '$TMPS/out' tag)\"
 check "split leaves source untouched"       "[ \"\$(git -C '$TMPS/src' rev-list --count HEAD)\" = 3 ]"
 ( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/root" -p python/sdk/=. >/dev/null 2>&1 )
 check "split moves dir to root (=.)"        "[ -f '$TMPS/root/a.py' ]"
+printf 'draft' > "$TMPS/src/docs/draft 2.md"; ( cd "$TMPS/src"; git add .; git commit -qm draft )
+( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/ex" -p docs/=. -p '!docs/draft 2.md' >/dev/null 2>&1 )
+check "split excludes a path in a kept dir" "[ -f '$TMPS/ex/i.md' ] && [ ! -e '$TMPS/ex/draft 2.md' ] && [ -z \"\$(git -C '$TMPS/ex' log --all --format=%H -- 'draft 2.md')\" ]"
+git -C "$TMPS/src" reset -q --hard HEAD~1
 ( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/out" -p docs/ >/dev/null 2>&1 ); rc=$?
 check "split refuses existing target"       "[ $rc -ne 0 ]"
 ( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/esc" -p ../etc >/dev/null 2>&1 ); rc=$?

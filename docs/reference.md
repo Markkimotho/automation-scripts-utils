@@ -93,7 +93,8 @@ git-split-repo.sh <source-repo> <target-dir> (-p src[=dest] | -m manifest)... [-
                   [--publish owner/name] [--public|--private] [-d desc] [-y]
 ```
 
-Manifest lines are `<src> [<dest>]`; `.` as dest moves a directory to the root.
+Manifest lines are `<src> [<dest>]`; `.` as dest moves a directory to the root;
+a line `!<path>` drops that path (and its history) from inside a kept directory.
 
 ### `git-replace.sh`
 

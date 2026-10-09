@@ -15,6 +15,8 @@ Usage:
 Options:
   -p, --path <src>[=<dest>]    Keep <src> (file or dir/); with =<dest>, move it.
                                Repeatable. Use =. to move a directory to the root.
+                               Prefix with ! to drop a path inside a kept one
+                               (matched against the source path, e.g. '!docs/draft.md').
   -m, --manifest <file>        Read paths from a file: one "<src> [<dest>]" per line,
                                blank lines and # comments ignored.
   -b, --branch <name>          Branch to split (default: the source's current branch)
@@ -39,12 +41,14 @@ EOF
 
 src="" target="" branch="" publish="" vis="--private" desc=""
 paths=()
+excludes=()
 
 add_path() {
   local spec="$1"
   [[ -n "$spec" ]] || return 0
-  [[ "$spec" != /* && "$spec" != *..* ]] || die "Paths must be relative and inside the repo: $spec"
-  paths+=("$spec")
+  local bare="${spec#!}"
+  [[ "$bare" != /* && "$bare" != *..* && -n "$bare" ]] || die "Paths must be relative and inside the repo: $spec"
+  if [[ "$spec" == !* ]]; then excludes+=("$bare"); else paths+=("$spec"); fi
 }
 
 while [[ $# -gt 0 ]]; do
@@ -101,6 +105,9 @@ done
 
 info "Split $src ($branch) -> $target"
 for spec in "${paths[@]}"; do say "  keep ${spec%%=*}${spec#"${spec%%=*}"}"; done
+if [[ ${#excludes[@]} -gt 0 ]]; then
+  for ex in "${excludes[@]}"; do say "  drop $ex"; done
+fi
 [[ -n "$publish" ]] && info "Then publish to github.com/$publish (${vis#--})"
 confirm "Proceed?" || die "Aborted."
 
@@ -108,7 +115,15 @@ mkdir -p "$(dirname "$target")"
 git clone -q --no-local --single-branch --branch "$branch" "$src" "$target"
 (
   cd "$target"
-  git filter-repo --quiet "${filter_args[@]}"
+  if [[ ${#excludes[@]} -gt 0 ]]; then
+    drop_args=()
+    for ex in "${excludes[@]}"; do drop_args+=(--path "$ex"); done
+    git filter-repo --quiet --invert-paths "${drop_args[@]}"
+    # The clone is no longer fresh after the first pass; it is ours to rewrite.
+    git filter-repo --quiet --force "${filter_args[@]}"
+  else
+    git filter-repo --quiet "${filter_args[@]}"
+  fi
   for t in $(git tag -l); do git tag -d "$t" >/dev/null; done
   [[ "$branch" == "main" ]] || git branch -q -m "$branch" main
 )
