@@ -63,6 +63,47 @@ Bump version, build a changelog from commits since the last tag, tag, and releas
 gh-release.py [major|minor|patch] [--set X.Y.Z] [-n]
 ```
 
+### `gh-rename-org.sh`
+
+Rename an organization. Checks you own it and the new name is free, opens the
+settings page (github.com has no rename API), waits until GitHub serves the new
+name, repoints remotes under `--scan-dir`, and lists files still naming the old org.
+
+```text
+gh-rename-org.sh <old-org> <new-org> [-s dir]... [--remotes-only] [--timeout s] [-y]
+```
+
+### `gh-org-clone.sh`
+
+Clone every repo of an org into one directory; `--pull` fast-forwards existing
+clones (dirty ones are skipped, never reset).
+
+```text
+gh-org-clone.sh <org> [dir] [--https] [--include-archived] [--repos a,b] [--base-url url] [--pull]
+```
+
+### `git-split-repo.sh`
+
+Extract files or directories into a new repo, keeping their commit history
+(via `git-filter-repo`). Paths can be moved, including to the root; the source
+repo is never modified. `--publish` creates the GitHub repo and pushes.
+
+```text
+git-split-repo.sh <source-repo> <target-dir> (-p src[=dest] | -m manifest)... [-b branch]
+                  [--publish owner/name] [--public|--private] [-d desc] [-y]
+```
+
+Manifest lines are `<src> [<dest>]`; `.` as dest moves a directory to the root.
+
+### `git-replace.sh`
+
+Replace a literal string in every tracked text file. Preview by default (exit 2
+when matches exist), `--apply` to write; pathspecs include or exclude files.
+
+```text
+git-replace.sh <old> <new> [-C dir] [-i] [--apply] [-y] [-- pathspec...]
+```
+
 ### `git-conflict-helper.sh`
 
 Rule-based guide to merge/rebase conflicts. See [Resolving conflicts](conflicts.md).

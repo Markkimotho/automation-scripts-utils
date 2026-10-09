@@ -37,6 +37,10 @@ scripts need the [GitHub CLI](https://cli.github.com/) (`gh auth login`);
 | `gh-pr-open.sh` | Push the current branch and open a PR in one step. |
 | `gh-pr-status.py` | One table of every open PR with CI / review / mergeable state. |
 | `gh-release.py` | Bump, changelog from commits, tag, GitHub release. |
+| `gh-rename-org.sh` | Rename an organization safely, wait for it, repoint local clones. |
+| `gh-org-clone.sh` | Clone or update every repo of an org into one workspace. |
+| `git-split-repo.sh` | Extract paths of a repo into a new repo with their history. |
+| `git-replace.sh` | Replace a literal string across all tracked text files. |
 | `git-conflict-helper.sh` | Rule-based guide to git conflicts. |
 | `git-safe-checkout.sh` | Switch branches without losing uncommitted work. |
 | `git-clean-branches.sh` | Delete branches already merged into the base. |

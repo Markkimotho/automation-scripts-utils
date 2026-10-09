@@ -17,6 +17,10 @@ Python script needs **`python3`**. Beyond that:
 | `gh-pr-open.sh` | `gh` (auth), `git` | — |
 | `gh-pr-status.py` | `python3`, `gh` (auth) | — |
 | `gh-release.py` | `python3`, `gh` (auth), `git` | — |
+| `gh-rename-org.sh` | `gh` (auth), `git`, `perl` | You must be an org owner; `read:org` scope. The rename itself is a click in org settings. |
+| `gh-org-clone.sh` | `git`; `gh` (auth) unless `--repos` is given | — |
+| `git-split-repo.sh` | `git`, `git-filter-repo`; `gh` (auth) for `--publish` | `pip install git-filter-repo` or `brew install git-filter-repo`. |
+| `git-replace.sh` | `git`, `perl` | `perl` ships with macOS and most Linux distributions. |
 | `git-conflict-helper.sh` | `git` | — |
 | `git-safe-checkout.sh` | `git` | — |
 | `git-clean-branches.sh` | `git` | — |
@@ -48,7 +52,7 @@ outright fail fast with a clear message (`Required command not found: …`).
 === "macOS (Homebrew)"
 
     ```bash
-    brew install gh git jq        # lsof and python3 ship with macOS
+    brew install gh git jq git-filter-repo   # lsof, perl and python3 ship with macOS
     # newer bash only if you write bash 4+ features (scripts here don't need it):
     brew install bash
     ```
@@ -57,7 +61,7 @@ outright fail fast with a clear message (`Required command not found: …`).
 
     ```bash
     sudo apt-get update
-    sudo apt-get install -y git jq lsof python3 python3-venv
+    sudo apt-get install -y git jq lsof python3 python3-venv git-filter-repo
     # GitHub CLI:
     sudo apt-get install -y gh   # or follow https://cli.github.com for the latest
     ```

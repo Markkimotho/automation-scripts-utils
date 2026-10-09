@@ -11,12 +11,13 @@ and works on stock macOS bash 3.2.
 
 ## Scripts
 
-28 scripts across four areas. Full options and examples are in the
+32 scripts across four areas. Full options and examples are in the
 [script reference](docs/reference.md); per-script prerequisites in
 [docs/prerequisites.md](docs/prerequisites.md).
 
 **Git & GitHub** — `gh-merge-pr`, `gh-create-repo`, `gh-rename-repo`,
 `gh-enable-pages`, `gh-pr-open`, `gh-pr-status.py`, `gh-release.py`,
+`gh-rename-org`, `gh-org-clone`, `git-split-repo`, `git-replace`,
 `git-conflict-helper`, `git-safe-checkout`, `git-clean-branches`, `git-sync`.
 
 **Dev environment** — `dev-doctor`, `proj-bootstrap`, `precommit-install`,

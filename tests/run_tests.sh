@@ -106,8 +106,77 @@ TMPB="$(mktemp -d)"; printf data > "$TMPB/file.txt"; OUTB="$(mktemp -d)"
 ( "$BIN/snapshot.sh" "$TMPB" --out "$OUTB" >/dev/null 2>&1 )
 check "creates a tar.gz" "ls '$OUTB'/*.tar.gz >/dev/null 2>&1"
 
+echo "== git-split-repo.sh =="
+TMPS="$(mktemp -d)"
+(
+  cd "$TMPS"
+  git init -q -b main src && cd src
+  mkdir -p python/sdk docs go
+  printf a > python/sdk/a.py; printf d > docs/i.md; git add .; git commit -qm one
+  printf b > python/sdk/b.py; git add .; git commit -qm two
+  printf g > go/x.go; git add .; git commit -qm go-only; git tag v1
+)
+printf '# comment\npython/sdk/ sdk/\n\ndocs/\n' > "$TMPS/m.txt"
+( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/out" -m "$TMPS/m.txt" >/dev/null 2>&1 )
+check "split creates repo"                  "[ -d '$TMPS/out/.git' ]"
+check "split keeps touching commits only"   "[ \"\$(git -C '$TMPS/out' rev-list --count HEAD)\" = 2 ]"
+check "split moves path (sdk/a.py)"         "git -C '$TMPS/out' ls-files --error-unmatch sdk/a.py >/dev/null 2>&1"
+check "split drops other paths (go/)"       "[ -z \"\$(git -C '$TMPS/out' ls-files go)\" ]"
+check "split drops tags"                    "[ -z \"\$(git -C '$TMPS/out' tag)\" ]"
+check "split leaves source untouched"       "[ \"\$(git -C '$TMPS/src' rev-list --count HEAD)\" = 3 ]"
+( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/root" -p python/sdk/=. >/dev/null 2>&1 )
+check "split moves dir to root (=.)"        "[ -f '$TMPS/root/a.py' ]"
+( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/out" -p docs/ >/dev/null 2>&1 ); rc=$?
+check "split refuses existing target"       "[ $rc -ne 0 ]"
+( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/esc" -p ../etc >/dev/null 2>&1 ); rc=$?
+check "split refuses paths outside repo"    "[ $rc -ne 0 ] && [ ! -e '$TMPS/esc' ]"
+
+echo "== git-replace.sh =="
+(
+  cd "$TMPS/src"
+  printf 'see github.com/ml-ai-ops/platform\nML-AI-OPS stays\n' > r.md
+  printf 'ml-ai-ops untracked\n' > untracked.md
+  git add r.md; git commit -qm r
+)
+( cd "$TMPS/src"; "$BIN/git-replace.sh" ml-ai-ops kiongahq >/dev/null 2>&1 ); rc=$?
+check "replace preview exits 2"             "[ $rc -eq 2 ]"
+check "replace preview writes nothing"      "grep -q ml-ai-ops '$TMPS/src/r.md'"
+( cd "$TMPS/src"; "$BIN/git-replace.sh" ml-ai-ops kiongahq --apply >/dev/null 2>&1 )
+check "replace --apply rewrites"            "grep -q 'github.com/kiongahq/platform' '$TMPS/src/r.md'"
+check "replace is case-sensitive"           "grep -q 'ML-AI-OPS stays' '$TMPS/src/r.md'"
+check "replace skips untracked files"       "grep -q ml-ai-ops '$TMPS/src/untracked.md'"
+( cd "$TMPS/src"; "$BIN/git-replace.sh" ml-ai-ops kiongahq --apply >/dev/null 2>&1 ); rc=$?
+check "replace with nothing left exits 0"   "[ $rc -eq 0 ]"
+
+echo "== gh-rename-org.sh --remotes-only =="
+(
+  cd "$TMPS/src"
+  git remote add origin git@github.com:ml-ai-ops/platform.git
+  git remote add up https://github.com/ML-AI-OPS/x.git
+  git remote add other git@github.com:someone/ml-ai-ops.git
+)
+( "$BIN/gh-rename-org.sh" ml-ai-ops kiongahq --remotes-only -s "$TMPS" >/dev/null 2>&1 ); rc=$?
+check "rename-org exits 0"                  "[ $rc -eq 0 ]"
+check "rewrites ssh remote"                 "[ \"\$(git -C '$TMPS/src' remote get-url origin)\" = git@github.com:kiongahq/platform.git ]"
+check "rewrites https remote (any case)"    "[ \"\$(git -C '$TMPS/src' remote get-url up)\" = https://github.com/kiongahq/x.git ]"
+check "leaves repo named like the org"      "[ \"\$(git -C '$TMPS/src' remote get-url other)\" = git@github.com:someone/ml-ai-ops.git ]"
+( "$BIN/gh-rename-org.sh" ml-ai-ops ML-AI-OPS --remotes-only >/dev/null 2>&1 ); rc=$?
+check "refuses same name (case-insensitive)" "[ $rc -ne 0 ]"
+( "$BIN/gh-rename-org.sh" ml-ai-ops bad_name --remotes-only >/dev/null 2>&1 ); rc=$?
+check "refuses invalid name"                "[ $rc -ne 0 ]"
+
+echo "== gh-org-clone.sh (local base url) =="
+( "$BIN/gh-org-clone.sh" x "$TMPS/ws" --repos out,root --base-url "$TMPS/" >/dev/null 2>&1 ); rc=$?
+check "clones listed repos"                 "[ $rc -eq 0 ] && [ -d '$TMPS/ws/out/.git' ] && [ -d '$TMPS/ws/root/.git' ]"
+printf dirty >> "$TMPS/ws/out/sdk/a.py"
+( "$BIN/gh-org-clone.sh" x "$TMPS/ws" --repos out,root,missing --base-url "$TMPS/" --pull >/dev/null 2>&1 ); rc=$?
+check "missing repo -> exit 1"              "[ $rc -eq 1 ]"
+check "dirty clone left untouched"          "grep -q dirty '$TMPS/ws/out/sdk/a.py'"
+rm -rf "$TMPS"
+
 echo "== bash usage/help exits 0 =="
 for s in gh-merge-pr gh-create-repo gh-enable-pages gh-rename-repo \
+         gh-rename-org gh-org-clone git-split-repo git-replace \
          git-conflict-helper git-safe-checkout git-clean-branches gh-pr-open git-sync \
          dev-doctor proj-bootstrap precommit-install py-check \
          clean-artifacts snapshot py-venv-rebuild port-kill; do
