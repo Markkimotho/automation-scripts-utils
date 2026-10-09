@@ -160,6 +160,31 @@ check "rename-org exits 0"                  "[ $rc -eq 0 ]"
 check "rewrites ssh remote"                 "[ \"\$(git -C '$TMPS/src' remote get-url origin)\" = git@github.com:kiongahq/platform.git ]"
 check "rewrites https remote (any case)"    "[ \"\$(git -C '$TMPS/src' remote get-url up)\" = https://github.com/kiongahq/x.git ]"
 check "leaves repo named like the org"      "[ \"\$(git -C '$TMPS/src' remote get-url other)\" = git@github.com:someone/ml-ai-ops.git ]"
+# A fake gh that behaves like the real one on a 404: error JSON on stdout, exit 1.
+# orgs/<new> starts resolving on the second poll, as after a rename.
+FAKEBIN="$TMPS/fakebin"; mkdir -p "$FAKEBIN"
+cat > "$FAKEBIN/gh" <<'FAKE'
+#!/usr/bin/env bash
+nf() { echo '{"message":"Not Found","status":"404"}'; exit 1; }
+case "$1 $2" in
+  "auth status") exit 0;;
+  "repo list") echo platform; exit 0;;
+  "api orgs/old-org") echo 42;;
+  "api users/taken-org") [[ "$4" == .type ]] && echo Organization || echo 7;;
+  "api users/new-org") nf;;
+  "api user/memberships/orgs/old-org") echo admin;;
+  "api orgs/new-org")
+    if [[ -f "$FAKE_STATE" ]]; then echo 42; else touch "$FAKE_STATE"; nf; fi;;
+  *) nf;;
+esac
+FAKE
+chmod +x "$FAKEBIN/gh"
+out_free="$( PATH="$FAKEBIN:$PATH" FAKE_STATE="$TMPS/polled" GH_RENAME_ORG_POLL=0 \
+  "$BIN/gh-rename-org.sh" old-org new-org 2>&1 )"; rc=$?
+check "free name (gh 404 on stdout) -> waits and succeeds" "[ $rc -eq 0 ]"
+if printf '%s' "$out_free" | grep -q 'now serves the org as new-org'; then t_pass "detects completed rename by org id"; else t_fail "detects completed rename by org id"; fi
+( PATH="$FAKEBIN:$PATH" "$BIN/gh-rename-org.sh" old-org taken-org >/dev/null 2>&1 ); rc=$?
+check "taken name -> refuses"               "[ $rc -ne 0 ]"
 ( "$BIN/gh-rename-org.sh" ml-ai-ops ML-AI-OPS --remotes-only >/dev/null 2>&1 ); rc=$?
 check "refuses same name (case-insensitive)" "[ $rc -ne 0 ]"
 ( "$BIN/gh-rename-org.sh" ml-ai-ops bad_name --remotes-only >/dev/null 2>&1 ); rc=$?

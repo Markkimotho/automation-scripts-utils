@@ -81,19 +81,27 @@ repoint_remotes() {
   say "  $changed remote(s) updated under $root"
 }
 
+# gh_field <endpoint> <jq> — print a field, or nothing if the call fails.
+# gh prints the error body to stdout on a 404, so the exit status decides.
+gh_field() {
+  local out
+  out="$(gh api "$1" -q "$2" 2>/dev/null)" || return 0
+  printf '%s' "$out"
+}
+
 if [[ "$remotes_only" == "0" ]]; then
   gh_authed
-  old_id="$(gh api "orgs/$old" -q .id 2>/dev/null || true)"
-  new_id="$(gh api "users/$new" -q .id 2>/dev/null || true)"
+  old_id="$(gh_field "orgs/$old" .id)"
+  new_id="$(gh_field "users/$new" .id)"
 
   if [[ -n "$new_id" && "$new_id" == "$old_id" ]]; then
     ok "Already renamed: $old and $new are the same org."
   elif [[ -n "$new_id" ]]; then
-    new_type="$(gh api "users/$new" -q .type 2>/dev/null || true)"
+    new_type="$(gh_field "users/$new" .type)"
     die "'$new' is already taken by another $new_type (id $new_id). Pick another name."
   else
     [[ -n "$old_id" ]] || die "Organization not found: $old"
-    role="$(gh api "user/memberships/orgs/$old" -q .role 2>/dev/null || true)"
+    role="$(gh_field "user/memberships/orgs/$old" .role)"
     [[ "$role" == "admin" ]] || die "You must be an owner of $old (your role: ${role:-none})."
     repos="$(gh repo list "$old" --limit 1000 --json name -q '.[].name' | wc -l | tr -d ' ')"
     info "Rename organization $old -> $new ($repos repos, org id $old_id)"
@@ -103,13 +111,13 @@ if [[ "$remotes_only" == "0" ]]; then
     settings="https://github.com/organizations/$old/settings/profile"
     say "Open: $settings"
     say "Then: Danger zone -> Rename organization -> enter '$new'."
-    command -v open >/dev/null 2>&1 && open "$settings" || true
+    if [[ -t 0 ]] && command -v open >/dev/null 2>&1; then open "$settings"; fi
 
     info "Waiting up to ${timeout}s for GitHub to serve '$new'..."
     waited=0
-    until [[ "$(gh api "orgs/$new" -q .id 2>/dev/null || true)" == "$old_id" ]]; do
+    until [[ "$(gh_field "orgs/$new" .id)" == "$old_id" ]]; do
       (( waited < timeout )) || die "Timed out. Re-run this script once the rename is done."
-      sleep 10; waited=$((waited+10))
+      sleep "${GH_RENAME_ORG_POLL:-10}"; waited=$((waited+${GH_RENAME_ORG_POLL:-10}))
     done
     ok "GitHub now serves the org as $new."
   fi
