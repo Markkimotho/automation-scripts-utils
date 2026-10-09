@@ -82,6 +82,16 @@ clones (dirty ones are skipped, never reset).
 gh-org-clone.sh <org> [dir] [--https] [--include-archived] [--repos a,b] [--base-url url] [--pull]
 ```
 
+### `gh-org-ci.sh`
+
+Latest GitHub Actions runs for every repo of an org (or `--repos`), one table, with
+the URL of each failed run. `--wait` polls until nothing is running; exit code 2
+when any shown run failed.
+
+```text
+gh-org-ci.sh <org> [--repos a,b] [-n runs] [--failed] [--wait]
+```
+
 ### `git-split-repo.sh`
 
 Extract files or directories into a new repo, keeping their commit history

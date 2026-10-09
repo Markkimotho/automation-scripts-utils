@@ -210,6 +210,29 @@ check "missing repo -> exit 1"              "[ $rc -eq 1 ]"
 check "dirty clone left untouched"          "grep -q dirty '$TMPS/ws/out/sdk/a.py'"
 rm -rf "$TMPS"
 
+echo "== gh-org-ci.sh (fake gh) =="
+TMPC2="$(mktemp -d)"; mkdir -p "$TMPC2/bin"
+cat > "$TMPC2/bin/gh" <<'FAKE'
+#!/usr/bin/env bash
+case "$1 $2" in
+  "auth status") exit 0;;
+  "repo list") printf 'good\nbad\n';;
+  "run list")
+    repo="$4"
+    if [[ "$repo" == "o/good" ]]; then printf 'good\tCI\tmain\tcompleted\tsuccess\thttps://x/1\n'
+    else printf 'bad\tCI\tmain\tcompleted\tfailure\thttps://x/2\n'; fi;;
+esac
+FAKE
+chmod +x "$TMPC2/bin/gh"
+out_ci="$( PATH="$TMPC2/bin:$PATH" "$BIN/gh-org-ci.sh" o 2>&1 )"; rc=$?
+check "org-ci exits 2 when a run failed"     "[ $rc -eq 2 ]"
+if printf '%s' "$out_ci" | grep -q 'https://x/2'; then t_pass "org-ci prints failed run URL"; else t_fail "org-ci prints failed run URL"; fi
+( PATH="$TMPC2/bin:$PATH" "$BIN/gh-org-ci.sh" o --repos good >/dev/null 2>&1 ); rc=$?
+check "org-ci exits 0 when all succeeded"     "[ $rc -eq 0 ]"
+out_f="$( PATH="$TMPC2/bin:$PATH" "$BIN/gh-org-ci.sh" o --failed 2>&1 || true )"
+if printf '%s' "$out_f" | grep -q '^good '; then t_fail "--failed hides successes"; else t_pass "--failed hides successes"; fi
+rm -rf "$TMPC2"
+
 echo "== bash usage/help exits 0 =="
 for s in gh-merge-pr gh-create-repo gh-enable-pages gh-rename-repo \
          gh-rename-org gh-org-clone git-split-repo git-replace \

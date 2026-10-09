@@ -18,6 +18,7 @@ Python script needs **`python3`**. Beyond that:
 | `gh-pr-status.py` | `python3`, `gh` (auth) | — |
 | `gh-release.py` | `python3`, `gh` (auth), `git` | — |
 | `gh-rename-org.sh` | `gh` (auth), `git`, `perl` | You must be an org owner; `read:org` scope. The rename itself is a click in org settings. |
+| `gh-org-ci.sh` | `gh` (auth) | — |
 | `gh-org-clone.sh` | `git`; `gh` (auth) unless `--repos` is given | — |
 | `git-split-repo.sh` | `git`, `git-filter-repo`; `gh` (auth) for `--publish` | `pip install git-filter-repo` or `brew install git-filter-repo`. |
 | `git-replace.sh` | `git`, `perl` | `perl` ships with macOS and most Linux distributions. |
