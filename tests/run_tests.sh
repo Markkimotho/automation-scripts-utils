@@ -250,7 +250,7 @@ else
   t_pass "python3 available"
   check "common.py imports"  "$PY -c 'import sys;sys.path.insert(0,\"$ROOT/lib\");import common'"
   for s in gh-pr-status gh-release env-check version-bump lockfile-drift \
-           deps-unused deps-outdated vuln-scan lic-audit data-convert secret-scan; do
+           deps-unused deps-outdated vuln-scan lic-audit data-convert secret-scan gh-issues-sync; do
     ( "$PY" "$BIN/$s.py" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
   done
 
@@ -304,6 +304,34 @@ else
   for s in lockfile-drift deps-outdated vuln-scan; do
     ( cd "$TMP9"; "$PY" "$BIN/$s.py" >/dev/null 2>&1 ); check "$s empty dir -> exit 0" "[ $? -eq 0 ]"
   done
+  echo "== gh-issues-sync.py (fake gh) =="
+  TMPI="$(mktemp -d)"; mkdir -p "$TMPI/bin"
+  cat > "$TMPI/bin/gh" <<'FAKE'
+#!/usr/bin/env bash
+echo "$*" >> "$FAKE_LOG"
+case "$1 $2" in
+  "issue list") echo '[{"title":"Already Filed"}]';;
+  "label list") echo '[{"name":"bug"}]';;
+  "label create") exit 0;;
+  "issue create") echo "https://github.com/o/r/issues/9";;
+esac
+FAKE
+  chmod +x "$TMPI/bin/gh"
+  cat > "$TMPI/issues.json" <<'JSON'
+[{"title":"already filed","body":"x","labels":["bug"]},
+ {"title":"New one","body":"Problem","labels":["bug","P2","area:api"]}]
+JSON
+  ( PATH="$TMPI/bin:$PATH" FAKE_LOG="$TMPI/log" "$PY" "$BIN/gh-issues-sync.py" "$TMPI/issues.json" -R o/r >/dev/null 2>&1 ); rc=$?
+  check "issues preview exits 2"              "[ $rc -eq 2 ]"
+  check "issues preview creates nothing"      "! grep -q 'create' '$TMPI/log'"
+  ( PATH="$TMPI/bin:$PATH" FAKE_LOG="$TMPI/log" "$PY" "$BIN/gh-issues-sync.py" "$TMPI/issues.json" -R o/r --apply --delay 0 >/dev/null 2>&1 ); rc=$?
+  check "issues apply exits 0"                "[ $rc -eq 0 ]"
+  check "skips existing title (any case)"     "[ \"\$(grep -c 'issue create' '$TMPI/log')\" = 1 ] && grep -q -- '--title New one' '$TMPI/log'"
+  check "creates only missing labels"         "grep -q 'label create P2' '$TMPI/log' && grep -q 'label create area:api' '$TMPI/log' && ! grep -q 'label create bug' '$TMPI/log'"
+  printf '[{"title":"a","body":"","labels":[]},{"title":"A","body":"x"}]' > "$TMPI/bad.json"
+  ( PATH="$TMPI/bin:$PATH" FAKE_LOG="$TMPI/log" "$PY" "$BIN/gh-issues-sync.py" "$TMPI/bad.json" -R o/r >/dev/null 2>&1 ); rc=$?
+  check "rejects empty body and duplicate titles" "[ $rc -eq 1 ]"
+  rm -rf "$TMPI"
   rm -rf "$TMP5" "$TMP6" "$TMP7" "$TMP8" "$TMP9"
 fi
 

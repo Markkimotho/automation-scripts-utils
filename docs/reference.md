@@ -82,6 +82,17 @@ clones (dirty ones are skipped, never reset).
 gh-org-clone.sh <org> [dir] [--https] [--include-archived] [--repos a,b] [--base-url url] [--pull]
 ```
 
+### `gh-issues-sync.py`
+
+Create issues from a JSON list of `{title, body, labels}`. Missing labels are
+created first (priority `P1`-`P3`, `area:*` and type labels get consistent colors);
+an issue whose title already exists, open or closed, is skipped, so re-runs never
+duplicate. Preview by default (exit 2 when there is something to create).
+
+```text
+gh-issues-sync.py <issues.json> -R owner/name [--apply] [--delay seconds]
+```
+
 ### `gh-org-ci.sh`
 
 Latest GitHub Actions runs for every repo of an org (or `--repos`), one table, with
