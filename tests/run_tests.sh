@@ -129,6 +129,13 @@ check "split moves dir to root (=.)"        "[ -f '$TMPS/root/a.py' ]"
 printf 'draft' > "$TMPS/src/docs/draft 2.md"; ( cd "$TMPS/src"; git add .; git commit -qm draft )
 ( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/ex" -p docs/=. -p '!docs/draft 2.md' >/dev/null 2>&1 )
 check "split excludes a path in a kept dir" "[ -f '$TMPS/ex/i.md' ] && [ ! -e '$TMPS/ex/draft 2.md' ] && [ -z \"\$(git -C '$TMPS/ex' log --all --format=%H -- 'draft 2.md')\" ]"
+printf 'docs/=.\n!docs/draft 2.md\n' | sed 's/=/ /' > "$TMPS/mx.txt"
+( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/mx" -m "$TMPS/mx.txt" >/dev/null 2>&1 )
+check "manifest drop line keeps spaces"     "[ -f '$TMPS/mx/i.md' ] && [ -z \"\$(git -C '$TMPS/mx' log --all --format=%H -- 'draft 2.md')\" ]"
+( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/typo" -p docs/ -p '!docs/nope.md' >/dev/null 2>&1 ); rc=$?
+check "split refuses a missing drop path"   "[ $rc -ne 0 ] && [ ! -e '$TMPS/typo' ]"
+( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/typo" -p nope/ >/dev/null 2>&1 ); rc=$?
+check "split refuses a missing keep path"   "[ $rc -ne 0 ] && [ ! -e '$TMPS/typo' ]"
 git -C "$TMPS/src" reset -q --hard HEAD~1
 ( "$BIN/git-split-repo.sh" "$TMPS/src" "$TMPS/out" -p docs/ >/dev/null 2>&1 ); rc=$?
 check "split refuses existing target"       "[ $rc -ne 0 ]"

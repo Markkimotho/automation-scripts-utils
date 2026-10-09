@@ -18,6 +18,7 @@ Options:
                                Prefix with ! to drop a path inside a kept one
                                (matched against the source path, e.g. '!docs/draft.md').
   -m, --manifest <file>        Read paths from a file: one "<src> [<dest>]" per line,
+                               or "!<path>" (the rest of the line, spaces allowed);
                                blank lines and # comments ignored.
   -b, --branch <name>          Branch to split (default: the source's current branch)
       --publish <owner/name>   Create the GitHub repo and push the result
@@ -32,6 +33,8 @@ Notes:
   - Commits that touched none of the kept paths are dropped; the rest keep their
     authors, dates and messages (hashes change, as with any history rewrite).
   - Only the chosen branch is kept, renamed to 'main'. Tags are dropped.
+  - Every kept or dropped path must exist in the branch history, so a typo
+    stops the split instead of silently keeping or dropping nothing.
 
 Examples:
   git-split-repo.sh ~/mlops ~/kionga/sdk-python -p python/mlaiops_sdk/=mlaiops_sdk/
@@ -61,7 +64,11 @@ while [[ $# -gt 0 ]]; do
         a="" b=""
         read -r a b _ <<<"$line" || true
         [[ -n "$a" ]] || continue
-        if [[ -n "$b" ]]; then add_path "$a=$b"; else add_path "$a"; fi
+        if [[ "$a" == !* ]]; then
+          # A drop line is one path, which may contain spaces.
+          line="${line#"${line%%[![:space:]]*}"}"; line="${line%"${line##*[![:space:]]}"}"
+          add_path "$line"
+        elif [[ -n "$b" ]]; then add_path "$a=$b"; else add_path "$a"; fi
       done < "$2"
       shift 2;;
     -b|--branch) branch="$2"; shift 2;;
@@ -91,6 +98,20 @@ git -C "$src" rev-parse --git-dir >/dev/null 2>&1 || die "Not a git repo: $src"
 src="$(cd "$src" && pwd)"
 [[ -n "$branch" ]] || branch="$(git -C "$src" rev-parse --abbrev-ref HEAD)"
 git -C "$src" rev-parse --verify -q "refs/heads/$branch" >/dev/null || die "Branch not found in source: $branch"
+
+# Every path must exist somewhere in the branch history: a typo would otherwise
+# keep or drop nothing, silently.
+missing=()
+for spec in "${paths[@]}"; do
+  from="${spec%%=*}"
+  [[ -n "$(git -C "$src" log -1 --format=%H "$branch" -- "$from")" ]] || missing+=("$from")
+done
+if [[ ${#excludes[@]} -gt 0 ]]; then
+  for ex in "${excludes[@]}"; do
+    [[ -n "$(git -C "$src" log -1 --format=%H "$branch" -- "$ex")" ]] || missing+=("!$ex")
+  done
+fi
+[[ ${#missing[@]} -eq 0 ]] || die "Not found in $branch history: ${missing[*]}"
 
 filter_args=()
 for spec in "${paths[@]}"; do
