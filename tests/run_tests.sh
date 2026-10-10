@@ -220,6 +220,7 @@ case "$1 $2" in
   "run list")
     repo="$4"
     if [[ "$repo" == "o/good" ]]; then printf 'good\tCI\tmain\tcompleted\tsuccess\thttps://x/1\n'
+    elif [[ "$repo" == "o/busy" ]]; then printf 'busy\tCI\tmain\tin_progress\t-\thttps://x/3\n'
     else printf 'bad\tCI\tmain\tcompleted\tfailure\thttps://x/2\n'; fi;;
 esac
 FAKE
@@ -231,6 +232,8 @@ if printf '%s' "$out_ci" | grep -q 'https://x/2'; then t_pass "org-ci prints fai
 check "org-ci exits 0 when all succeeded"     "[ $rc -eq 0 ]"
 out_f="$( PATH="$TMPC2/bin:$PATH" "$BIN/gh-org-ci.sh" o --failed 2>&1 || true )"
 if printf '%s' "$out_f" | grep -q '^good '; then t_fail "--failed hides successes"; else t_pass "--failed hides successes"; fi
+out_busy="$( PATH="$TMPC2/bin:$PATH" "$BIN/gh-org-ci.sh" o --repos busy 2>&1 )"
+if printf '%s' "$out_busy" | grep -qE '^busy +CI +main +in_progress$'; then t_pass "in-progress run shows its status, not the URL"; else t_fail "in-progress run shows its status, not the URL"; fi
 rm -rf "$TMPC2"
 
 echo "== bash usage/help exits 0 =="

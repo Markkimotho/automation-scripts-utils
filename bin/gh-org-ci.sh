@@ -53,12 +53,13 @@ fi
 [[ -n "$repos" ]] || die "No repositories found for $org."
 
 # snapshot prints "repo<TAB>workflow<TAB>ref<TAB>status<TAB>conclusion<TAB>url" rows.
+# A missing conclusion is "-": read with a tab IFS collapses empty fields.
 snapshot() {
   local repo
   while IFS= read -r repo; do
     gh run list -R "$org/$repo" --limit "$runs" \
       --json workflowName,headBranch,status,conclusion,url \
-      -q ".[] | [\"$repo\", .workflowName, .headBranch, .status, (.conclusion // \"\"), .url] | @tsv" \
+      -q ".[] | [\"$repo\", .workflowName, .headBranch, .status, (if (.conclusion // \"\") == \"\" then \"-\" else .conclusion end), .url] | @tsv" \
       2>/dev/null || true
   done <<<"$repos"
 }
@@ -76,7 +77,7 @@ failed=0
 printf '%-20s %-26s %-28s %s\n' REPO WORKFLOW REF RESULT
 while IFS=$'\t' read -r repo workflow ref status conclusion url; do
   [[ -n "$repo" ]] || continue
-  result="${conclusion:-$status}"
+  result="$conclusion"; [[ "$result" == "-" ]] && result="$status"
   [[ "$result" == "failure" || "$result" == "timed_out" ]] && failed=1
   [[ "$only_failed" == "1" && "$result" != "failure" && "$result" != "timed_out" ]] && continue
   printf '%-20s %-26s %-28s %s\n' "$repo" "${workflow:0:26}" "${ref:0:28}" "$result"
