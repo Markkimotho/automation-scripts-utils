@@ -81,6 +81,10 @@ def plan(issues, existing_titles, existing_labels):
 
 
 def main(argv=None, runner=c.run, sleep=time.sleep):
+    # Long runs are usually logged to a file: flush each line so progress is
+    # visible while it runs, not only when it exits.
+    sys.stdout.reconfigure(line_buffering=True)
+    sys.stderr.reconfigure(line_buffering=True)
     ap = argparse.ArgumentParser(description="Create GitHub issues and labels from a JSON file.")
     ap.add_argument("file", help="JSON list of {title, body, labels}")
     ap.add_argument("-R", "--repo", required=True, help="owner/name")
