@@ -37,7 +37,7 @@ class CatalogIntegrity(unittest.TestCase):
                 self.assertTrue(script["tags"])
                 self.assertTrue(script["permissions"])
                 self.assertIn(script["language"], {"python", "bash", "powershell", "javascript", "typescript", "go", "ruby"})
-                self.assertEqual(path.parts[1], script["category"])
+                self.assertEqual(path.relative_to(ROOT).parts[1], script["category"])
 
 
 class CLITests(unittest.TestCase):
