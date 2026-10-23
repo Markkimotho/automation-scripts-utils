@@ -1,0 +1,6 @@
+goos: darwin
+goarch: arm64
+cpu: Apple M4
+BenchmarkBoundedCIDR-10    	       1	  25318667 ns/op	 1453176 B/op	    8441 allocs/op
+PASS
+ok  	command-line-arguments	0.639s

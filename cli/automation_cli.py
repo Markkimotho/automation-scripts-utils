@@ -13,6 +13,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import tempfile
 
 def resolve_root() -> Path:
     """Prefer explicitly configured data, then the installed package, then source checkout."""
@@ -70,7 +71,7 @@ def find_script(scripts: list[dict], identifier: str) -> dict:
         raise ValueError(f"Unknown or ambiguous script id: {identifier}")
     return matches[0]
 
-def parse_params(entry: dict, supplied: list[str]) -> list[str]:
+def parse_params(entry: dict, supplied: list[str], *, require_all: bool = True) -> list[str]:
     specs = {p["name"]: p for p in entry.get("parameters", [])}
     values = {}
     for pair in supplied:
@@ -93,7 +94,7 @@ def parse_params(entry: dict, supplied: list[str]) -> list[str]:
             raise ValueError(f"{key} must be one of {spec['choices']}")
         values[key] = value
     for name, spec in specs.items():
-        if spec.get("required") and name not in values:
+        if require_all and spec.get("required") and name not in values:
             raise ValueError(f"Missing required parameter: {name}")
     result = []
     for name, value in values.items():
@@ -132,10 +133,18 @@ def run(entry: dict, args: argparse.Namespace) -> int:
     if language not in runners:
         raise ValueError(f"No safe executable runner registered for {language}")
     command = runners[language] + [str(target)]
-    command.extend(parse_params(entry, args.param))
-    command.extend(extra)
+    # Raw arguments (including --help) are validated by the script itself.
+    # Required named parameters remain enforced when no raw arguments are used.
+    script_arguments = parse_params(entry, args.param, require_all=not extra)
+    script_arguments.extend(extra)
+    command.extend(script_arguments)
     if args.dry_run:
-        print("PREVIEW ONLY; nothing executed:\n" + shlex.join(command))
+        if language == "go":
+            preview = shlex.join(["go", "build", "-o", "<temporary executable>", str(target)])
+            preview += "\n" + shlex.join(["<temporary executable>", *script_arguments])
+        else:
+            preview = shlex.join(command)
+        print("PREVIEW ONLY; nothing executed:\n" + preview)
         return 0
     missing = [dep for dep in entry.get("dependencies", []) if not shutil.which(dep)]
     if missing:
@@ -160,6 +169,15 @@ def run(entry: dict, args: argparse.Namespace) -> int:
     environ = os.environ.copy()
     if args.yes:
         environ["ASSUME_YES"] = "1"
+    if language == "go":
+        # `go run` collapses every nonzero program exit to 1. Build a temporary
+        # executable to preserve each script's documented exit codes instead.
+        with tempfile.TemporaryDirectory(prefix="automation-go-") as directory:
+            executable = str(Path(directory) / ("script.exe" if os.name == "nt" else "script"))
+            built = subprocess.run(["go", "build", "-o", executable, str(target)], cwd=directory, env=environ, check=False)
+            if built.returncode != 0:
+                return 2
+            return subprocess.run([executable, *script_arguments], env=environ, check=False).returncode
     return subprocess.run(command, env=environ, check=False).returncode
 
 def add_filters(parser: argparse.ArgumentParser) -> None:

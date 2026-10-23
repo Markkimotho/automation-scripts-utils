@@ -46,9 +46,9 @@ The CLI preview `--dry-run` prints a command without executing it. Scripts with 
 | Data and AI | CSV profiling and reconciliation, offline SQLite health checks |
 | Cloud and infrastructure | AWS S3 audit, Terraform workspaces |
 | System administration | Windows service status, system cleanup |
-| Networking | HTTP and TCP checks, offline HAR timing summaries |
+| Networking | HTTP and TCP checks, CIDR overlaps, offline HAR timing summaries |
 | Business and messaging | Invoice due reports, email header inspection |
-| Backup and security | Incremental file copying, permission and ZIP metadata auditing |
+| Backup and security | Restored-file verification, certificate expiry, permission and ZIP audits |
 | Web and media | Page link export, image checksum manifests |
 
 Python, Bash, PowerShell, JavaScript, TypeScript, Go and Ruby are supported, depending on the script.

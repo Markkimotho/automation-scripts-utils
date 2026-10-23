@@ -1,0 +1,150 @@
+{
+  "result": "passed",
+  "catalog_entries": 59,
+  "checks": [
+    {
+      "arguments": [
+        "list",
+        "--json"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "image-checksum-manifest",
+        "--",
+        "."
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "info",
+        "pem-expiry-report"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "info",
+        "cidr-overlap-report"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "info",
+        "checksum-manifest-verify"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "pem-expiry-report",
+        "--",
+        "--input",
+        "cert.pem",
+        "--as-of",
+        "2030-01-01T00:00:00Z"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "pem-expiry-report",
+        "--",
+        "--input",
+        "cert.pem",
+        "--as-of",
+        "2032-01-01T00:00:00Z"
+      ],
+      "expected_exit": 1
+    },
+    {
+      "arguments": [
+        "run",
+        "pem-expiry-report",
+        "--",
+        "--input",
+        "cert.pem"
+      ],
+      "expected_exit": 2
+    },
+    {
+      "arguments": [
+        "run",
+        "cidr-overlap-report",
+        "--param",
+        "input=networks.txt"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "cidr-overlap-report",
+        "--",
+        "--input",
+        "networks.txt"
+      ],
+      "expected_exit": 1
+    },
+    {
+      "arguments": [
+        "run",
+        "cidr-overlap-report",
+        "--",
+        "--input",
+        "networks.txt"
+      ],
+      "expected_exit": 2
+    },
+    {
+      "arguments": [
+        "run",
+        "checksum-manifest-verify",
+        "--param",
+        "root=.",
+        "--param",
+        "manifest=manifest.json"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "checksum-manifest-verify",
+        "--param",
+        "root=.",
+        "--param",
+        "manifest=manifest.json"
+      ],
+      "expected_exit": 1
+    },
+    {
+      "arguments": [
+        "run",
+        "checksum-manifest-verify",
+        "--param",
+        "root=.",
+        "--param",
+        "manifest=manifest.json"
+      ],
+      "expected_exit": 2
+    },
+    {
+      "arguments": [
+        "run",
+        "pem-expiry-report",
+        "--dry-run",
+        "--param",
+        "input=cert.pem"
+      ],
+      "expected_exit": 0
+    }
+  ],
+  "note": "Installed tools executed outside checkout, preserving exit codes 0, 1 and 2."
+}

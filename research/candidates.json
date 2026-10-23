@@ -381,42 +381,135 @@
     },
     {
       "id": "pem-expiry-report",
-      "name": "Local PEM certificate expiry report",
-      "problem": "Local PEM certificate expiry report",
+      "name": "PEM Certificate Expiry Report",
+      "problem": "Use before deploying certificate bundles or to monitor offline certificate inventories.",
       "category": "security-compliance",
-      "subcategory": "research",
+      "subcategory": "certificates",
       "language": "go",
       "source_url": "https://pkg.go.dev/crypto/x509",
-      "source_repository": null,
-      "author": "See linked source; not independently verified",
-      "license": null,
-      "license_url": null,
+      "source_repository": "https://go.googlesource.com/go",
+      "author": "The Go Authors",
+      "license": "BSD-3-Clause",
+      "license_url": "https://go.dev/LICENSE",
       "source_revision": null,
       "last_maintenance": null,
       "dependencies": [
-        "go runtime; detailed dependency review pending"
+        "Go >=1.24; standard library only"
       ],
-      "platforms": [],
+      "platforms": [
+        "macos"
+      ],
       "permissions": [
         "filesystem-read"
       ],
-      "inputs": "Not finalized; reference linked source.",
-      "outputs": "Not finalized; not registered in catalog.",
-      "existing_tests": "Not verified.",
+      "inputs": "One regular PEM file up to 8 MiB containing at most 512 X.509 CERTIFICATE blocks. Whitespace between blocks is allowed; private keys, other block types, nested markers and leading/trailing text are rejected.",
+      "outputs": "JSON observation time, certificate SHA-256 fingerprints, validity dates, remaining seconds and statuses.",
+      "existing_tests": "Independent native Go tests with generated/local fixtures; Python integration tests exercise CLI and exit codes.",
       "limitations": [
-        "Not available in the product."
+        "Date inspection does not verify certificate trust, signatures, DNS names, key usage or revocation.",
+        "Expiry begins at the exact not_after instant. Dates at or before the warning-window boundary are expiring.",
+        "Reports fingerprints and dates rather than subject names, SANs, certificate bytes or private material."
       ],
       "security_considerations": [
-        "Do not execute downloaded implementations; license, dependencies and behavior require review."
+        "Reads local certificate data only. It does not contact issuers, load private keys, modify trust stores or renew certificates. Process a stable local file; filesystem I/O deadlines are controlled by the operating system."
       ],
       "discovered_on": "2026-10-23",
-      "status": "reviewed",
-      "reuse": "none",
-      "license_review": "No upstream code copied; reuse is not authorized until license and revision are verified.",
-      "security_review": "Preliminary review only; no external code executed.",
-      "test_file": null,
-      "test_evidence": null,
-      "decision": "Deferred to a focused Go batch with generated certificate fixtures, clock control and expired/malformed PEM tests."
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "API reference only. New MIT implementation; no upstream code or prose copied. Go reference license BSD-3-Clause verified at go.dev/LICENSE.",
+      "security_review": "Design reviewed: local reads, no networking, subprocesses, extension loading or credential access.",
+      "test_file": "scripts/security-compliance/certificates/pem-expiry-report/script_test.go",
+      "test_evidence": "research/evidence/2026-10-23-go-batch.json",
+      "decision": "Accepted after native Go/vet/race checks and CLI integration on macOS. Not published; cross-platform CI results tracked separately."
+    },
+    {
+      "id": "cidr-overlap-report",
+      "name": "CIDR Overlap Report",
+      "problem": "Check address plans, VPN allocations or firewall inventories before provisioning overlapping subnets.",
+      "category": "networking-monitoring",
+      "subcategory": "ip-addressing",
+      "language": "go",
+      "source_url": "https://pkg.go.dev/net/netip",
+      "source_repository": "https://go.googlesource.com/go",
+      "author": "The Go Authors",
+      "license": "BSD-3-Clause",
+      "license_url": "https://go.dev/LICENSE",
+      "source_revision": null,
+      "last_maintenance": null,
+      "dependencies": [
+        "Go >=1.24; standard library only"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "A UTF-8 text file up to 2 MiB with one IPv4 or IPv6 CIDR per line. Blank lines and whole-line # comments are ignored. Up to 4096 network records and 64 KiB per line are accepted; inline comments and zone identifiers are invalid.",
+      "outputs": "JSON normalized networks, overlap count, overlapping line-number pairs and truncation status.",
+      "existing_tests": "Independent native Go tests with generated/local fixtures; Python integration tests exercise CLI and exit codes.",
+      "limitations": [
+        "IPv4 and IPv6 are separate address families; IPv4-mapped IPv6 prefixes remain IPv6.",
+        "Host bits are masked before comparison, so differently written allocations can become duplicates.",
+        "All pairs are compared; the 4096-record limit bounds the quadratic work. Output pairs retain input order.",
+        "Empty/comment-only input is a valid empty allocation list."
+      ],
+      "security_considerations": [
+        "Reads only the supplied file. It sends no packets, resolves no names and changes no routes or firewall rules. Reports include network allocations, which may be sensitive."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "API reference only. New MIT implementation; no upstream code or prose copied. Go reference license BSD-3-Clause verified at go.dev/LICENSE.",
+      "security_review": "Design reviewed: local reads, no networking, subprocesses, extension loading or credential access.",
+      "test_file": "scripts/networking-monitoring/ip-addressing/cidr-overlap-report/script_test.go",
+      "test_evidence": "research/evidence/2026-10-23-go-batch.json",
+      "decision": "Accepted after native Go/vet/race checks and CLI integration on macOS. Not published; cross-platform CI results tracked separately."
+    },
+    {
+      "id": "checksum-manifest-verify",
+      "name": "SHA-256 Manifest Verification",
+      "problem": "Check backups, transferred assets and archived media against a previously trusted manifest. Accepts the array format produced by image-checksum-manifest.",
+      "category": "backup-recovery",
+      "subcategory": "integrity",
+      "language": "go",
+      "source_url": "https://pkg.go.dev/crypto/sha256",
+      "source_repository": "https://go.googlesource.com/go",
+      "author": "The Go Authors",
+      "license": "BSD-3-Clause",
+      "license_url": "https://go.dev/LICENSE",
+      "source_revision": null,
+      "last_maintenance": null,
+      "dependencies": [
+        "Go >=1.24; standard library only"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "An 8 MiB maximum JSON array of at most 10000 unique objects, each with exactly path (relative forward-slash path), bytes (nonnegative integer), and sha256 (64 hexadecimal digits). Duplicate or unknown fields, duplicate paths, absolute paths, dot/parent traversal, backslashes and colon-qualified paths are rejected.",
+      "outputs": "JSON verified count and per-path missing, unsafe, unreadable or changed findings.",
+      "existing_tests": "Independent native Go tests with generated/local fixtures; Python integration tests exercise CLI and exit codes.",
+      "limitations": [
+        "Requires Go 1.24 or newer for the traversal-resistant os.Root API. Use a currently maintained Go release.",
+        "Relative symlinks resolving inside the selected root are allowed; symlinks escaping the root are refused. Absolute symlinks may be refused even if they point into the root.",
+        "Use a stable directory tree. This does not defend against hostile mount changes, hard links, or special-file replacement races by another local process.",
+        "Files absent from the manifest are ignored. Empty arrays are valid. This checks integrity relative to a trusted manifest, not authenticity or malware.",
+        "A total hashing-budget failure returns exit 2 without a partial success report. Hashes are streamed rather than loading file contents into memory."
+      ],
+      "security_considerations": [
+        "Opens files for reading through os.OpenRoot. The selected root itself may be a symlink and must be trusted. Files, manifests and backups are not modified or removed. Missing/nonregular/unsafe files produce findings; other read failures abort without reporting success."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "API reference only. New MIT implementation; no upstream code or prose copied. Go reference license BSD-3-Clause verified at go.dev/LICENSE.",
+      "security_review": "Design reviewed: local reads, no networking, subprocesses, extension loading or credential access.",
+      "test_file": "scripts/backup-recovery/integrity/checksum-manifest-verify/script_test.go",
+      "test_evidence": "research/evidence/2026-10-23-go-batch.json",
+      "decision": "Accepted after native Go/vet/race checks and CLI integration on macOS. Not published; cross-platform CI results tracked separately."
     }
   ],
   "source_state": {}

@@ -26,6 +26,8 @@ The retry command persists a source's attempt count and next retry time (e.g. a 
 
 Legacy scripts are preserved under their existing metadata contract; the new evidence gate applies to entries with `provenance_ref`. This batch does not retroactively certify the original catalog. Review legacy compatibility and security claims incrementally.
 
+The subsequent Go batch resumes `pem-expiry-report` and adds CIDR overlap reporting and checksum verification. Its local evidence is `evidence/2026-10-23-go-batch.json`, including native Go tests, vet and race checks. `tests/test_go_offline_automations.py` exercises the real CLI using a temporary test catalog to test every CI operating system before expanding product platform declarations. Standalone Go scripts are compiled into a temporary executable so findings and invalid-input exit codes remain distinct.
+
 ## Evidence maintenance
 
 `evidence/2026-10-23-local-batch.json` identifies the tested sources by hash, includes environment and command results, and records known limits. Supporting text logs are under `evidence/logs/`. Updating any hashed file invalidates acceptance until relevant checks are rerun and the evidence regenerated. Hashes link evidence to local files; they are not an external signature or proof of independent review.

@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "result": "passed",
+  "scripts": [
+    "pem-expiry-report",
+    "cidr-overlap-report",
+    "checksum-manifest-verify"
+  ],
+  "verified_platforms": [
+    "macos"
+  ],
+  "environment": {
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.11.9",
+    "go": "go version go1.26.4 darwin/arm64"
+  },
+  "commands": [
+    {
+      "command": "go test -vet=all -race -v scripts/security-compliance/certificates/pem-expiry-report/script.go scripts/security-compliance/certificates/pem-expiry-report/script_test.go",
+      "result": "passed",
+      "log": "research/evidence/logs/go-certificate-native.txt"
+    },
+    {
+      "command": "go test -vet=all -race -v scripts/networking-monitoring/ip-addressing/cidr-overlap-report/script.go scripts/networking-monitoring/ip-addressing/cidr-overlap-report/script_test.go",
+      "result": "passed",
+      "log": "research/evidence/logs/go-cidr-native.txt"
+    },
+    {
+      "command": "go test -vet=all -race -v scripts/backup-recovery/integrity/checksum-manifest-verify/script.go scripts/backup-recovery/integrity/checksum-manifest-verify/script_test.go",
+      "result": "passed",
+      "log": "research/evidence/logs/go-checksum-native.txt"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+      "result": "passed",
+      "tests": 62,
+      "skipped": 1,
+      "log": "research/evidence/logs/go-full-regression.txt"
+    },
+    {
+      "command": "AUTOMATION_REQUIRE_GO=1 python3 -m unittest discover -s tests -p test_go_offline_automations.py -v",
+      "result": "passed",
+      "tests": 9,
+      "skipped": 0,
+      "log": "research/evidence/logs/go-cli-integration.txt"
+    },
+    {
+      "command": "bash tests/run_tests.sh",
+      "result": "passed",
+      "checks": 111,
+      "log": "research/evidence/logs/go-shell.txt"
+    },
+    {
+      "command": "ruff check cli/automation_cli.py tests/test_go_offline_automations.py tools/verify_go_installation.py",
+      "result": "passed"
+    },
+    {
+      "command": "python3 tests/validate_catalog.py; python3 tools/research.py validate; python3 tools/generate_directory.py --check",
+      "result": "passed",
+      "note": "59 catalog entries and 12 candidate records; metadata, provenance and generated usage pages match."
+    },
+    {
+      "command": "mkdocs build --strict --site-dir /tmp/automation-go-docs",
+      "result": "passed",
+      "log": "research/evidence/logs/go-documentation.txt"
+    },
+    {
+      "command": "python3 -m venv /tmp/automation-go-package; /tmp/automation-go-package/bin/python -m pip install --no-cache-dir .",
+      "result": "passed",
+      "log": "research/evidence/logs/go-package-install.txt"
+    },
+    {
+      "command": "python3 tools/verify_go_installation.py /tmp/automation-go-package/bin/automation",
+      "result": "passed",
+      "details": "research/evidence/go-installation.json"
+    },
+    {
+      "command": "python3 tools/verify_installation.py /tmp/automation-go-package/bin/automation",
+      "result": "passed",
+      "details": "research/evidence/previous-batch-installation.json"
+    },
+    {
+      "command": "go test -run '^$' -bench BenchmarkBoundedCIDR -benchtime=1x -benchmem scripts/networking-monitoring/ip-addressing/cidr-overlap-report/script.go scripts/networking-monitoring/ip-addressing/cidr-overlap-report/script_test.go",
+      "result": "passed",
+      "log": "research/evidence/logs/go-cidr-performance.txt",
+      "note": "4096 identical CIDRs; all 8386560 overlapping pairs counted; output capped to 1000. Single local benchmark: ~25.3 ms, 1453176 allocated bytes, not a portable performance guarantee."
+    }
+  ],
+  "sha256": {
+    "scripts/security-compliance/certificates/pem-expiry-report/script.go": "87c14e16359171d58e731f55bb24660ec9b2f05dd96edb8929611f8065543c3d",
+    "scripts/security-compliance/certificates/pem-expiry-report/script_test.go": "f7c880685cf8634de48e44047ceeec017e99f493f7fc5ab68e5827bff2600b4f",
+    "scripts/security-compliance/certificates/pem-expiry-report/metadata.yaml": "507233ce49041cd1992b619315256507508d1814cd7cb8a19f38fb71f37bd58d",
+    "scripts/security-compliance/certificates/pem-expiry-report/README.md": "0a66d868679630fab4d53722e4d755c993aa4afe6bcbfce1d89dc7ff44b724d4",
+    "scripts/networking-monitoring/ip-addressing/cidr-overlap-report/script.go": "3baa5dc4a805bef08825aeab59c90bfd4e1e60fcbdc05209552742c92f76750c",
+    "scripts/networking-monitoring/ip-addressing/cidr-overlap-report/script_test.go": "a16de027a3814bdf47c365df027bc9ada7168c15dea34860f169c403230e6db5",
+    "scripts/networking-monitoring/ip-addressing/cidr-overlap-report/metadata.yaml": "bdddca0767099842082fa141c7daed8275c163bbb36dd45ac0c1259d1238c55f",
+    "scripts/networking-monitoring/ip-addressing/cidr-overlap-report/README.md": "e2712adea273c5719691f72d32918122a570f6923327847d58f04a8ccd7f8594",
+    "scripts/backup-recovery/integrity/checksum-manifest-verify/script.go": "c91313252aaabc0b4bc07e42e30383db04ab6db9707ba4d2f533f12c0f4e72fc",
+    "scripts/backup-recovery/integrity/checksum-manifest-verify/script_test.go": "a2f08f48af665f529bdf0907b940d1ac7a41df6916169b5d2828c11c813dc128",
+    "scripts/backup-recovery/integrity/checksum-manifest-verify/metadata.yaml": "1ca0e5567ae636b5d30b456f8140d8fe46bb6cfcce5f48354a172e9aa18afe19",
+    "scripts/backup-recovery/integrity/checksum-manifest-verify/README.md": "07257d72321dd53403fcbd5e90f5c2fa48df0ae7fea693f16ab0b25d09dfbb33",
+    "tests/test_go_offline_automations.py": "299fb04a7e76a99ee49f640ce543ea23381f62a9e3aa5dfef437bbe9e85ac42e",
+    "cli/automation_cli.py": "afd9e11026459744bde16351f9e3a469c8305b9aa3042dedec22905e816c34cb",
+    "tools/verify_go_installation.py": "199c69451f83bc0271446de994f29a6fd250a09ad5d1dd1ea6ed5e46eb7d3543",
+    "scripts/security-compliance/certificates/pem-expiry-report/testdata/valid.pem": "4ef2b451cd67b273c23ac6e5d21d0bcf425b997d2661806d4cf4c53443df0919"
+  },
+  "limitations": [
+    "No release or documentation deployment is claimed.",
+    "Only local macOS acceptance is recorded here; cross-platform CI will test an isolated catalog without changing product platform declarations.",
+    "Certificate reporting does not verify trust; CIDR comparison is capped at 4096 networks; checksum verification requires a stable trusted tree and manifest.",
+    "No third-party code was copied or installed by the scripts. Standard-library dependencies only; no advisory database scan performed."
+  ]
+}

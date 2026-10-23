@@ -1,0 +1,28 @@
+=== RUN   TestCertificateStatusesAndBoundaries
+=== RUN   TestCertificateStatusesAndBoundaries/valid
+=== RUN   TestCertificateStatusesAndBoundaries/warning-boundary
+=== RUN   TestCertificateStatusesAndBoundaries/expiry-boundary
+=== RUN   TestCertificateStatusesAndBoundaries/expired
+=== RUN   TestCertificateStatusesAndBoundaries/future
+--- PASS: TestCertificateStatusesAndBoundaries (0.01s)
+    --- PASS: TestCertificateStatusesAndBoundaries/valid (0.01s)
+    --- PASS: TestCertificateStatusesAndBoundaries/warning-boundary (0.00s)
+    --- PASS: TestCertificateStatusesAndBoundaries/expiry-boundary (0.00s)
+    --- PASS: TestCertificateStatusesAndBoundaries/expired (0.00s)
+    --- PASS: TestCertificateStatusesAndBoundaries/future (0.00s)
+=== RUN   TestBundleAndWhitespace
+--- PASS: TestBundleAndWhitespace (0.00s)
+=== RUN   TestStrictPEMRejectsIgnoredContent
+--- PASS: TestStrictPEMRejectsIgnoredContent (0.01s)
+=== RUN   TestCommandReadOnlyAndFixedObservation
+--- PASS: TestCommandReadOnlyAndFixedObservation (0.00s)
+=== RUN   TestFindingExitCode
+--- PASS: TestFindingExitCode (0.00s)
+=== RUN   TestInvalidArgumentsAndPrivacy
+--- PASS: TestInvalidArgumentsAndPrivacy (0.00s)
+=== RUN   TestHelpDoesNotReadInput
+--- PASS: TestHelpDoesNotReadInput (0.00s)
+=== RUN   TestOversizedInput
+--- PASS: TestOversizedInput (0.00s)
+PASS
+ok  	command-line-arguments	1.690s
