@@ -12,11 +12,11 @@ Prioritize Bash, PowerShell, Python, JavaScript/TypeScript for operating systems
 
 Add business productivity, browser automation, AI/ML operations, security and compliance, networking and integrations. Require real use-case demonstrations and mock external services in tests.
 
-## Phase 4 — 1,200 verified scripts
+## Phase 4 — 1,200 milestone, then 1,280 allocated scripts
 
-Complete breadth across all 16 categories. Expand language and operating-system CI matrices, curated community contribution issues, documentation examples, and published browsable index.
+Reach 1,200 verified scripts, then complete the full 1,280-script allocation across all 16 categories. Expand language and operating-system CI matrices, curated community contribution issues, documentation examples, and published browsable index.
 
-Target counts by category are defined in `catalog/categories.yaml`; the number of **implemented** automations comes only from `catalog/scripts.json`. Never add placeholders or empty stubs to inflate totals.
+The 16 supplied category targets sum to **1,280**, not 1,200; the detailed category allocations are retained.\n\nTarget counts by category are defined in `catalog/categories.yaml`; the number of **implemented** automations comes only from `catalog/scripts.json`. Never add placeholders or empty stubs to inflate totals.
 
 ## Scaling towards 5,000–10,000
 

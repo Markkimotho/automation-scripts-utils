@@ -1,5 +1,5 @@
 schema_version: 1
-# Targets are roadmap goals; inventory is computed only from catalog/scripts.json.
+# Category allocations total 1,280; 1,200 is an intermediate milestone.\n# Targets are roadmap goals; inventory is computed only from catalog/scripts.json.
 categories:
   - id: cloud-devops
     target: 120

@@ -13,7 +13,7 @@ schema = json.loads((ROOT / "catalog/schema.json").read_text(encoding="utf-8"))
 jsonschema.validate(instance=catalog, schema=schema)
 categories = yaml.safe_load((ROOT / "catalog/categories.yaml").read_text(encoding="utf-8"))["categories"]
 targets = {category["id"]: category["target"] for category in categories}
-assert len(targets) == 16 and sum(targets.values()) == 1200, "Roadmap must have the expected 16 categories and 1,200 targets"
+assert len(targets) == 16 and sum(targets.values()) == 1280, "Roadmap must have the expected 16 categories and 1,280 targets"
 ids = set()
 for entry in catalog["scripts"]:
     identifier = entry["id"]
@@ -27,4 +27,4 @@ for entry in catalog["scripts"]:
     for key, value in entry.items():
         assert metadata.get(key) == value, f"Metadata mismatch {identifier}:{key} - {metadata.get(key)!r} != {value!r}"
     assert (impl.parent / "README.md").is_file(), f"Missing README for {identifier}"
-print(f"Catalog validated: {len(ids)} real scripts across {len(targets)} categories; 1,200 roadmap targets.")
+print(f"Catalog validated: {len(ids)} real scripts across {len(targets)} categories; 1,280 roadmap targets.")

@@ -2,7 +2,7 @@
 
 A community-driven, multi-language collection of practical automation for software development, operations, data, business workflows, research, and everyday computing.
 
-**Implemented today:** 49 registered scripts (34 migrated and 15 new implementations) (see [catalog/scripts.json](catalog/scripts.json)). **Growth goal:** 1,200 tested scripts, with an architecture designed to accommodate 5,000–10,000. These targets are a roadmap, **not** a claim about current inventory.
+**Implemented today:** 49 registered scripts (34 migrated and 15 new implementations) (see [catalog/scripts.json](catalog/scripts.json)). **Growth goal:** at least 1,200 tested scripts (1,280 in the full per-category allocation), with an architecture designed to accommodate 5,000–10,000. These targets are a roadmap, **not** a claim about current inventory.
 
 ## Get started
 
@@ -65,7 +65,7 @@ examples/                Runnable examples
 | Media, image, audio and video | 50 |
 | Personal and desktop automation | 50 |
 | Testing, QA and performance | 60 |
-| **Total planned** | **1,200** |
+| **Total planned** | **1,280** |
 
 See [the roadmap](docs/roadmap.md) for the four delivery phases. Existing scripts are grouped by domain and have individually documented prerequisites, security classification, and `--help` behavior.
 

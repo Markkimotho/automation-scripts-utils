@@ -2,7 +2,7 @@
 
 A community-driven, multi-language toolkit for practical tasks across developer workflows, operating systems, cloud, AI/ML, business, files, networking, security, media and personal productivity.
 
-**Implemented:** 49 real catalog entries across 16 categories. **Roadmap:** 1,200 verified scripts; the long-term design can support 5,000–10,000. Roadmap counts are not implemented counts.
+**Implemented:** 49 real catalog entries across 16 categories. **Roadmap:** at least 1,200 verified scripts (the requested category targets sum to 1,280); the long-term design can support 5,000–10,000. Roadmap counts are not implemented counts.
 
 ## Get started
 
