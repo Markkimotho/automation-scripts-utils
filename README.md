@@ -2,7 +2,7 @@
 
 A community-driven, multi-language collection of practical automation for software development, operations, data, business workflows, research, and everyday computing.
 
-**Implemented today:** 34 migrated scripts (see [catalog/scripts.json](catalog/scripts.json)). **Growth goal:** 1,200 tested scripts, with an architecture designed to accommodate 5,000–10,000. These targets are a roadmap, **not** a claim about current inventory.
+**Implemented today:** 49 registered scripts (34 migrated and 15 new implementations) (see [catalog/scripts.json](catalog/scripts.json)). **Growth goal:** 1,200 tested scripts, with an architecture designed to accommodate 5,000–10,000. These targets are a roadmap, **not** a claim about current inventory.
 
 ## Get started
 
