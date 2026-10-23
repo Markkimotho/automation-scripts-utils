@@ -1,0 +1,50 @@
+id: zip-safety-audit
+title: ZIP Safety Audit
+description: Inspect ZIP member metadata for traversal, symlinks, duplicate paths,
+  encryption and excessive declared expansion.
+category: security-compliance
+topic: archives
+language: python
+entrypoint: scripts/security-compliance/archives/zip-safety-audit/script.py
+platforms:
+- macos
+dependencies:
+- python3
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: archive
+  type: string
+  required: true
+  flag: --archive
+- name: max_bytes
+  type: integer
+  required: false
+  flag: --max-bytes
+- name: max_ratio
+  type: integer
+  required: false
+  flag: --max-ratio
+tags:
+- security-compliance
+- archives
+- offline
+- audit
+expected_output: JSON member count, declared size and indexed hazard findings.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Python >=3.10 (standard library only)
+environment_variables: []
+exit_codes:
+  '0': Report completed without policy findings or differences.
+  '1': Findings, invalid records, differences or unhealthy data.
+  '2': Invalid arguments, unreadable input, unsupported format or resource limit.
+provenance_ref: zip-safety-audit
+test_status: passed
+compatibility_notes: Verified locally on macOS only. Linux and Windows verification
+  is configured in CI but pending; not advertised as supported.
+usage_example: automation run zip-safety-audit -- --archive ./download.zip

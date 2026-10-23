@@ -1,0 +1,50 @@
+id: jsonl-key-profile
+title: JSON Lines Key Profile
+description: Stream JSON Lines to find invalid object records and missing top-level
+  keys without printing record values.
+category: testing-qa
+topic: jsonl
+language: python
+entrypoint: scripts/testing-qa/jsonl/jsonl-key-profile/script.py
+platforms:
+- macos
+dependencies:
+- python3
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: input
+  type: string
+  required: true
+  flag: --input
+- name: max_line_bytes
+  type: integer
+  required: false
+  flag: --max-line-bytes
+- name: max_records
+  type: integer
+  required: false
+  flag: --max-records
+tags:
+- testing-qa
+- jsonl
+- offline
+- report
+expected_output: JSON record counts, invalid line numbers, and top-level key coverage.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Python >=3.10 (standard library only)
+environment_variables: []
+exit_codes:
+  '0': Report completed without policy findings or differences.
+  '1': Findings, invalid records, differences or unhealthy data.
+  '2': Invalid arguments, unreadable input, unsupported format or resource limit.
+provenance_ref: jsonl-key-profile
+test_status: passed
+compatibility_notes: Verified locally on macOS only. Linux and Windows verification
+  is configured in CI but pending; not advertised as supported.
+usage_example: automation run jsonl-key-profile -- --input ./events.jsonl

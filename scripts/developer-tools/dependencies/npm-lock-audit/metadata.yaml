@@ -1,0 +1,42 @@
+id: npm-lock-audit
+title: npm Lockfile Policy Audit
+description: Audit npm v2/v3 lock metadata for strong integrity, HTTPS sources, embedded
+  credentials and lifecycle-script declarations offline.
+category: developer-tools
+topic: dependencies
+language: javascript
+entrypoint: scripts/developer-tools/dependencies/npm-lock-audit/script.js
+platforms:
+- macos
+dependencies:
+- node
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: lockfile
+  type: string
+  required: true
+  flag: --lockfile
+tags:
+- developer-tools
+- dependencies
+- offline
+- audit
+expected_output: JSON checked/skipped counts and per-package policy findings.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Node.js >=18 (built-in modules only)
+environment_variables: []
+exit_codes:
+  '0': Report completed without policy findings or differences.
+  '1': Findings, invalid records, differences or unhealthy data.
+  '2': Invalid arguments, unreadable input, unsupported format or resource limit.
+provenance_ref: npm-lock-audit
+test_status: passed
+compatibility_notes: Verified locally on macOS only. Linux and Windows verification
+  is configured in CI but pending; not advertised as supported.
+usage_example: automation run npm-lock-audit -- --lockfile ./package-lock.json

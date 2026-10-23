@@ -1,0 +1,51 @@
+id: sqlite-health-check
+title: SQLite Health Check
+description: Check an offline SQLite snapshot for structural and foreign-key problems
+  without creating journal sidecars.
+category: data-engineering
+topic: sqlite
+language: python
+entrypoint: scripts/data-engineering/sqlite/sqlite-health-check/script.py
+platforms:
+- macos
+dependencies:
+- python3
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: database
+  type: string
+  required: true
+  flag: --database
+- name: full
+  type: boolean
+  required: false
+  flag: --full
+- name: timeout
+  type: number
+  required: false
+  flag: --timeout
+tags:
+- data-engineering
+- sqlite
+- offline
+- report
+expected_output: JSON healthy flag, structural check results and up to 1000 foreign-key
+  violations.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Python >=3.10 with SQLite >=3.31
+environment_variables: []
+exit_codes:
+  '0': Report completed without policy findings or differences.
+  '1': Findings, invalid records, differences or unhealthy data.
+  '2': Invalid arguments, unreadable input, unsupported format or resource limit.
+provenance_ref: sqlite-health-check
+test_status: passed
+compatibility_notes: Verified locally on macOS only. Linux and Windows verification
+  is configured in CI but pending; not advertised as supported.
+usage_example: automation run sqlite-health-check -- --database ./app.db --full

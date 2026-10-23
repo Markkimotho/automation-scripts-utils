@@ -1,0 +1,56 @@
+id: csv-key-reconcile
+title: CSV Key Reconciliation
+description: Compare exact keys in two CSV exports, reporting missing records and
+  duplicate identifiers without comparing other values.
+category: data-engineering
+topic: csv
+language: ruby
+entrypoint: scripts/data-engineering/csv/csv-key-reconcile/script.rb
+platforms:
+- macos
+dependencies:
+- ruby
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: left
+  type: string
+  required: true
+  flag: --left
+- name: right
+  type: string
+  required: true
+  flag: --right
+- name: key
+  type: string
+  required: true
+  flag: --key
+- name: max_rows
+  type: integer
+  required: false
+  flag: --max-rows
+tags:
+- data-engineering
+- csv
+- offline
+- report
+expected_output: JSON row counts, common-key count, keys unique to each file and duplicate
+  keys.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Ruby >=2.6 with csv, json, optparse and set standard libraries
+environment_variables: []
+exit_codes:
+  '0': Report completed without policy findings or differences.
+  '1': Findings, invalid records, differences or unhealthy data.
+  '2': Invalid arguments, unreadable input, unsupported format or resource limit.
+provenance_ref: csv-key-reconcile
+test_status: passed
+compatibility_notes: Verified locally on macOS only. Linux and Windows verification
+  is configured in CI but pending; not advertised as supported.
+usage_example: automation run csv-key-reconcile -- --left ./before.csv --right ./after.csv
+  --key id
