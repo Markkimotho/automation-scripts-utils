@@ -9,7 +9,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BIN="$ROOT/scripts"
 PASS=0 FAIL=0
 
-# Named with a t_ prefix so sourcing lib/common.sh (which defines ok/say/...)
+# Named with a t_ prefix so sourcing packages/common/common.sh (which defines ok/say/...)
 # can't clobber the test result counters.
 t_pass() { printf '  \033[32mPASS\033[0m %s\n' "$1"; PASS=$((PASS+1)); }
 t_fail() { printf '  \033[31mFAIL\033[0m %s\n' "$1"; FAIL=$((FAIL+1)); }
@@ -20,7 +20,7 @@ export GIT_AUTHOR_NAME=test GIT_AUTHOR_EMAIL=test@test \
        GIT_COMMITTER_NAME=test GIT_COMMITTER_EMAIL=test@test \
        ASSUME_YES=1 NO_COLOR=1
 
-echo "== lib/common.sh =="
+echo "== packages/common/common.sh =="
 # shellcheck source=../packages/common/common.sh
 source "$ROOT/packages/common/common.sh"
 check "require_cmd finds bash"              "require_cmd bash"

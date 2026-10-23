@@ -1,101 +1,43 @@
 # Automation Scripts & Utils
 
-Reusable automation for the everyday tasks developers repeat — creating and
-merging repos, untangling git conflicts, rebuilding environments, freeing ports,
-and more. Not limited to git or environment chores: anything worth never typing
-by hand twice belongs here. Bash today, **Python utilities planned**.
+A community-driven, multi-language toolkit for practical tasks across developer workflows, operating systems, cloud, AI/ML, business, files, networking, security, media and personal productivity.
 
-Every script:
+**Implemented:** 49 real catalog entries across 16 categories. **Roadmap:** 1,200 verified scripts; the long-term design can support 5,000–10,000. Roadmap counts are not implemented counts.
 
-- is **self-contained** and has `--help`,
-- **confirms** before anything outward-facing or destructive,
-- runs **non-interactively** for CI (`ASSUME_YES=1` or `-y`),
-- works on **stock macOS bash 3.2** and Linux.
-
-## Install
+## Get started
 
 ```bash
 git clone https://github.com/Markkimotho/automation-scripts-utils.git
-export PATH="$PWD/automation-scripts-utils/bin:$PATH"   # add to ~/.zshrc to persist
+cd automation-scripts-utils
+export PATH="$PWD/cli:$PATH"
+automation list
+automation search "git"
+automation list --category security-compliance
+automation info git-conflict-helper
+automation run git-conflict-helper --dry-run
+automation run git-conflict-helper -- --help
 ```
 
-See [Prerequisites](prerequisites.md) for exactly what each script needs and the
-dev-environment edge cases worth knowing. In short: `bash` + `git`; the `gh-*`
-scripts need the [GitHub CLI](https://cli.github.com/) (`gh auth login`);
-`port-kill.sh` needs `lsof`; `py-venv-rebuild.sh` needs `python3`.
+The CLI uses Python 3.10+ and only the standard library. Individual scripts require their own documented runtimes and external dependencies.
 
-## The scripts
+## Explore the library
 
-### Git & GitHub
+- [CLI guide and catalog](cli.md) — search, filtering, parameter checking and safe execution
+- [Script reference](reference.md) — original 34 scripts and their CLI arguments
+- [Architecture](architecture.md) — domain folders, shared helpers and tests
+- [Prerequisites](prerequisites.md) — OS compatibility and dependency setup
+- [Migration](migration.md) — replacement paths for the previous `bin/` layout
+- [Roadmap](roadmap.md) — 16 categories, phased targets and quality requirements
+- [Contributing](contributing.md) — metadata, tests and pull request guidance
+- [Resolving conflicts](conflicts.md) — Git conflict handling rules
 
-| Script | What it does |
-|--------|--------------|
-| `gh-merge-pr.sh` | Merge a PR — polls mergeability, refuses conflicting PRs, confirms. |
-| `gh-create-repo.sh` | Create a repo and optionally init/commit/push a local dir. |
-| `gh-rename-repo.sh` | Rename a repo and update the local `origin` remote. |
-| `gh-enable-pages.sh` | Enable GitHub Pages via the API (Actions or branch source). |
-| `gh-pr-open.sh` | Push the current branch and open a PR in one step. |
-| `gh-pr-status.py` | One table of every open PR with CI / review / mergeable state. |
-| `gh-release.py` | Bump, changelog from commits, tag, GitHub release. |
-| `gh-rename-org.sh` | Rename an organization safely, wait for it, repoint local clones. |
-| `gh-org-clone.sh` | Clone or update every repo of an org into one workspace. |
-| `gh-issues-sync.py` | Create issues and their labels from a JSON file; idempotent by title. |
-| `gh-org-ci.sh` | Latest Actions runs for every repo of an org in one table; exit 2 on failures. |
-| `git-split-repo.sh` | Extract paths of a repo into a new repo with their history. |
-| `git-replace.sh` | Replace a literal string across all tracked text files. |
-| `git-conflict-helper.sh` | Rule-based guide to git conflicts. |
-| `git-safe-checkout.sh` | Switch branches without losing uncommitted work. |
-| `git-clean-branches.sh` | Delete branches already merged into the base. |
-| `git-sync.sh` | Fetch, fast-forward base, prune, rebase current branch. |
+The searchable catalog is in `catalog/scripts.json`. A script folder includes a runnable implementation, `metadata.yaml`, and its own `README.md`. Use `automation info <id>` for exact entrypoint, supported platforms and declared permissions.
 
-### Dev environment
-
-| Script | What it does |
-|--------|--------------|
-| `dev-doctor.sh` | Report missing tools with install hints. |
-| `proj-bootstrap.sh` | Scaffold git/ignore/README/pre-commit/CI/license. |
-| `precommit-install.sh` | Install (and scaffold) pre-commit hooks. |
-| `py-venv-rebuild.sh` | Rebuild a stale virtualenv; reinstall requirements. |
-| `py-check.sh` | ruff + mypy + pytest in one pass. |
-
-### Cross-language dependency & library tooling (Python, polyglot)
-
-| Script | What it does |
-|--------|--------------|
-| `deps-outdated.py` | Outdated packages across pip / npm / cargo / go. |
-| `deps-unused.py` | Declared-but-never-imported dependencies. |
-| `lockfile-drift.py` | Lockfile missing or older than its manifest. |
-| `vuln-scan.py` | Run each ecosystem's audit tool, normalize findings. |
-| `lic-audit.py` | Collect licenses; flag copyleft / unknown. |
-| `version-bump.py` | Bump the version in whatever manifest(s) exist. |
-| `env-check.py` | Diff `.env` against `.env.example`. |
-
-### Data & housekeeping
-
-| Script | What it does |
-|--------|--------------|
-| `data-convert.py` | CSV ↔ JSON ↔ YAML. |
-| `clean-artifacts.sh` | Remove build/cache junk (dry-run default). |
-| `secret-scan.py` | Scan staged files for likely secrets. |
-| `snapshot.sh` | Timestamped backup before risky ops. |
-| `port-kill.sh` | Kill the process *listening* on a TCP port. |
-
-See the [script reference](reference.md) for options and examples, and
-[resolving conflicts](conflicts.md) for the conflict-helper's rule set.
-
-## Conventions
-
-- `--help` on every script.
-- A confirmation prompt before merging, pushing, deleting, or killing. Set
-  `ASSUME_YES=1` (or pass `-y`) to skip it in automation.
-- `NO_COLOR=1` disables color.
-- `set -euo pipefail` throughout.
-
-## Tests
+## Verification
 
 ```bash
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 bash tests/run_tests.sh
 ```
 
-Deterministic, offline gate tests: shared helpers, conflict detection, and
-dirty-tree detection run against throwaway git repos.
+CI checks Python and Bash syntax, catalog integrity, offline behavior, the legacy regression suite, and strict MkDocs site builds. Browser and cloud operations require external test environments for end-to-end validation.

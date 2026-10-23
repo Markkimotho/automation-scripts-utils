@@ -167,7 +167,7 @@ git-sync.sh [-b base] [--no-rebase] [-y]
 Report which required tools are present, with install hints. Non-zero if a core tool is missing.
 
 ```text
-dev-doctor.sh
+automation run dev-doctor --
 ```
 
 ### `proj-bootstrap.sh`
