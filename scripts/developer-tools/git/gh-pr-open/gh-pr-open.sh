@@ -2,8 +2,8 @@
 # gh-pr-open.sh — push the current branch and open a PR in one step.
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# shellcheck source=../lib/common.sh
-source "$SCRIPT_DIR/../lib/common.sh"
+# shellcheck source=../../../../packages/common/common.sh
+source "$SCRIPT_DIR/../../../../packages/common/common.sh"
 
 usage() {
   cat <<'EOF'
