@@ -1,0 +1,111 @@
+{
+  "result": "passed",
+  "catalog_entries": 66,
+  "checks": [
+    {
+      "arguments": [
+        "list",
+        "--json"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "postgres-verified-backup",
+        "--",
+        "--database",
+        "installation_fixture",
+        "--username",
+        "automation_admin",
+        "--host",
+        "/tmp/automation-pg-0xantfsv/socket",
+        "--output",
+        "snapshot.dump",
+        "--pg-bin",
+        "/opt/homebrew/Cellar/postgresql@15/15.17/bin",
+        "--apply"
+      ],
+      "expected_exit": 2
+    },
+    {
+      "arguments": [
+        "run",
+        "postgres-verified-backup",
+        "--yes",
+        "--",
+        "--database",
+        "installation_fixture",
+        "--username",
+        "automation_admin",
+        "--host",
+        "/tmp/automation-pg-0xantfsv/socket",
+        "--output",
+        "snapshot.dump",
+        "--pg-bin",
+        "/opt/homebrew/Cellar/postgresql@15/15.17/bin"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "postgres-verified-backup",
+        "--yes",
+        "--",
+        "--database",
+        "installation_fixture",
+        "--username",
+        "automation_admin",
+        "--host",
+        "/tmp/automation-pg-0xantfsv/socket",
+        "--output",
+        "snapshot.dump",
+        "--pg-bin",
+        "/opt/homebrew/Cellar/postgresql@15/15.17/bin",
+        "--apply"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "postgres-verified-backup",
+        "--yes",
+        "--",
+        "--database",
+        "installation_fixture",
+        "--username",
+        "automation_admin",
+        "--host",
+        "/tmp/automation-pg-0xantfsv/socket",
+        "--output",
+        "snapshot.dump",
+        "--pg-bin",
+        "/opt/homebrew/Cellar/postgresql@15/15.17/bin",
+        "--apply"
+      ],
+      "expected_exit": 2
+    },
+    {
+      "arguments": [
+        "run",
+        "postgres-verified-backup",
+        "--dry-run",
+        "--",
+        "--database",
+        "installation_fixture",
+        "--username",
+        "automation_admin",
+        "--host",
+        "/tmp/automation-pg-0xantfsv/socket",
+        "--output",
+        "snapshot.dump",
+        "--pg-bin",
+        "/opt/homebrew/Cellar/postgresql@15/15.17/bin"
+      ],
+      "expected_exit": 0
+    }
+  ],
+  "note": "Installed CLI used outside checkout; private fixture server only, write approval, preview, restore and collision checks passed."
+}

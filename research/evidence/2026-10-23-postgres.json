@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "result": "passed",
+  "scripts": [
+    "postgres-verified-backup"
+  ],
+  "verified_platforms": [
+    "macos"
+  ],
+  "environment": {
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.11.9",
+    "postgres": "postgres (PostgreSQL) 15.17 (Homebrew)"
+  },
+  "commands": [
+    {
+      "command": "AUTOMATION_REQUIRE_POSTGRES=1 python3 -m unittest discover -s tests -p test_postgres_backup.py -v",
+      "result": "passed",
+      "tests": 8,
+      "skipped": 0,
+      "log": "research/evidence/logs/postgres-functional.txt"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+      "result": "failed",
+      "tests": 95,
+      "errors": 1,
+      "skipped": 1,
+      "reason": "Temporary-directory creation failed with ENOSPC on the local host; no test result was treated as passing. Only generated verification artifacts were removed before retry.",
+      "log": "research/evidence/logs/postgres-environment-failure.txt",
+      "phase": "initial"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+      "result": "passed",
+      "tests": 95,
+      "skipped": 1,
+      "log": "research/evidence/logs/postgres-full-regression.txt",
+      "phase": "retry"
+    },
+    {
+      "command": "ruff check scripts/backup-recovery/postgres/postgres-verified-backup/script.py tests/test_postgres_backup.py tools/verify_postgres_installation.py",
+      "result": "passed"
+    },
+    {
+      "command": "python3 tests/validate_catalog.py; python3 tools/research.py validate; python3 tools/generate_directory.py --check",
+      "result": "passed",
+      "note": "66 catalog entries and 20 candidate records; generated usage pages match."
+    },
+    {
+      "command": "python3 -m venv /tmp/automation-postgres-package; /tmp/automation-postgres-package/bin/python -m pip install --no-cache-dir .",
+      "result": "passed",
+      "log": "research/evidence/logs/postgres-package-install.txt"
+    },
+    {
+      "command": "python3 tools/verify_postgres_installation.py /tmp/automation-postgres-package/bin/automation",
+      "result": "passed",
+      "details": "research/evidence/postgres-installation.json"
+    },
+    {
+      "command": "mkdocs build --strict --site-dir /tmp/automation-postgres-docs",
+      "result": "passed",
+      "log": "research/evidence/logs/postgres-documentation.txt"
+    }
+  ],
+  "sha256": {
+    "scripts/backup-recovery/postgres/postgres-verified-backup/script.py": "c648f400aee43d39a1e3b7421edbf01f4adb70aaac9124ffd25f4db1537755ff",
+    "scripts/backup-recovery/postgres/postgres-verified-backup/metadata.yaml": "5b072a1752d85faabac550e35c44e282a80a167bebef09d59ed5c2270c70c88f",
+    "scripts/backup-recovery/postgres/postgres-verified-backup/README.md": "55f0f9c81abf76b1622b4505017034d5a974ef4c3d849870625cf4432daadea0",
+    "tests/test_postgres_backup.py": "595a1baf6c4b132ec950dcf6433fe9736b41be86bddb19daf03ee6d5aa966d6a",
+    "research/sources/2026-10-23-postgres.json": "da08f11afda3b59f1e1e2b49efeedb57e050481111b9e2dd2c6aea34adea4c71",
+    "tools/verify_postgres_installation.py": "01bc7125e6955b6f30ae03156be5ad48fa2278a1f20ba66de737d5a2e4fa5102"
+  },
+  "limitations": [
+    "Local macOS acceptance only; root/Windows are refused, Linux verification is configured in CI.",
+    "Trusted source schemas only; not a hostile-SQL sandbox or application-invariant proof.",
+    "No source/server credentials are printed or forwarded to the verifier; no production instance is used for tests.",
+    "No merge, release or documentation deployment is claimed."
+  ]
+}

@@ -166,3 +166,26 @@ jobs:
         env:
           AUTOMATION_REQUIRE_WEB_RUNTIMES: "1"
         run: python -m unittest discover -s tests -p test_web_adapted_automations.py -v
+
+  postgres-restore-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Select preinstalled PostgreSQL tools
+        shell: bash
+        run: |
+          for pg_bin in /usr/lib/postgresql/{18,17,16,15}/bin; do
+            if [[ -x "$pg_bin/postgres" && -x "$pg_bin/initdb" ]]; then
+              echo "AUTOMATION_PG_BIN=$pg_bin" >> "$GITHUB_ENV"
+              exit 0
+            fi
+          done
+          echo "PostgreSQL >=15 server/client tools are required" >&2
+          exit 1
+      - name: Real backups and private restore verification
+        env:
+          AUTOMATION_REQUIRE_POSTGRES: "1"
+        run: python -m unittest discover -s tests -p test_postgres_backup.py -v

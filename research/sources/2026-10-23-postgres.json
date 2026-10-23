@@ -1,0 +1,44 @@
+{
+  "sources": [
+    {
+      "url": "https://www.postgresql.org/docs/15/app-pgdump.html",
+      "resolved_url": "https://www.postgresql.org/docs/15/app-pgdump.html",
+      "retrieved_at": "2026-10-23T09:36:13.012127+00:00",
+      "bytes": 76566,
+      "sha256": "bbaa95e1e4e540ca4f68adc4bd73d936569690ff799172fd8da67a5efbc9b966",
+      "purpose": "API/behavior reference only; no source or prose copied."
+    },
+    {
+      "url": "https://www.postgresql.org/docs/15/app-pgrestore.html",
+      "resolved_url": "https://www.postgresql.org/docs/15/app-pgrestore.html",
+      "retrieved_at": "2026-10-23T09:36:13.928521+00:00",
+      "bytes": 53261,
+      "sha256": "09a18fad9e5bf03d34b7c3329b2a9d51d9a65b545d01c5c09de904c0eda9da58",
+      "purpose": "API/behavior reference only; no source or prose copied."
+    },
+    {
+      "url": "https://www.postgresql.org/docs/15/app-initdb.html",
+      "resolved_url": "https://www.postgresql.org/docs/15/app-initdb.html",
+      "retrieved_at": "2026-10-23T09:36:14.675922+00:00",
+      "bytes": 34654,
+      "sha256": "56ca03185e6a4c4b3d20f8727d47f5a7338fab30c516951f37f43c7b0411dbb6",
+      "purpose": "API/behavior reference only; no source or prose copied."
+    },
+    {
+      "url": "https://www.postgresql.org/docs/15/runtime-config-connection.html",
+      "resolved_url": "https://www.postgresql.org/docs/15/runtime-config-connection.html",
+      "retrieved_at": "2026-10-23T09:36:15.808098+00:00",
+      "bytes": 52186,
+      "sha256": "9a64b42bea00d35fed7937a90f3499bd00097054160398ae941f40fee07f0705",
+      "purpose": "API/behavior reference only; no source or prose copied."
+    },
+    {
+      "url": "https://www.postgresql.org/about/licence/",
+      "resolved_url": "https://www.postgresql.org/about/licence/",
+      "retrieved_at": "2026-10-23T09:36:16.354286+00:00",
+      "bytes": 8067,
+      "sha256": "9c2243292ca4727d1fd9e64acfa3bc0c11c8f5389fcdc9e87fd37128376d80f0",
+      "purpose": "API/behavior reference only; no source or prose copied."
+    }
+  ]
+}
