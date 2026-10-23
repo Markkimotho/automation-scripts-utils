@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import importlib.util
 import os
 from pathlib import Path
 import platform
@@ -130,6 +131,15 @@ def run(entry: dict, args: argparse.Namespace) -> int:
     missing = [dep for dep in entry.get("dependencies", []) if not shutil.which(dep)]
     if missing:
         raise ValueError(f"Missing dependencies: {', '.join(missing)}")
+    if language == "python":
+        missing_packages = [name for name in entry.get("python_packages", []) if importlib.util.find_spec(name) is None]
+        if missing_packages:
+            raise ValueError(f"Missing Python packages: {', '.join(missing_packages)}; install the script's requirements.txt")
+    if language == "typescript":
+        version = subprocess.run(["node", "-p", "process.versions.node"], capture_output=True, text=True, check=True, timeout=5).stdout
+        parts = tuple(int(part) for part in version.strip().split(".")[:2])
+        if parts < (22, 6):
+            raise ValueError("TypeScript runner needs Node.js 22.6 or later")
     if entry.get("requires_confirmation") or entry.get("destructive") or any(p.endswith("-write") for p in entry.get("permissions", [])):
         if not args.yes:
             if not sys.stdin.isatty():
