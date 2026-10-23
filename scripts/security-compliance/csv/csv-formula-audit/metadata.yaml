@@ -1,0 +1,43 @@
+id: csv-formula-audit
+title: CSV Formula Risk Audit
+description: Locate formula-like CSV cell prefixes before spreadsheet import, reporting
+  coordinates without exposing cell values.
+category: security-compliance
+topic: csv
+language: ruby
+entrypoint: scripts/security-compliance/csv/csv-formula-audit/script.rb
+platforms:
+- macos
+dependencies:
+- ruby
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: input
+  type: string
+  required: true
+  flag: --input
+tags:
+- csv
+- offline
+- report
+expected_output: JSON row/cell counts, risky cell coordinates, total findings and
+  truncation state.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Ruby >=2.6 with csv, json and optparse libraries
+environment_variables: []
+exit_codes:
+  '0': Preview or operation completed without report findings.
+  '1': Differences/findings, or Git backup execution failure.
+  '2': Invalid or unreadable input, unsupported behavior, limits, collisions or I/O
+    failure.
+provenance_ref: csv-formula-audit
+test_status: passed
+compatibility_notes: Verified locally on macOS. Additional operating systems are exercised
+  in CI before support declarations are expanded.
+usage_example: automation run csv-formula-audit -- --input ./export.csv

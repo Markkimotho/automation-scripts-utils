@@ -1,0 +1,64 @@
+id: sqlite-online-backup
+title: SQLite Online Backup
+description: Preview or create a consistent SQLite snapshot through the online backup
+  API, verify it and publish without overwriting files.
+category: backup-recovery
+topic: sqlite
+language: python
+entrypoint: scripts/backup-recovery/sqlite/sqlite-online-backup/script.py
+platforms:
+- macos
+dependencies:
+- python3
+permissions:
+- filesystem-read
+- filesystem-write
+destructive: false
+requires_confirmation: true
+supports_dry_run: true
+parameters:
+- name: source
+  type: string
+  required: true
+  flag: --source
+- name: output
+  type: string
+  required: true
+  flag: --output
+- name: timeout
+  type: number
+  required: false
+  flag: --timeout
+- name: max_bytes
+  type: integer
+  required: false
+  flag: --max-bytes
+- name: apply
+  type: boolean
+  required: false
+  flag: --apply
+- name: dry_run
+  type: boolean
+  required: false
+  flag: --dry-run
+tags:
+- sqlite
+- offline
+- backup
+expected_output: JSON preview plan, or completed snapshot path, byte count and quick-check
+  result.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Python >=3.10 with SQLite >=3.31; standard library only
+environment_variables: []
+exit_codes:
+  '0': Preview or operation completed without report findings.
+  '2': Invalid or unreadable input, unsupported behavior, limits, collisions or I/O
+    failure.
+provenance_ref: sqlite-online-backup
+test_status: passed
+compatibility_notes: Verified locally on macOS. Additional operating systems are exercised
+  in CI before support declarations are expanded.
+usage_example: automation run sqlite-online-backup --yes -- --source ./app.db --output
+  ./backup.db

@@ -1,0 +1,56 @@
+id: eml-attachment-extract
+title: Email Attachment Extraction
+description: Preview or extract decoded MIME attachments from one local email into
+  sanitized, unique, non-overwriting files.
+category: messaging-notifications
+topic: email
+language: python
+entrypoint: scripts/messaging-notifications/email/eml-attachment-extract/script.py
+platforms:
+- macos
+dependencies:
+- python3
+permissions:
+- filesystem-read
+- filesystem-write
+destructive: false
+requires_confirmation: true
+supports_dry_run: true
+parameters:
+- name: input
+  type: string
+  required: true
+  flag: --input
+- name: output
+  type: string
+  required: true
+  flag: --output
+- name: apply
+  type: boolean
+  required: false
+  flag: --apply
+- name: dry_run
+  type: boolean
+  required: false
+  flag: --dry-run
+tags:
+- email
+- offline
+- report
+expected_output: 'JSON plan or completed attachment metadata: generated names, MIME
+  types, byte counts and SHA-256 values.'
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Python >=3.10; standard library only
+environment_variables: []
+exit_codes:
+  '0': Preview or operation completed without report findings.
+  '2': Invalid or unreadable input, unsupported behavior, limits, collisions or I/O
+    failure.
+provenance_ref: eml-attachment-extract
+test_status: passed
+compatibility_notes: Verified locally on macOS. Additional operating systems are exercised
+  in CI before support declarations are expanded.
+usage_example: automation run eml-attachment-extract --yes -- --input ./message.eml
+  --output ./attachments

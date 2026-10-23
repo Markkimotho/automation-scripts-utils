@@ -1,0 +1,42 @@
+id: openapi-operation-inventory
+title: OpenAPI Operation Inventory
+description: Inventory OpenAPI JSON operations, flag missing or duplicate IDs and
+  report declared anonymous access without fetching references.
+category: api-integrations
+topic: openapi
+language: javascript
+entrypoint: scripts/api-integrations/openapi/openapi-operation-inventory/script.js
+platforms:
+- macos
+dependencies:
+- node
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: input
+  type: string
+  required: true
+  flag: --input
+tags:
+- openapi
+- offline
+- report
+expected_output: JSON operation rows, ID findings and unresolved path-reference locations.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Node.js >=18; built-in modules only
+environment_variables: []
+exit_codes:
+  '0': Preview or operation completed without report findings.
+  '1': Differences/findings, or Git backup execution failure.
+  '2': Invalid or unreadable input, unsupported behavior, limits, collisions or I/O
+    failure.
+provenance_ref: openapi-operation-inventory
+test_status: passed
+compatibility_notes: Verified locally on macOS. Additional operating systems are exercised
+  in CI before support declarations are expanded.
+usage_example: automation run openapi-operation-inventory -- --input ./openapi.json
