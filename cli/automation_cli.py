@@ -109,7 +109,19 @@ def run(entry: dict, args: argparse.Namespace) -> int:
         extra.pop(0)
     if any("\x00" in value for value in extra):
         raise ValueError("NUL is not permitted in arguments")
-    command = [sys.executable if entry["language"] == "python" else "bash", str(target)]
+    language = entry["language"]
+    runners = {
+        "python": [sys.executable],
+        "bash": ["bash"],
+        "javascript": ["node"],
+        "typescript": ["node", "--experimental-strip-types"],
+        "go": ["go", "run"],
+        "ruby": ["ruby"],
+        "powershell": [shutil.which("pwsh") or shutil.which("powershell") or "pwsh", "-File"],
+    }
+    if language not in runners:
+        raise ValueError(f"No safe executable runner registered for {language}")
+    command = runners[language] + [str(target)]
     command.extend(parse_params(entry, args.param))
     command.extend(extra)
     if args.dry_run:
