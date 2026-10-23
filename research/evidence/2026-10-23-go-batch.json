@@ -100,9 +100,9 @@
     "scripts/backup-recovery/integrity/checksum-manifest-verify/script_test.go": "a2f08f48af665f529bdf0907b940d1ac7a41df6916169b5d2828c11c813dc128",
     "scripts/backup-recovery/integrity/checksum-manifest-verify/metadata.yaml": "1ca0e5567ae636b5d30b456f8140d8fe46bb6cfcce5f48354a172e9aa18afe19",
     "scripts/backup-recovery/integrity/checksum-manifest-verify/README.md": "07257d72321dd53403fcbd5e90f5c2fa48df0ae7fea693f16ab0b25d09dfbb33",
-    "tests/test_go_offline_automations.py": "299fb04a7e76a99ee49f640ce543ea23381f62a9e3aa5dfef437bbe9e85ac42e",
+    "tests/test_go_offline_automations.py": "284687959f57bf1ab22cfecb0137a4c2e4a0def7142a79c0041cb4731b4693cc",
     "cli/automation_cli.py": "afd9e11026459744bde16351f9e3a469c8305b9aa3042dedec22905e816c34cb",
-    "tools/verify_go_installation.py": "199c69451f83bc0271446de994f29a6fd250a09ad5d1dd1ea6ed5e46eb7d3543",
+    "tools/verify_go_installation.py": "eb38cb0d4bf67770b533e828b64ed7f68343414a90a2c4789d0b4d2ee29634c1",
     "scripts/security-compliance/certificates/pem-expiry-report/testdata/valid.pem": "4ef2b451cd67b273c23ac6e5d21d0bcf425b997d2661806d4cf4c53443df0919"
   },
   "limitations": [
@@ -110,5 +110,13 @@
     "Only local macOS acceptance is recorded here; cross-platform CI will test an isolated catalog without changing product platform declarations.",
     "Certificate reporting does not verify trust; CIDR comparison is capped at 4096 networks; checksum verification requires a stable trusted tree and manifest.",
     "No third-party code was copied or installed by the scripts. Standard-library dependencies only; no advisory database scan performed."
-  ]
+  ],
+  "baseline": {
+    "commit": "080ce44ccd75e00d0eb3c7f52e94b9ba0e174432",
+    "command": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+    "tests": 53,
+    "skipped": 1,
+    "result": "passed",
+    "log": "research/evidence/logs/go-baseline-unit.txt"
+  }
 }

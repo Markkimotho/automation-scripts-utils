@@ -60,6 +60,7 @@ class GoOfflineAutomations(unittest.TestCase):
             [sys.executable, str(ROOT / "cli/automation"), *map(str, args)],
             capture_output=True,
             text=True,
+            encoding="utf-8",
             timeout=90,
             env=self.environment,
         )
@@ -82,6 +83,7 @@ class GoOfflineAutomations(unittest.TestCase):
                     env=self.environment,
                     capture_output=True,
                     text=True,
+                    encoding="utf-8",
                     timeout=180,
                 )
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
@@ -100,6 +102,7 @@ class GoOfflineAutomations(unittest.TestCase):
                 input=source,
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
                 timeout=30,
                 env=self.environment,
             )
@@ -229,6 +232,7 @@ class GoOfflineAutomations(unittest.TestCase):
                 ],
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
                 timeout=30,
                 env=environment,
             )
