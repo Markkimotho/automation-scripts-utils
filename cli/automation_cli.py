@@ -151,8 +151,12 @@ def main(argv: list[str] | None = None) -> int:
     execute.add_argument("--dry-run", action="store_true", help="preview the command without executing anything")
     execute.add_argument("--yes", action="store_true", help="explicitly approve changes without prompting")
     execute.add_argument("--param", action="append", default=[], metavar="KEY=VALUE", help="validated named parameter")
-    execute.add_argument("script_args", nargs=argparse.REMAINDER, help="script-specific arguments after --")
-    args = parser.parse_args(argv)
+    execute.add_argument("script_args", nargs="*", help="script-specific arguments after --")
+    args, unknown = parser.parse_known_args(argv)
+    if args.command == "run":
+        args.script_args.extend(unknown)
+    elif unknown:
+        parser.error(f"unrecognized arguments: {' '.join(unknown)}")
     try:
         scripts = load_catalog()
         if args.command == "list":
