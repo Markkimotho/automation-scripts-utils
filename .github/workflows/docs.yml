@@ -1,7 +1,7 @@
 name: Deploy docs
 
 # Build the MkDocs site and publish it to GitHub Pages.
-# One-time setup: enable Pages with bin/gh-enable-pages.sh, or
+# One-time setup: enable Pages with scripts/developer-tools/git/gh-enable-pages/gh-enable-pages.sh, or
 # repo Settings -> Pages -> Source = "GitHub Actions".
 
 on:

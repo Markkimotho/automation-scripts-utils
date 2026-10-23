@@ -1,0 +1,17 @@
+id: eml-headers-report
+title: "Eml Headers Report"
+description: "Extract email headers from local .eml files without accessing an inbox or sending messages."
+category: messaging-notifications
+topic: email
+language: python
+entrypoint: scripts/messaging-notifications/email/eml-headers-report/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [messaging-notifications, email, eml, headers]
+expected_output: "JSON list of local mail headers."
+status: maintained

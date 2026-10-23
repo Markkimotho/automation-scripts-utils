@@ -1,0 +1,17 @@
+id: gh-enable-pages
+title: "Gh Enable Pages"
+description: "Enable GitHub Pages via the API (Actions or branch source). Repo owner."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/gh-enable-pages/gh-enable-pages.sh
+platforms: [linux, macos]
+dependencies: [bash, gh]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, gh, enable, pages]
+expected_output: "Command output; see --help and script reference."
+status: existing

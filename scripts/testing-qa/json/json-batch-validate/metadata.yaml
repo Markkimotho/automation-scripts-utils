@@ -1,0 +1,17 @@
+id: json-batch-validate
+title: "Json Batch Validate"
+description: "Validate JSON syntax for a file or folder recursively and report the filename and parse errors."
+category: testing-qa
+topic: json
+language: python
+entrypoint: scripts/testing-qa/json/json-batch-validate/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [testing-qa, json, json, batch]
+expected_output: "JSON summary of valid and invalid JSON files."
+status: maintained

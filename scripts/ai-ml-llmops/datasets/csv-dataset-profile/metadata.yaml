@@ -1,0 +1,17 @@
+id: csv-dataset-profile
+title: "Csv Dataset Profile"
+description: "Profile a CSV dataset by counting rows and missing values per column without exposing data values."
+category: ai-ml-llmops
+topic: datasets
+language: python
+entrypoint: scripts/ai-ml-llmops/datasets/csv-dataset-profile/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [ai-ml-llmops, datasets, csv, dataset]
+expected_output: "JSON row count and per-column missing value counts."
+status: maintained

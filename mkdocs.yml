@@ -1,5 +1,5 @@
 site_name: Automation Scripts & Utils
-site_description: Reusable automation scripts for the everyday tasks developers repeat.
+site_description: An open-source multi-language automation library for people and teams.
 site_url: https://markkimotho.github.io/automation-scripts-utils/
 repo_url: https://github.com/Markkimotho/automation-scripts-utils
 repo_name: Markkimotho/automation-scripts-utils
@@ -33,6 +33,11 @@ theme:
 
 nav:
   - Home: index.md
+  - Architecture: architecture.md
+  - CLI and catalog: cli.md
+  - Roadmap: roadmap.md
+  - Contributing: contributing.md
+  - Migration: migration.md
   - Prerequisites: prerequisites.md
   - Script reference: reference.md
   - Resolving conflicts: conflicts.md

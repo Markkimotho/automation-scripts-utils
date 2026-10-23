@@ -1,0 +1,1618 @@
+{
+  "schema_version": 1,
+  "scripts": [
+    {
+      "id": "clean-artifacts",
+      "title": "Clean Artifacts",
+      "description": "Delete build/cache junk (`__pycache__`, `dist`, caches, `.DS_Store`, …). Dry-run by default.",
+      "category": "system-administration",
+      "topic": "maintenance",
+      "language": "bash",
+      "entrypoint": "scripts/system-administration/maintenance/clean-artifacts/clean-artifacts.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "system-administration",
+        "maintenance",
+        "clean",
+        "artifacts"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "csv-dataset-profile",
+      "title": "Csv Dataset Profile",
+      "description": "Profile a CSV dataset by counting rows and missing values per column without exposing data values.",
+      "category": "ai-ml-llmops",
+      "topic": "datasets",
+      "language": "python",
+      "entrypoint": "scripts/ai-ml-llmops/datasets/csv-dataset-profile/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "ai-ml-llmops",
+        "datasets",
+        "csv",
+        "dataset"
+      ],
+      "expected_output": "JSON row count and per-column missing value counts.",
+      "status": "maintained"
+    },
+    {
+      "id": "data-convert",
+      "title": "Data Convert",
+      "description": "Convert between CSV, JSON, and YAML (YAML needs PyYAML).",
+      "category": "data-engineering",
+      "topic": "conversion",
+      "language": "python",
+      "entrypoint": "scripts/data-engineering/conversion/data-convert/data-convert.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "data-engineering",
+        "conversion",
+        "data",
+        "convert"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "deps-outdated",
+      "title": "Deps Outdated",
+      "description": "Outdated packages across pip / npm / cargo / go, one table.",
+      "category": "developer-tools",
+      "topic": "dependencies",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/dependencies/deps-outdated/deps-outdated.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "dependencies",
+        "deps",
+        "outdated"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "deps-unused",
+      "title": "Deps Unused",
+      "description": "Declared-but-never-imported dependencies (Python + Node, heuristic).",
+      "category": "developer-tools",
+      "topic": "dependencies",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/dependencies/deps-unused/deps-unused.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "dependencies",
+        "deps",
+        "unused"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "dev-doctor",
+      "title": "Dev Doctor",
+      "description": "Report which required tools are present, with install hints. Non-zero if a core tool is missing.",
+      "category": "developer-tools",
+      "topic": "environments",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/environments/dev-doctor/dev-doctor.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "environments",
+        "dev",
+        "doctor"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "eml-headers-report",
+      "title": "Eml Headers Report",
+      "description": "Extract email headers from local .eml files without accessing an inbox or sending messages.",
+      "category": "messaging-notifications",
+      "topic": "email",
+      "language": "python",
+      "entrypoint": "scripts/messaging-notifications/email/eml-headers-report/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "messaging-notifications",
+        "email",
+        "eml",
+        "headers"
+      ],
+      "expected_output": "JSON list of local mail headers.",
+      "status": "maintained"
+    },
+    {
+      "id": "env-check",
+      "title": "Env Check",
+      "description": "Diff `.env` against `.env.example`; report missing/extra keys. Language-agnostic.",
+      "category": "developer-tools",
+      "topic": "dependencies",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/dependencies/env-check/env-check.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "dependencies",
+        "env",
+        "check"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "file-permission-audit",
+      "title": "File Permission Audit",
+      "description": "Find world-writable regular files under a directory without following symlinks.",
+      "category": "security-compliance",
+      "topic": "filesystem",
+      "language": "python",
+      "entrypoint": "scripts/security-compliance/filesystem/file-permission-audit/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "security-compliance",
+        "filesystem",
+        "file",
+        "permission"
+      ],
+      "expected_output": "JSON list of world-writable files; exit 1 if found.",
+      "status": "maintained"
+    },
+    {
+      "id": "folder-inventory",
+      "title": "Folder Inventory",
+      "description": "Inventory regular files recursively with size and modification timestamps, exporting structured JSON or CSV.",
+      "category": "files-documents",
+      "topic": "folders",
+      "language": "python",
+      "entrypoint": "scripts/files-documents/folders/folder-inventory/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "files-documents",
+        "folders",
+        "folder",
+        "inventory"
+      ],
+      "expected_output": "JSON or CSV list of files and sizes.",
+      "status": "maintained"
+    },
+    {
+      "id": "gh-create-repo",
+      "title": "Gh Create Repo",
+      "description": "Create a repo and optionally init/commit/push a local dir.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/gh-create-repo/gh-create-repo.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "create",
+        "repo"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-enable-pages",
+      "title": "Gh Enable Pages",
+      "description": "Enable GitHub Pages via the API (Actions or branch source). Repo owner.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/gh-enable-pages/gh-enable-pages.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "enable",
+        "pages"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-issues-sync",
+      "title": "Gh Issues Sync",
+      "description": "Create issues from a JSON list of `{title, body, labels}`. Missing labels are created first (priority `P1`-`P3`, `area:*` and type labels get consistent colors); an issue whose title already exists, open or closed, is skipped, so re-runs never duplicate. Preview by default (exit 2 when there is something to create).",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/git/gh-issues-sync/gh-issues-sync.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "issues",
+        "sync"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-merge-pr",
+      "title": "Gh Merge Pr",
+      "description": "Merge a PR safely: polls mergeability, refuses `CONFLICTING`, confirms first.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/gh-merge-pr/gh-merge-pr.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "merge",
+        "pr"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-org-ci",
+      "title": "Gh Org Ci",
+      "description": "Latest GitHub Actions runs for every repo of an org (or `--repos`), one table, with the URL of each failed run. `--wait` polls until nothing is running; exit code 2 when any shown run failed.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/gh-org-ci/gh-org-ci.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "org",
+        "ci"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-org-clone",
+      "title": "Gh Org Clone",
+      "description": "Clone every repo of an org into one directory; `--pull` fast-forwards existing clones (dirty ones are skipped, never reset).",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/gh-org-clone/gh-org-clone.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "org",
+        "clone"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-pr-open",
+      "title": "Gh Pr Open",
+      "description": "Push the current branch and open a PR in one step.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/gh-pr-open/gh-pr-open.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "pr",
+        "open"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-pr-status",
+      "title": "Gh Pr Status",
+      "description": "One table of every open PR with CI / review / mergeable state.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/git/gh-pr-status/gh-pr-status.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "pr",
+        "status"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-release",
+      "title": "Gh Release",
+      "description": "Bump version, build a changelog from commits since the last tag, tag, and release.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/git/gh-release/gh-release.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "release"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-rename-org",
+      "title": "Gh Rename Org",
+      "description": "Rename an organization. Checks you own it and the new name is free, opens the settings page (github.com has no rename API), waits until GitHub serves the new name, repoints remotes under `--scan-dir`, and lists files still naming the old org.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/gh-rename-org/gh-rename-org.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "rename",
+        "org"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "gh-rename-repo",
+      "title": "Gh Rename Repo",
+      "description": "Rename a repo and rewrite the local `origin`.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/gh-rename-repo/gh-rename-repo.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "gh"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "gh",
+        "rename",
+        "repo"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "git-clean-branches",
+      "title": "Git Clean Branches",
+      "description": "Delete branches already merged into the base (local, and `--remote`).",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/git-clean-branches/git-clean-branches.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "git"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "git",
+        "clean",
+        "branches"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "git-conflict-helper",
+      "title": "Git Conflict Helper",
+      "description": "Rule-based guide to merge/rebase conflicts. See [Resolving conflicts](conflicts.md).",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/git-conflict-helper/git-conflict-helper.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "git"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "git",
+        "conflict",
+        "helper"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "git-replace",
+      "title": "Git Replace",
+      "description": "Replace a literal string in every tracked text file. Preview by default (exit 2 when matches exist), `--apply` to write; pathspecs include or exclude files.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/git-replace/git-replace.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "git"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "git",
+        "replace"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "git-safe-checkout",
+      "title": "Git Safe Checkout",
+      "description": "Switch branches without silently losing uncommitted work.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/git-safe-checkout/git-safe-checkout.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "git"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "git",
+        "safe",
+        "checkout"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "git-split-repo",
+      "title": "Git Split Repo",
+      "description": "Extract files or directories into a new repo, keeping their commit history (via `git-filter-repo`). Paths can be moved, including to the root; the source repo is never modified. `--publish` creates the GitHub repo and pushes.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/git-split-repo/git-split-repo.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "git"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "git",
+        "split",
+        "repo"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "git-sync",
+      "title": "Git Sync",
+      "description": "Catch up: fetch, fast-forward base, prune, rebase current branch. Refuses a dirty tree.",
+      "category": "developer-tools",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/git/git-sync/git-sync.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "git"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "git",
+        "git",
+        "sync"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "http-status-check",
+      "title": "Http Status Check",
+      "description": "Check HTTP response status and elapsed time for one URL with a configurable timeout.",
+      "category": "api-integrations",
+      "topic": "http",
+      "language": "javascript",
+      "entrypoint": "scripts/api-integrations/http/http-status-check/script.js",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "network-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "api-integrations",
+        "http",
+        "http",
+        "status"
+      ],
+      "expected_output": "JSON response status and latency.",
+      "status": "maintained"
+    },
+    {
+      "id": "image-checksum-manifest",
+      "title": "Image Checksum Manifest",
+      "description": "Recursively create a SHA-256 checksum manifest of image files for later integrity comparison.",
+      "category": "media-processing",
+      "topic": "files",
+      "language": "ruby",
+      "entrypoint": "scripts/media-processing/files/image-checksum-manifest/script.rb",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "ruby"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "media-processing",
+        "files",
+        "image",
+        "checksum"
+      ],
+      "expected_output": "JSON image paths, sizes and SHA-256 hashes.",
+      "status": "maintained"
+    },
+    {
+      "id": "incremental-file-copy",
+      "title": "Incremental File Copy",
+      "description": "Preview and optionally copy changed regular files to a separate backup directory without deleting old backups.",
+      "category": "backup-recovery",
+      "topic": "filesystem",
+      "language": "python",
+      "entrypoint": "scripts/backup-recovery/filesystem/incremental-file-copy/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": true,
+      "parameters": [],
+      "tags": [
+        "backup-recovery",
+        "filesystem",
+        "incremental",
+        "file"
+      ],
+      "expected_output": "Planned or copied file paths; destination never pruned.",
+      "status": "maintained"
+    },
+    {
+      "id": "invoice-due-report",
+      "title": "Invoice Due Report",
+      "description": "Summarize unpaid invoices from a CSV with invoice_id, due_date, amount and paid columns.",
+      "category": "business-productivity",
+      "topic": "finance",
+      "language": "python",
+      "entrypoint": "scripts/business-productivity/finance/invoice-due-report/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "business-productivity",
+        "finance",
+        "invoice",
+        "due"
+      ],
+      "expected_output": "JSON overdue invoice list and total amount.",
+      "status": "maintained"
+    },
+    {
+      "id": "json-batch-validate",
+      "title": "Json Batch Validate",
+      "description": "Validate JSON syntax for a file or folder recursively and report the filename and parse errors.",
+      "category": "testing-qa",
+      "topic": "json",
+      "language": "python",
+      "entrypoint": "scripts/testing-qa/json/json-batch-validate/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "testing-qa",
+        "json",
+        "json",
+        "batch"
+      ],
+      "expected_output": "JSON summary of valid and invalid JSON files.",
+      "status": "maintained"
+    },
+    {
+      "id": "json-property-select",
+      "title": "Json Property Select",
+      "description": "Select a named top-level property from a JSON object using Node.js TypeScript stripping.",
+      "category": "files-documents",
+      "topic": "json",
+      "language": "typescript",
+      "entrypoint": "scripts/files-documents/json/json-property-select/script.ts",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "files-documents",
+        "json",
+        "json",
+        "property"
+      ],
+      "expected_output": "JSON value of the selected property.",
+      "status": "maintained"
+    },
+    {
+      "id": "lic-audit",
+      "title": "Lic Audit",
+      "description": "Collect dependency licenses; flag GPL/AGPL/LGPL and unknown.",
+      "category": "developer-tools",
+      "topic": "dependencies",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/dependencies/lic-audit/lic-audit.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "dependencies",
+        "lic",
+        "audit"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "lockfile-drift",
+      "title": "Lockfile Drift",
+      "description": "Flag manifests whose lockfile is missing or older than the manifest.",
+      "category": "developer-tools",
+      "topic": "dependencies",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/dependencies/lockfile-drift/lockfile-drift.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "dependencies",
+        "lockfile",
+        "drift"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "organize-downloads",
+      "title": "Organize Downloads",
+      "description": "Preview and optionally sort top-level files into extension-named folders without overwriting existing files.",
+      "category": "desktop-personal",
+      "topic": "organizing",
+      "language": "python",
+      "entrypoint": "scripts/desktop-personal/organizing/organize-downloads/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": true,
+      "parameters": [],
+      "tags": [
+        "desktop-personal",
+        "organizing",
+        "organize",
+        "downloads"
+      ],
+      "expected_output": "Planned or completed moves by extension.",
+      "status": "maintained"
+    },
+    {
+      "id": "page-link-export",
+      "title": "Page Link Export",
+      "description": "Visit a user-supplied webpage using Playwright and export its visible anchor links as JSON.",
+      "category": "web-browser",
+      "topic": "playwright",
+      "language": "javascript",
+      "entrypoint": "scripts/web-browser/playwright/page-link-export/script.js",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "network-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "web-browser",
+        "playwright",
+        "page",
+        "link"
+      ],
+      "expected_output": "JSON list of page links.",
+      "status": "maintained"
+    },
+    {
+      "id": "port-kill",
+      "title": "Port Kill",
+      "description": "Kill the process **listening** on a TCP port (not a client connected to it).",
+      "category": "system-administration",
+      "topic": "maintenance",
+      "language": "bash",
+      "entrypoint": "scripts/system-administration/maintenance/port-kill/port-kill.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "lsof"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "system-administration",
+        "maintenance",
+        "port",
+        "kill"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "precommit-install",
+      "title": "Precommit Install",
+      "description": "Install (and optionally scaffold) pre-commit hooks; offers to pip-install pre-commit.",
+      "category": "developer-tools",
+      "topic": "environments",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/environments/precommit-install/precommit-install.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "environments",
+        "precommit",
+        "install"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "proj-bootstrap",
+      "title": "Proj Bootstrap",
+      "description": "Scaffold a new project: git, ignore, README, pre-commit, CI, optional license.",
+      "category": "developer-tools",
+      "topic": "environments",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/environments/proj-bootstrap/proj-bootstrap.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "environments",
+        "proj",
+        "bootstrap"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "py-check",
+      "title": "Py Check",
+      "description": "Run ruff + mypy + pytest (+ coverage) in one pass; skips missing tools.",
+      "category": "developer-tools",
+      "topic": "environments",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/environments/py-check/py-check.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "environments",
+        "py",
+        "check"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "py-venv-rebuild",
+      "title": "Py Venv Rebuild",
+      "description": "Rebuild a virtualenv whose interpreter went stale; reinstall requirements.",
+      "category": "developer-tools",
+      "topic": "environments",
+      "language": "bash",
+      "entrypoint": "scripts/developer-tools/environments/py-venv-rebuild/py-venv-rebuild.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "environments",
+        "py",
+        "venv",
+        "rebuild"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "s3-bucket-audit",
+      "title": "S3 Bucket Audit",
+      "description": "Read-only AWS S3 inventory of bucket-level public access block and default encryption settings.",
+      "category": "cloud-devops",
+      "topic": "aws",
+      "language": "python",
+      "entrypoint": "scripts/cloud-devops/aws/s3-bucket-audit/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "python_packages": [
+        "boto3"
+      ],
+      "permissions": [
+        "cloud-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "cloud-devops",
+        "aws",
+        "s3",
+        "audit",
+        "encryption",
+        "public-access"
+      ],
+      "expected_output": "JSON bucket inventory with encryption and public-access settings.",
+      "status": "maintained"
+    },
+    {
+      "id": "secret-scan",
+      "title": "Secret Scan",
+      "description": "Scan staged files (or given paths) for likely secrets; exits non-zero on a hit.",
+      "category": "security-compliance",
+      "topic": "scanning",
+      "language": "python",
+      "entrypoint": "scripts/security-compliance/scanning/secret-scan/secret-scan.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "security-compliance",
+        "scanning",
+        "secret",
+        "scan"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "snapshot",
+      "title": "Snapshot",
+      "description": "Timestamped `tar.gz` of a directory before a risky operation.",
+      "category": "backup-recovery",
+      "topic": "snapshots",
+      "language": "bash",
+      "entrypoint": "scripts/backup-recovery/snapshots/snapshot/snapshot.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "backup-recovery",
+        "snapshots",
+        "snapshot"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "tcp-connect-check",
+      "title": "Tcp Connect Check",
+      "description": "Attempt one TCP connection to a specified host and port and return reachable status and latency.",
+      "category": "networking-monitoring",
+      "topic": "tcp",
+      "language": "go",
+      "entrypoint": "scripts/networking-monitoring/tcp/tcp-connect-check/script.go",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "go"
+      ],
+      "permissions": [
+        "network-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "networking-monitoring",
+        "tcp",
+        "tcp",
+        "connect"
+      ],
+      "expected_output": "JSON reachability, host, port and elapsed milliseconds.",
+      "status": "maintained"
+    },
+    {
+      "id": "terraform-workspaces",
+      "title": "Terraform Workspaces",
+      "description": "List local Terraform workspaces for the selected project directory without changing state.",
+      "category": "cloud-devops",
+      "topic": "terraform",
+      "language": "bash",
+      "entrypoint": "scripts/cloud-devops/terraform/terraform-workspaces/script.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "terraform"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "cloud-devops",
+        "terraform",
+        "terraform",
+        "workspaces"
+      ],
+      "expected_output": "Terraform workspace list.",
+      "status": "maintained"
+    },
+    {
+      "id": "version-bump",
+      "title": "Version Bump",
+      "description": "Bump the project version in whatever manifest(s) the repo uses, atomically.",
+      "category": "developer-tools",
+      "topic": "dependencies",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/dependencies/version-bump/version-bump.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "developer-tools",
+        "dependencies",
+        "version",
+        "bump"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "vuln-scan",
+      "title": "Vuln Scan",
+      "description": "Run each ecosystem's audit tool (pip-audit/npm audit/cargo audit/govulncheck) and normalize.",
+      "category": "security-compliance",
+      "topic": "scanning",
+      "language": "python",
+      "entrypoint": "scripts/security-compliance/scanning/vuln-scan/vuln-scan.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "security-compliance",
+        "scanning",
+        "vuln",
+        "scan"
+      ],
+      "expected_output": "Command output; see --help and script reference.",
+      "status": "existing"
+    },
+    {
+      "id": "windows-services-report",
+      "title": "Windows Services Report",
+      "description": "Read Windows service names, display names and statuses, optionally filtered by service name.",
+      "category": "system-administration",
+      "topic": "windows",
+      "language": "powershell",
+      "entrypoint": "scripts/system-administration/windows/windows-services-report/script.ps1",
+      "platforms": [
+        "windows"
+      ],
+      "dependencies": [
+        "pwsh"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "system-administration",
+        "windows",
+        "windows",
+        "services"
+      ],
+      "expected_output": "JSON service status records.",
+      "status": "maintained"
+    }
+  ]
+}

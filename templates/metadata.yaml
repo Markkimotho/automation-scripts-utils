@@ -1,0 +1,21 @@
+id: example-id
+title: "Descriptive name"
+description: "One-sentence purpose"
+category: cloud-devops
+topic: aws
+language: python
+entrypoint: scripts/cloud-devops/aws/example-id/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+  - name: input
+    type: string
+    required: true
+    flag: --input
+tags: [aws, audit, inventory]
+expected_output: "JSON or human-readable summary"
+status: maintained

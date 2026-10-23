@@ -1,0 +1,17 @@
+id: git-sync
+title: "Git Sync"
+description: "Catch up: fetch, fast-forward base, prune, rebase current branch. Refuses a dirty tree."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/git-sync/git-sync.sh
+platforms: [linux, macos]
+dependencies: [bash, git]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, git, sync]
+expected_output: "Command output; see --help and script reference."
+status: existing

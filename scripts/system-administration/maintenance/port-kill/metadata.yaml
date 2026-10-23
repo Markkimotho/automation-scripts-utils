@@ -1,0 +1,17 @@
+id: port-kill
+title: "Port Kill"
+description: "Kill the process **listening** on a TCP port (not a client connected to it)."
+category: system-administration
+topic: maintenance
+language: bash
+entrypoint: scripts/system-administration/maintenance/port-kill/port-kill.sh
+platforms: [linux, macos]
+dependencies: [bash, lsof]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [system-administration, maintenance, port, kill]
+expected_output: "Command output; see --help and script reference."
+status: existing

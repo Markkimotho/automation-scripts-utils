@@ -1,0 +1,17 @@
+id: py-venv-rebuild
+title: "Py Venv Rebuild"
+description: "Rebuild a virtualenv whose interpreter went stale; reinstall requirements."
+category: developer-tools
+topic: environments
+language: bash
+entrypoint: scripts/developer-tools/environments/py-venv-rebuild/py-venv-rebuild.sh
+platforms: [linux, macos]
+dependencies: [bash]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, environments, py, venv, rebuild]
+expected_output: "Command output; see --help and script reference."
+status: existing

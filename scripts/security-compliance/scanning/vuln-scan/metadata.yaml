@@ -1,0 +1,17 @@
+id: vuln-scan
+title: "Vuln Scan"
+description: "Run each ecosystem's audit tool (pip-audit/npm audit/cargo audit/govulncheck) and normalize."
+category: security-compliance
+topic: scanning
+language: python
+entrypoint: scripts/security-compliance/scanning/vuln-scan/vuln-scan.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [security-compliance, scanning, vuln, scan]
+expected_output: "Command output; see --help and script reference."
+status: existing

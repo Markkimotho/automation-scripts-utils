@@ -1,0 +1,17 @@
+id: data-convert
+title: "Data Convert"
+description: "Convert between CSV, JSON, and YAML (YAML needs PyYAML)."
+category: data-engineering
+topic: conversion
+language: python
+entrypoint: scripts/data-engineering/conversion/data-convert/data-convert.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [data-engineering, conversion, data, convert]
+expected_output: "Command output; see --help and script reference."
+status: existing

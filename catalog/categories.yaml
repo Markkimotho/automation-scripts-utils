@@ -1,0 +1,35 @@
+schema_version: 1
+# Category allocations total 1,280; 1,200 is an intermediate milestone.\n# Targets are roadmap goals; inventory is computed only from catalog/scripts.json.
+categories:
+  - id: cloud-devops
+    target: 120
+  - id: system-administration
+    target: 120
+  - id: files-documents
+    target: 100
+  - id: data-engineering
+    target: 100
+  - id: web-browser
+    target: 100
+  - id: api-integrations
+    target: 80
+  - id: ai-ml-llmops
+    target: 100
+  - id: security-compliance
+    target: 80
+  - id: developer-tools
+    target: 80
+  - id: networking-monitoring
+    target: 70
+  - id: business-productivity
+    target: 70
+  - id: messaging-notifications
+    target: 50
+  - id: backup-recovery
+    target: 50
+  - id: media-processing
+    target: 50
+  - id: desktop-personal
+    target: 50
+  - id: testing-qa
+    target: 60

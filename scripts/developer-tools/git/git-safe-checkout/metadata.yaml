@@ -1,0 +1,17 @@
+id: git-safe-checkout
+title: "Git Safe Checkout"
+description: "Switch branches without silently losing uncommitted work."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/git-safe-checkout/git-safe-checkout.sh
+platforms: [linux, macos]
+dependencies: [bash, git]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, git, safe, checkout]
+expected_output: "Command output; see --help and script reference."
+status: existing

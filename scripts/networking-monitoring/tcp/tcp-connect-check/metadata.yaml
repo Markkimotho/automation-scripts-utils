@@ -1,0 +1,17 @@
+id: tcp-connect-check
+title: "Tcp Connect Check"
+description: "Attempt one TCP connection to a specified host and port and return reachable status and latency."
+category: networking-monitoring
+topic: tcp
+language: go
+entrypoint: scripts/networking-monitoring/tcp/tcp-connect-check/script.go
+platforms: [linux, macos, windows]
+dependencies: [go]
+permissions: [network-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [networking-monitoring, tcp, tcp, connect]
+expected_output: "JSON reachability, host, port and elapsed milliseconds."
+status: maintained

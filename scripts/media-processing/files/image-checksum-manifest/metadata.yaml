@@ -1,0 +1,17 @@
+id: image-checksum-manifest
+title: "Image Checksum Manifest"
+description: "Recursively create a SHA-256 checksum manifest of image files for later integrity comparison."
+category: media-processing
+topic: files
+language: ruby
+entrypoint: scripts/media-processing/files/image-checksum-manifest/script.rb
+platforms: [linux, macos, windows]
+dependencies: [ruby]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [media-processing, files, image, checksum]
+expected_output: "JSON image paths, sizes and SHA-256 hashes."
+status: maintained

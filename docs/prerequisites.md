@@ -111,9 +111,9 @@ These are the ones that actually cost time:
     git config --global user.email "you@example.com"
     ```
 
-!!! warning "`bin/` not on PATH, or scripts not executable"
-    Either add `bin/` to `PATH` (see [Home](index.md#install)) or run a script
-    explicitly: `bash bin/port-kill.sh 8080`. After `git clone`, `chmod +x bin/*.sh`
+!!! warning "`cli/` not on PATH, or scripts not executable"
+    Either add `cli/` to `PATH` (see [Home](index.md#install)) or run a script
+    explicitly: `bash scripts/system-administration/maintenance/port-kill/port-kill.sh 8080`. After `git clone`, `chmod +x scripts/**/*.sh`
     if the execute bit didn't survive.
 
 !!! warning "Killing a port hits the wrong process"

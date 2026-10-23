@@ -1,0 +1,17 @@
+id: py-check
+title: "Py Check"
+description: "Run ruff + mypy + pytest (+ coverage) in one pass; skips missing tools."
+category: developer-tools
+topic: environments
+language: bash
+entrypoint: scripts/developer-tools/environments/py-check/py-check.sh
+platforms: [linux, macos]
+dependencies: [bash]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, environments, py, check]
+expected_output: "Command output; see --help and script reference."
+status: existing

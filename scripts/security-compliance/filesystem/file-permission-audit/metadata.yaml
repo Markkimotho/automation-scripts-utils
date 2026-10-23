@@ -1,0 +1,17 @@
+id: file-permission-audit
+title: "File Permission Audit"
+description: "Find world-writable regular files under a directory without following symlinks."
+category: security-compliance
+topic: filesystem
+language: python
+entrypoint: scripts/security-compliance/filesystem/file-permission-audit/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [security-compliance, filesystem, file, permission]
+expected_output: "JSON list of world-writable files; exit 1 if found."
+status: maintained

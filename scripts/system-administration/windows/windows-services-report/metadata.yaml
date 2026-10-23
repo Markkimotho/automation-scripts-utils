@@ -1,0 +1,17 @@
+id: windows-services-report
+title: "Windows Services Report"
+description: "Read Windows service names, display names and statuses, optionally filtered by service name."
+category: system-administration
+topic: windows
+language: powershell
+entrypoint: scripts/system-administration/windows/windows-services-report/script.ps1
+platforms: [windows]
+dependencies: [pwsh]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [system-administration, windows, windows, services]
+expected_output: "JSON service status records."
+status: maintained

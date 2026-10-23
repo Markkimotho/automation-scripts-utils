@@ -1,0 +1,17 @@
+id: env-check
+title: "Env Check"
+description: "Diff `.env` against `.env.example`; report missing/extra keys. Language-agnostic."
+category: developer-tools
+topic: dependencies
+language: python
+entrypoint: scripts/developer-tools/dependencies/env-check/env-check.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, dependencies, env, check]
+expected_output: "Command output; see --help and script reference."
+status: existing

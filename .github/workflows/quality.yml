@@ -1,0 +1,79 @@
+name: Automation quality checks
+
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate Python source
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for p in list(Path("scripts").rglob("*.py")) + list(Path("cli").rglob("*.py")) + list(Path("tests").rglob("test_*.py")):
+              compile(p.read_bytes(), str(p), "exec")
+          PY
+      - name: Validate Bash source
+        run: |
+          find scripts -type f -name '*.sh' -print0 | xargs -0 -r -n1 bash -n
+          bash -n tests/run_tests.sh
+      - name: Install quality validation dependencies
+        run: python -m pip install -r requirements-quality.txt
+      - name: Validate schema and YAML metadata
+        run: python tests/validate_catalog.py
+      - name: Catalog and CLI tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Install test-only Git history tool
+        run: python -m pip install git-filter-repo
+      - name: AWS audit stub tests
+        run: python scripts/cloud-devops/aws/s3-bucket-audit/test_script.py
+      - name: Existing offline regressions
+        run: bash tests/run_tests.sh
+      - name: Build MkDocs documentation
+        run: |
+          pip install -r requirements-docs.txt
+          mkdocs build --strict --site-dir /tmp/automation-docs
+
+  polyglot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Validate JavaScript and TypeScript
+        run: |
+          node --check scripts/api-integrations/http/http-status-check/script.js
+          node --check scripts/web-browser/playwright/page-link-export/script.js
+          node --experimental-strip-types --check scripts/files-documents/json/json-property-select/script.ts
+      - name: Validate Go and Ruby
+        run: |
+          gofmt -d scripts/networking-monitoring/tcp/tcp-connect-check/script.go
+          ruby -c scripts/media-processing/files/image-checksum-manifest/script.rb
+      - name: Functional polyglot smoke tests
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/automation-fixtures
+          printf '{"status":"ok"}\n' > /tmp/automation-fixtures/input.json
+          node --experimental-strip-types scripts/files-documents/json/json-property-select/script.ts /tmp/automation-fixtures/input.json status | grep -q 'ok'
+          printf 'image' > /tmp/automation-fixtures/sample.png
+          ruby scripts/media-processing/files/image-checksum-manifest/script.rb /tmp/automation-fixtures | grep -q sample.png
+          go run scripts/networking-monitoring/tcp/tcp-connect-check/script.go -host 127.0.0.1 -port 1 -timeout 200ms > /tmp/automation-fixtures/tcp.json && exit 1 || test "$?" -eq 1
+          grep -q '"reachable":false' /tmp/automation-fixtures/tcp.json

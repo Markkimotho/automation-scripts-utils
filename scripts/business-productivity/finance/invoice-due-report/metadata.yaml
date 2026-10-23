@@ -1,0 +1,17 @@
+id: invoice-due-report
+title: "Invoice Due Report"
+description: "Summarize unpaid invoices from a CSV with invoice_id, due_date, amount and paid columns."
+category: business-productivity
+topic: finance
+language: python
+entrypoint: scripts/business-productivity/finance/invoice-due-report/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [business-productivity, finance, invoice, due]
+expected_output: "JSON overdue invoice list and total amount."
+status: maintained

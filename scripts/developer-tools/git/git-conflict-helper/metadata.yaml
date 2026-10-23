@@ -1,0 +1,17 @@
+id: git-conflict-helper
+title: "Git Conflict Helper"
+description: "Rule-based guide to merge/rebase conflicts. See [Resolving conflicts](conflicts.md)."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/git-conflict-helper/git-conflict-helper.sh
+platforms: [linux, macos]
+dependencies: [bash, git]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, git, conflict, helper]
+expected_output: "Command output; see --help and script reference."
+status: existing

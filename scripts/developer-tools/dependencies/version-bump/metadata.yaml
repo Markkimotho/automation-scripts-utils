@@ -1,0 +1,17 @@
+id: version-bump
+title: "Version Bump"
+description: "Bump the project version in whatever manifest(s) the repo uses, atomically."
+category: developer-tools
+topic: dependencies
+language: python
+entrypoint: scripts/developer-tools/dependencies/version-bump/version-bump.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, dependencies, version, bump]
+expected_output: "Command output; see --help and script reference."
+status: existing

@@ -1,0 +1,17 @@
+id: terraform-workspaces
+title: "Terraform Workspaces"
+description: "List local Terraform workspaces for the selected project directory without changing state."
+category: cloud-devops
+topic: terraform
+language: bash
+entrypoint: scripts/cloud-devops/terraform/terraform-workspaces/script.sh
+platforms: [linux, macos]
+dependencies: [bash, terraform]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [cloud-devops, terraform, terraform, workspaces]
+expected_output: "Terraform workspace list."
+status: maintained

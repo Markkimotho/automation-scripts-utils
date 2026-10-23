@@ -1,0 +1,17 @@
+id: git-replace
+title: "Git Replace"
+description: "Replace a literal string in every tracked text file. Preview by default (exit 2 when matches exist), `--apply` to write; pathspecs include or exclude files."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/git-replace/git-replace.sh
+platforms: [linux, macos]
+dependencies: [bash, git]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, git, replace]
+expected_output: "Command output; see --help and script reference."
+status: existing

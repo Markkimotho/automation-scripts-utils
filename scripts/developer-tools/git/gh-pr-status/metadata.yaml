@@ -1,0 +1,17 @@
+id: gh-pr-status
+title: "Gh Pr Status"
+description: "One table of every open PR with CI / review / mergeable state."
+category: developer-tools
+topic: git
+language: python
+entrypoint: scripts/developer-tools/git/gh-pr-status/gh-pr-status.py
+platforms: [linux, macos, windows]
+dependencies: [python3, gh]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, gh, pr, status]
+expected_output: "Command output; see --help and script reference."
+status: existing

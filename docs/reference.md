@@ -1,6 +1,6 @@
 # Script reference
 
-All scripts self-document with `--help`. Examples assume `bin/` is on your `PATH`.
+All scripts self-document with `--help`. Examples assume `cli/` is on your `PATH`.
 Bash scripts run on macOS bash 3.2+; Python scripts need `python3`.
 
 ---
@@ -167,7 +167,7 @@ git-sync.sh [-b base] [--no-rebase] [-y]
 Report which required tools are present, with install hints. Non-zero if a core tool is missing.
 
 ```text
-dev-doctor.sh
+automation run dev-doctor --
 ```
 
 ### `proj-bootstrap.sh`

@@ -1,0 +1,25 @@
+name: Automation bug
+description: Report unexpected behavior in an existing script.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: input
+    id: script
+    attributes:
+      label: Catalog script ID
+      placeholder: git-sync
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      description: Remove secrets, credentials, and personal data from logs.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected versus actual behavior
+    validations:
+      required: true

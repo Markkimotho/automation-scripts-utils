@@ -1,0 +1,17 @@
+id: gh-org-clone
+title: "Gh Org Clone"
+description: "Clone every repo of an org into one directory; `--pull` fast-forwards existing clones (dirty ones are skipped, never reset)."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/gh-org-clone/gh-org-clone.sh
+platforms: [linux, macos]
+dependencies: [bash, gh]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, gh, org, clone]
+expected_output: "Command output; see --help and script reference."
+status: existing

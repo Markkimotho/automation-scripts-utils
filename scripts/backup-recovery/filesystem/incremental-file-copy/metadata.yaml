@@ -1,0 +1,17 @@
+id: incremental-file-copy
+title: "Incremental File Copy"
+description: "Preview and optionally copy changed regular files to a separate backup directory without deleting old backups."
+category: backup-recovery
+topic: filesystem
+language: python
+entrypoint: scripts/backup-recovery/filesystem/incremental-file-copy/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: true
+parameters: []
+tags: [backup-recovery, filesystem, incremental, file]
+expected_output: "Planned or copied file paths; destination never pruned."
+status: maintained

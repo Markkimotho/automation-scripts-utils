@@ -1,0 +1,17 @@
+id: clean-artifacts
+title: "Clean Artifacts"
+description: "Delete build/cache junk (`__pycache__`, `dist`, caches, `.DS_Store`, …). Dry-run by default."
+category: system-administration
+topic: maintenance
+language: bash
+entrypoint: scripts/system-administration/maintenance/clean-artifacts/clean-artifacts.sh
+platforms: [linux, macos]
+dependencies: [bash]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [system-administration, maintenance, clean, artifacts]
+expected_output: "Command output; see --help and script reference."
+status: existing
