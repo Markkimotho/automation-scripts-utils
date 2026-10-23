@@ -1,5 +1,7 @@
 # Automation Scripts & Utils
 
+[![Available scripts](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FMarkkimotho%2Fautomation-scripts-utils%2Fmain%2Fcatalog%2Fscripts.json&query=%24.scripts.length&label=scripts&color=0d9488&logo=github&style=flat-square&cacheSeconds=300)](https://markkimotho.github.io/automation-scripts-utils/scripts/)
+
 **Discover useful automations. Install once. Run from anywhere.**
 
 Automation Scripts & Utils is a multi-language command-line library for files, Git, cloud infrastructure, data, systems, security, networking, business and personal productivity.
@@ -39,17 +41,17 @@ The CLI preview `--dry-run` prints a command without executing it. Scripts with 
 
 ## Available tasks
 
-| Domain | Examples |
-| --- | --- |
-| Files and documents | Folder inventory, JSON validation, file organization |
-| Git and developer tools | Conflict guidance, branch cleanup, GitHub operations |
-| Data and AI | CSV profiling and reconciliation, offline SQLite health checks |
-| Cloud and infrastructure | AWS S3 audit, Terraform workspaces |
-| System administration | Windows service status, system cleanup |
-| Networking | HTTP and TCP checks, CIDR overlaps, offline HAR timing summaries |
-| Business and messaging | Invoice due reports, email header inspection |
-| Backup and security | Restored-file verification, certificate expiry, permission and ZIP audits |
-| Web and media | Page link export, image checksum manifests |
+| Domain                   | Examples                                                                  |
+| ------------------------ | ------------------------------------------------------------------------- |
+| Files and documents      | Folder inventory, JSON validation, file organization                      |
+| Git and developer tools  | Conflict guidance, branch cleanup, GitHub operations                      |
+| Data and AI              | CSV profiling and reconciliation, offline SQLite health checks            |
+| Cloud and infrastructure | AWS S3 audit, Terraform workspaces                                        |
+| System administration    | Windows service status, system cleanup                                    |
+| Networking               | HTTP and TCP checks, CIDR overlaps, offline HAR timing summaries          |
+| Business and messaging   | Invoice due reports, email header inspection                              |
+| Backup and security      | Restored-file verification, certificate expiry, permission and ZIP audits |
+| Web and media            | Page link export, image checksum manifests                                |
 
 Python, Bash, PowerShell, JavaScript, TypeScript, Go and Ruby are supported, depending on the script.
 
@@ -65,4 +67,4 @@ The library continues growing with **no fixed maximum script count**.
 
 ## License
 
-[MIT](LICENSE).
+[MIT](LICENSE)
