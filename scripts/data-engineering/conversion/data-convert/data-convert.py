@@ -11,7 +11,7 @@ import csv
 import json
 import argparse
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "lib"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "..", "..", "packages", "common"))
 import common as c  # noqa: E402
 
 
