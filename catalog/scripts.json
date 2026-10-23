@@ -2525,6 +2525,131 @@
       "test_status": "passed",
       "compatibility_notes": "Verified locally on macOS. Additional operating systems are exercised in CI before support declarations are expanded.",
       "usage_example": "automation run eml-attachment-extract --yes -- --input ./message.eml --output ./attachments"
+    },
+    {
+      "id": "postgres-verified-backup",
+      "title": "PostgreSQL Backup with Restore Verification",
+      "description": "Preview or create a PostgreSQL custom archive only after restoring it successfully into a private non-superuser verification instance.",
+      "category": "backup-recovery",
+      "topic": "postgres",
+      "language": "python",
+      "entrypoint": "scripts/backup-recovery/postgres/postgres-verified-backup/script.py",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "python3",
+        "postgres",
+        "initdb",
+        "pg_isready",
+        "psql",
+        "pg_dump",
+        "pg_restore"
+      ],
+      "permissions": [
+        "filesystem-read",
+        "filesystem-write",
+        "network-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": true,
+      "supports_dry_run": true,
+      "parameters": [
+        {
+          "name": "database",
+          "type": "string",
+          "required": true,
+          "flag": "--database"
+        },
+        {
+          "name": "host",
+          "type": "string",
+          "required": true,
+          "flag": "--host"
+        },
+        {
+          "name": "username",
+          "type": "string",
+          "required": true,
+          "flag": "--username"
+        },
+        {
+          "name": "output",
+          "type": "string",
+          "required": true,
+          "flag": "--output"
+        },
+        {
+          "name": "port",
+          "type": "integer",
+          "required": false,
+          "flag": "--port"
+        },
+        {
+          "name": "pg_bin",
+          "type": "string",
+          "required": false,
+          "flag": "--pg-bin"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "flag": "--timeout"
+        },
+        {
+          "name": "max_bytes",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-bytes"
+        },
+        {
+          "name": "sslmode",
+          "type": "string",
+          "required": false,
+          "flag": "--sslmode"
+        },
+        {
+          "name": "apply",
+          "type": "boolean",
+          "required": false,
+          "flag": "--apply"
+        },
+        {
+          "name": "dry_run",
+          "type": "boolean",
+          "required": false,
+          "flag": "--dry-run"
+        }
+      ],
+      "tags": [
+        "postgres",
+        "backup",
+        "restore",
+        "verification"
+      ],
+      "expected_output": "JSON preview, or archive size and successful restore/table-count evidence; failure emits no success report.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Python >=3.10; matching PostgreSQL >=15 server/client tools. Run as a non-root POSIX user. CLI dependencies must be on PATH; --pg-bin selects the matching toolchain.",
+      "environment_variables": [
+        "PGPASSFILE",
+        "PGPASSWORD",
+        "PGSSLROOTCERT",
+        "PGSSLCERT",
+        "PGSSLKEY",
+        "PGSSLCRL",
+        "PGSSLCRLDIR"
+      ],
+      "exit_codes": {
+        "0": "Preview or verified archive completed.",
+        "2": "Invalid input, missing/mismatched tools, source/restore failure, limits, permissions or existing output."
+      },
+      "provenance_ref": "postgres-verified-backup",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS with PostgreSQL 15.17 and Python 3.11.9. Windows/root execution is refused; Linux qualification is exercised in CI.",
+      "usage_example": "automation run postgres-verified-backup --yes -- --database appdb --username backup_reader --host db.example.org --output ./appdb.dump"
     }
   ]
 }

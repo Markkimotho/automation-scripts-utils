@@ -786,42 +786,49 @@
     },
     {
       "id": "postgres-verified-backup",
-      "name": "PostgreSQL backup with restore verification",
-      "problem": "PostgreSQL backup with restore verification",
+      "name": "PostgreSQL Backup with Restore Verification",
+      "problem": "Verify a database backup through a real isolated restore before accepting the archive.",
       "category": "backup-recovery",
-      "subcategory": "research",
+      "subcategory": "postgres",
       "language": "python",
       "source_url": "https://www.postgresql.org/docs/current/backup-dump.html",
-      "source_repository": null,
-      "author": "See reference source; authorship not independently reviewed",
-      "license": null,
-      "license_url": null,
-      "source_revision": "Documentation snapshot SHA-256 1205add4527208ae16c487d02b0970eab6863bcd03c26af91fa929c285270efd",
+      "source_repository": "https://git.postgresql.org/git/postgresql.git",
+      "author": "PostgreSQL Global Development Group",
+      "license": "PostgreSQL (reference software/documentation)",
+      "license_url": "https://www.postgresql.org/about/licence/",
+      "source_revision": "PostgreSQL 15 API reference captures in research/sources/2026-10-23-postgres.json; pg_dump page SHA-256 bbaa95e1e4e540ca4f68adc4bd73d936569690ff799172fd8da67a5efbc9b966",
       "last_maintenance": null,
       "dependencies": [
-        "Not finalized"
+        "Python >=3.10; matching PostgreSQL >=15 server/client tools. Run as a non-root POSIX user. CLI dependencies must be on PATH; --pg-bin selects the matching toolchain."
       ],
-      "platforms": [],
+      "platforms": [
+        "macos"
+      ],
       "permissions": [
-        "filesystem-read"
+        "filesystem-read",
+        "filesystem-write",
+        "network-read"
       ],
-      "inputs": "Not finalized; no catalog implementation.",
-      "outputs": "Not finalized.",
-      "existing_tests": "Not implemented or tested.",
+      "inputs": "Explicit source database/host/username; new output archive; optional toolchain, TLS mode, byte budget and deadline.",
+      "outputs": "JSON preview, or archive size and successful restore/table-count evidence; failure emits no success report.",
+      "existing_tests": "Eight real PostgreSQL integration and safety tests in tests/test_postgres_backup.py; no production instances or upstream test code used.",
       "limitations": [
-        "Deferred to a focused PostgreSQL batch with disposable database restore/permission tests. PostgreSQL tools were found locally, but no server or dump was executed."
+        "Non-root POSIX execution only; macOS/PostgreSQL 15.17 locally verified.",
+        "One database schema/data, without ownership/ACLs or cluster-wide globals.",
+        "Trusted schemas only; elevated or missing extension dependencies can fail least-privileged verification.",
+        "Archive byte budget is not a total restored-database disk quota; OS I/O and cleanup are best effort."
       ],
       "security_considerations": [
-        "No source code copied or executed; credentials and private data were not accessed."
+        "Preview default, explicit application, TLS verify-full default, source read-only transactions, credential isolation, private Unix-socket-only temporary cluster, non-superuser restore, private atomic no-overwrite publication."
       ],
       "discovered_on": "2026-10-23",
-      "status": "reviewed",
-      "reuse": "none",
-      "license_review": "Reference only; no reuse authorized until license/revision review.",
-      "security_review": "Preliminary scope review only.",
-      "test_file": null,
-      "test_evidence": null,
-      "decision": "Deferred to a focused PostgreSQL batch with disposable database restore/permission tests. PostgreSQL tools were found locally, but no server or dump was executed."
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "Independent MIT implementation using documented PostgreSQL APIs/behavior; no upstream source or prose copied. PostgreSQL reference license verified separately.",
+      "security_review": "Reviewed executable/toolchain resolution, shell-free subprocesses, process cleanup, dump bounds, secret redaction, source auth isolation and least-privileged restore. Tests create only owned local fixture clusters; no existing instances or production credentials are accessed.",
+      "test_file": "tests/test_postgres_backup.py",
+      "test_evidence": "research/evidence/2026-10-23-postgres.json",
+      "decision": "Resumed reviewed candidate and accepted after eight real local PostgreSQL tests; packaging and Linux CI evidence recorded separately. Not released."
     },
     {
       "id": "ics-upcoming-events",

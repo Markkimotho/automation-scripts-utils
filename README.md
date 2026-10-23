@@ -50,7 +50,7 @@ The CLI preview `--dry-run` prints a command without executing it. Scripts with 
 | System administration    | Windows service status, system cleanup                                    |
 | Networking               | HTTP and TCP checks, CIDR overlaps, offline HAR timing summaries          |
 | Business and messaging   | Invoice reports, email headers and attachment extraction                   |
-| Backup and security      | SQLite/Git backups, integrity checks, certificate and CSV audits           |
+| Backup and security      | Verified PostgreSQL/SQLite/Git backups, integrity and security audits       |
 | APIs and integrations    | OpenAPI operation inventories, HTTP status checks                          |
 | Web and media            | Page link export, image checksum manifests                                |
 

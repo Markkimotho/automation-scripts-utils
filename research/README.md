@@ -30,6 +30,8 @@ The subsequent Go batch resumes `pem-expiry-report` and adds CIDR overlap report
 
 The web-discovery batch records eight public reference captures in `sources/2026-10-23-web-discovery.json` (URLs, retrieval times, byte counts and SHA-256 digests; no copied page bodies). Six independently written tools cover SQLite/Git backups, TOML drift, OpenAPI inventories, CSV formula risks and email attachment extraction. `evidence/2026-10-23-web-batch.json` contains acceptance evidence; `tools/verify_web_installation.py` exercises installed tools using disposable fixtures. PostgreSQL restore verification and iCalendar recurrence handling remain reviewed opportunities, not available scripts.
 
+The PostgreSQL follow-up resumes the restore-verification candidate. Its independent implementation, PostgreSQL 15 reference captures, real database fixtures and package checks are recorded in `evidence/2026-10-23-postgres.json`. Source and verifier clusters in tests are owned temporary Unix-socket instances; no existing service or production credential is used. Verification restores use a non-superuser login. iCalendar recurrence handling and Windows event-log export remain unaccepted opportunities.
+
 ## Evidence maintenance
 
 `evidence/2026-10-23-local-batch.json` identifies the tested sources by hash, includes environment and command results, and records known limits. Supporting text logs are under `evidence/logs/`. Updating any hashed file invalidates acceptance until relevant checks are rerun and the evidence regenerated. Hashes link evidence to local files; they are not an external signature or proof of independent review.

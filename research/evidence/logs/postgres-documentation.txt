@@ -1,0 +1,38 @@
+
+[31m │  ⚠  Warning from the Material for MkDocs team[0m
+[31m │[0m
+[31m │[0m  MkDocs 2.0, the underlying framework of Material for MkDocs,
+[31m │[0m  will introduce backward-incompatible changes, including:
+[31m │[0m
+[31m │  × [0mAll plugins will stop working – the plugin system has been removed
+[31m │  × [0mAll theme overrides will break – the theming system has been rewritten
+[31m │  × [0mNo migration path exists – existing projects cannot be upgraded
+[31m │  × [0mClosed contribution model – community members can't report bugs
+[31m │  × [0mCurrently unlicensed – unsuitable for production use
+[31m │[0m
+[31m │[0m  Our full analysis:
+[31m │[0m
+[31m │[0m  [4mhttps://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/[0m
+[0m
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /tmp/automation-postgres-docs
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - reference.md
+  - automations/checksum-manifest-verify.md
+  - automations/cidr-overlap-report.md
+  - automations/csv-formula-audit.md
+  - automations/csv-key-reconcile.md
+  - automations/eml-attachment-extract.md
+  - automations/git-bundle-backup.md
+  - automations/har-timing-summary.md
+  - automations/jsonl-key-profile.md
+  - automations/npm-lock-audit.md
+  - automations/openapi-operation-inventory.md
+  - automations/pem-expiry-report.md
+  - automations/postgres-verified-backup.md
+  - automations/sqlite-health-check.md
+  - automations/sqlite-online-backup.md
+  - automations/toml-settings-diff.md
+  - automations/zip-safety-audit.md
+INFO    -  Doc file 'prerequisites.md' contains a link 'index.md#install', but the doc 'index.md' does not contain an anchor '#install'.
+INFO    -  Documentation built in 0.39 seconds

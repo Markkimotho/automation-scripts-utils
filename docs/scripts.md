@@ -80,6 +80,18 @@ automation run incremental-file-copy --dry-run
 automation run incremental-file-copy -- --help
 ```
 
+### `postgres-verified-backup`
+
+Preview or create a PostgreSQL custom archive only after restoring it successfully into a private non-superuser verification instance.
+
+**Language:** python · **Platforms:** macos · **Permissions:** filesystem-read, filesystem-write, network-read
+
+```bash
+automation run postgres-verified-backup --yes -- --database appdb --username backup_reader --host db.example.org --output ./appdb.dump
+```
+
+[Usage, options and troubleshooting](automations/postgres-verified-backup.md)
+
 ### `snapshot`
 
 Timestamped `tar.gz` of a directory before a risky operation.

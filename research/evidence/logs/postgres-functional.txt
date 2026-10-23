@@ -1,0 +1,14 @@
+test_backup_restores_actual_schema_and_rows (test_postgres_backup.PostgresBackupTests.test_backup_restores_actual_schema_and_rows) ... ok
+test_credentials_are_not_forwarded_to_private_cluster (test_postgres_backup.PostgresBackupTests.test_credentials_are_not_forwarded_to_private_cluster) ... ok
+test_dump_budget_and_failed_connection_leave_no_archive (test_postgres_backup.PostgresBackupTests.test_dump_budget_and_failed_connection_leave_no_archive) ... ok
+test_dump_deadline_terminates_the_owned_child (test_postgres_backup.PostgresBackupTests.test_dump_deadline_terminates_the_owned_child) ... ok
+test_existing_output_and_invalid_target_are_refused (test_postgres_backup.PostgresBackupTests.test_existing_output_and_invalid_target_are_refused) ... ok
+test_preview_requires_no_connection_or_output (test_postgres_backup.PostgresBackupTests.test_preview_requires_no_connection_or_output) ... ok
+test_root_execution_is_rejected_without_starting_processes (test_postgres_backup.PostgresBackupTests.test_root_execution_is_rejected_without_starting_processes) ... postgres-verified-backup: preflight failed; check tool versions, permissions, source access, restore compatibility, limits and output collisions; server diagnostics are omitted
+ok
+test_verifier_is_non_superuser_and_has_no_tcp_listener (test_postgres_backup.PostgresBackupTests.test_verifier_is_non_superuser_and_has_no_tcp_listener) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 7.994s
+
+OK
