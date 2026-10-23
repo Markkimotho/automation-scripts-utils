@@ -1,0 +1,17 @@
+id: http-status-check
+title: "Http Status Check"
+description: "Check HTTP response status and elapsed time for one URL with a configurable timeout."
+category: api-integrations
+topic: http
+language: javascript
+entrypoint: scripts/api-integrations/http/http-status-check/script.js
+platforms: [linux, macos, windows]
+dependencies: [node]
+permissions: [network-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [api-integrations, http, http, status]
+expected_output: "JSON response status and latency."
+status: maintained

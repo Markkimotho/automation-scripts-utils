@@ -881,6 +881,70 @@
       "status": "existing"
     },
     {
+      "id": "http-status-check",
+      "title": "Http Status Check",
+      "description": "Check HTTP response status and elapsed time for one URL with a configurable timeout.",
+      "category": "api-integrations",
+      "topic": "http",
+      "language": "javascript",
+      "entrypoint": "scripts/api-integrations/http/http-status-check/script.js",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "network-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "api-integrations",
+        "http",
+        "http",
+        "status"
+      ],
+      "expected_output": "JSON response status and latency.",
+      "status": "maintained"
+    },
+    {
+      "id": "image-checksum-manifest",
+      "title": "Image Checksum Manifest",
+      "description": "Recursively create a SHA-256 checksum manifest of image files for later integrity comparison.",
+      "category": "media-processing",
+      "topic": "files",
+      "language": "ruby",
+      "entrypoint": "scripts/media-processing/files/image-checksum-manifest/script.rb",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "ruby"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "media-processing",
+        "files",
+        "image",
+        "checksum"
+      ],
+      "expected_output": "JSON image paths, sizes and SHA-256 hashes.",
+      "status": "maintained"
+    },
+    {
       "id": "incremental-file-copy",
       "title": "Incremental File Copy",
       "description": "Preview and optionally copy changed regular files to a separate backup directory without deleting old backups.",
@@ -977,6 +1041,38 @@
       "status": "maintained"
     },
     {
+      "id": "json-property-select",
+      "title": "Json Property Select",
+      "description": "Select a named top-level property from a JSON object using Node.js TypeScript stripping.",
+      "category": "files-documents",
+      "topic": "json",
+      "language": "typescript",
+      "entrypoint": "scripts/files-documents/json/json-property-select/script.ts",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "files-documents",
+        "json",
+        "json",
+        "property"
+      ],
+      "expected_output": "JSON value of the selected property.",
+      "status": "maintained"
+    },
+    {
       "id": "lic-audit",
       "title": "Lic Audit",
       "description": "Collect dependency licenses; flag GPL/AGPL/LGPL and unknown.",
@@ -1070,6 +1166,38 @@
         "downloads"
       ],
       "expected_output": "Planned or completed moves by extension.",
+      "status": "maintained"
+    },
+    {
+      "id": "page-link-export",
+      "title": "Page Link Export",
+      "description": "Visit a user-supplied webpage using Playwright and export its visible anchor links as JSON.",
+      "category": "web-browser",
+      "topic": "playwright",
+      "language": "javascript",
+      "entrypoint": "scripts/web-browser/playwright/page-link-export/script.js",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "network-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "web-browser",
+        "playwright",
+        "page",
+        "link"
+      ],
+      "expected_output": "JSON list of page links.",
       "status": "maintained"
     },
     {
@@ -1292,6 +1420,70 @@
       "status": "existing"
     },
     {
+      "id": "tcp-connect-check",
+      "title": "Tcp Connect Check",
+      "description": "Attempt one TCP connection to a specified host and port and return reachable status and latency.",
+      "category": "networking-monitoring",
+      "topic": "tcp",
+      "language": "go",
+      "entrypoint": "scripts/networking-monitoring/tcp/tcp-connect-check/script.go",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "go"
+      ],
+      "permissions": [
+        "network-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "networking-monitoring",
+        "tcp",
+        "tcp",
+        "connect"
+      ],
+      "expected_output": "JSON reachability, host, port and elapsed milliseconds.",
+      "status": "maintained"
+    },
+    {
+      "id": "terraform-workspaces",
+      "title": "Terraform Workspaces",
+      "description": "List local Terraform workspaces for the selected project directory without changing state.",
+      "category": "cloud-devops",
+      "topic": "terraform",
+      "language": "bash",
+      "entrypoint": "scripts/cloud-devops/terraform/terraform-workspaces/script.sh",
+      "platforms": [
+        "linux",
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "terraform"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "cloud-devops",
+        "terraform",
+        "terraform",
+        "workspaces"
+      ],
+      "expected_output": "Terraform workspace list.",
+      "status": "maintained"
+    },
+    {
       "id": "version-bump",
       "title": "Version Bump",
       "description": "Bump the project version in whatever manifest(s) the repo uses, atomically.",
@@ -1354,6 +1546,36 @@
       ],
       "expected_output": "Command output; see --help and script reference.",
       "status": "existing"
+    },
+    {
+      "id": "windows-services-report",
+      "title": "Windows Services Report",
+      "description": "Read Windows service names, display names and statuses, optionally filtered by service name.",
+      "category": "system-administration",
+      "topic": "windows",
+      "language": "powershell",
+      "entrypoint": "scripts/system-administration/windows/windows-services-report/script.ps1",
+      "platforms": [
+        "windows"
+      ],
+      "dependencies": [
+        "pwsh"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "system-administration",
+        "windows",
+        "windows",
+        "services"
+      ],
+      "expected_output": "JSON service status records.",
+      "status": "maintained"
     }
   ]
 }
