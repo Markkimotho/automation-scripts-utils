@@ -1,6 +1,6 @@
 # Script reference
 
-All scripts self-document with `--help`. Examples assume `bin/` is on your `PATH`.
+All scripts self-document with `--help`. Examples assume `cli/` is on your `PATH`.
 Bash scripts run on macOS bash 3.2+; Python scripts need `python3`.
 
 ---
