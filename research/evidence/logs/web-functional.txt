@@ -1,0 +1,33 @@
+test_csv_empty_clean_invalid_and_truncation (test_web_adapted_automations.WebAdaptedAutomations.test_csv_empty_clean_invalid_and_truncation) ... ok
+test_csv_formula_audit_quotes_unicode_and_no_values (test_web_adapted_automations.WebAdaptedAutomations.test_csv_formula_audit_quotes_unicode_and_no_values) ... ok
+test_eml_collision_empty_and_corrupt_encoding (test_web_adapted_automations.WebAdaptedAutomations.test_eml_collision_empty_and_corrupt_encoding) ... ok
+test_eml_embedded_message_is_rejected (test_web_adapted_automations.WebAdaptedAutomations.test_eml_embedded_message_is_rejected) ... ok
+test_eml_mime_structure_budget_and_symlink_output (test_web_adapted_automations.WebAdaptedAutomations.test_eml_mime_structure_budget_and_symlink_output) ... ok
+test_eml_oversize (test_web_adapted_automations.WebAdaptedAutomations.test_eml_oversize) ... ok
+test_eml_permission_failure_preserves_completed_files (test_web_adapted_automations.WebAdaptedAutomations.test_eml_permission_failure_preserves_completed_files) ... eml-attachment-extract: invalid/unreadable EML, unsafe/existing output, resource limit or I/O failure; completed files: ["attachment-0001-one.txt"]
+ok
+test_eml_preview_extract_sanitized_paths_and_privacy (test_web_adapted_automations.WebAdaptedAutomations.test_eml_preview_extract_sanitized_paths_and_privacy) ... ok
+test_git_bundle_directory_race_cannot_redirect_publication (test_web_adapted_automations.WebAdaptedAutomations.test_git_bundle_directory_race_cannot_redirect_publication) ... ok
+test_git_bundle_invalid_empty_and_missing_dependency (test_web_adapted_automations.WebAdaptedAutomations.test_git_bundle_invalid_empty_and_missing_dependency) ... ok
+test_git_bundle_preview_apply_and_restore (test_web_adapted_automations.WebAdaptedAutomations.test_git_bundle_preview_apply_and_restore) ... ok
+test_help_and_missing_arguments (test_web_adapted_automations.WebAdaptedAutomations.test_help_and_missing_arguments) ... ok
+test_missing_nonregular_and_oversized_inputs (test_web_adapted_automations.WebAdaptedAutomations.test_missing_nonregular_and_oversized_inputs) ... ok
+test_openapi_duplicate_missing_ids_and_refs (test_web_adapted_automations.WebAdaptedAutomations.test_openapi_duplicate_missing_ids_and_refs) ... ok
+test_openapi_invalid_types_utf8_and_empty_paths (test_web_adapted_automations.WebAdaptedAutomations.test_openapi_invalid_types_utf8_and_empty_paths) ... ok
+test_openapi_operation_limit (test_web_adapted_automations.WebAdaptedAutomations.test_openapi_operation_limit) ... ok
+test_openapi_security_inheritance_and_overrides (test_web_adapted_automations.WebAdaptedAutomations.test_openapi_security_inheritance_and_overrides) ... ok
+test_sqlite_controlled_deadline_and_publication_collision (test_web_adapted_automations.WebAdaptedAutomations.test_sqlite_controlled_deadline_and_publication_collision) ... sqlite-online-backup: unreadable/invalid database, existing output, unsupported hard links, resource limit or I/O failure
+sqlite-online-backup: unreadable/invalid database, existing output, unsupported hard links, resource limit or I/O failure
+ok
+test_sqlite_corruption_limits_and_stage_cleanup (test_web_adapted_automations.WebAdaptedAutomations.test_sqlite_corruption_limits_and_stage_cleanup) ... ok
+test_sqlite_preview_apply_and_standalone_snapshot (test_web_adapted_automations.WebAdaptedAutomations.test_sqlite_preview_apply_and_standalone_snapshot) ... ok
+test_sqlite_refuses_existing_and_symlink_outputs (test_web_adapted_automations.WebAdaptedAutomations.test_sqlite_refuses_existing_and_symlink_outputs) ... ok
+test_sqlite_wal_content_is_included (test_web_adapted_automations.WebAdaptedAutomations.test_sqlite_wal_content_is_included) ... ok
+test_toml_diff_omits_values_and_distinguishes_key_paths (test_web_adapted_automations.WebAdaptedAutomations.test_toml_diff_omits_values_and_distinguishes_key_paths) ... ok
+test_toml_empty_invalid_missing_and_oversize (test_web_adapted_automations.WebAdaptedAutomations.test_toml_empty_invalid_missing_and_oversize) ... ok
+test_toml_semantic_equality_nan_arrays_and_types (test_web_adapted_automations.WebAdaptedAutomations.test_toml_semantic_equality_nan_arrays_and_types) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 5.112s
+
+OK

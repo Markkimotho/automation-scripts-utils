@@ -44,13 +44,14 @@ The CLI preview `--dry-run` prints a command without executing it. Scripts with 
 | Domain                   | Examples                                                                  |
 | ------------------------ | ------------------------------------------------------------------------- |
 | Files and documents      | Folder inventory, JSON validation, file organization                      |
-| Git and developer tools  | Conflict guidance, branch cleanup, GitHub operations                      |
+| Git and developer tools  | Git operations, configuration comparison, dependency audits               |
 | Data and AI              | CSV profiling and reconciliation, offline SQLite health checks            |
 | Cloud and infrastructure | AWS S3 audit, Terraform workspaces                                        |
 | System administration    | Windows service status, system cleanup                                    |
 | Networking               | HTTP and TCP checks, CIDR overlaps, offline HAR timing summaries          |
-| Business and messaging   | Invoice due reports, email header inspection                              |
-| Backup and security      | Restored-file verification, certificate expiry, permission and ZIP audits |
+| Business and messaging   | Invoice reports, email headers and attachment extraction                   |
+| Backup and security      | SQLite/Git backups, integrity checks, certificate and CSV audits           |
+| APIs and integrations    | OpenAPI operation inventories, HTTP status checks                          |
 | Web and media            | Page link export, image checksum manifests                                |
 
 Python, Bash, PowerShell, JavaScript, TypeScript, Go and Ruby are supported, depending on the script.

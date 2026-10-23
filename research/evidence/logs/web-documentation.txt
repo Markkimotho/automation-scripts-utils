@@ -1,0 +1,37 @@
+
+ │  ⚠  Warning from the Material for MkDocs team
+ │
+ │  MkDocs 2.0, the underlying framework of Material for MkDocs,
+ │  will introduce backward-incompatible changes, including:
+ │
+ │  × All plugins will stop working – the plugin system has been removed
+ │  × All theme overrides will break – the theming system has been rewritten
+ │  × No migration path exists – existing projects cannot be upgraded
+ │  × Closed contribution model – community members can't report bugs
+ │  × Currently unlicensed – unsuitable for production use
+ │
+ │  Our full analysis:
+ │
+ │  https://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/
+
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /tmp/automation-web-docs
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - reference.md
+  - automations/checksum-manifest-verify.md
+  - automations/cidr-overlap-report.md
+  - automations/csv-formula-audit.md
+  - automations/csv-key-reconcile.md
+  - automations/eml-attachment-extract.md
+  - automations/git-bundle-backup.md
+  - automations/har-timing-summary.md
+  - automations/jsonl-key-profile.md
+  - automations/npm-lock-audit.md
+  - automations/openapi-operation-inventory.md
+  - automations/pem-expiry-report.md
+  - automations/sqlite-health-check.md
+  - automations/sqlite-online-backup.md
+  - automations/toml-settings-diff.md
+  - automations/zip-safety-audit.md
+INFO    -  Doc file 'prerequisites.md' contains a link 'index.md#install', but the doc 'index.md' does not contain an anchor '#install'.
+INFO    -  Documentation built in 1.00 seconds

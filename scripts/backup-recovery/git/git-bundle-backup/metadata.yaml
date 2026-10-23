@@ -1,0 +1,61 @@
+id: git-bundle-backup
+title: Git Bundle Backup
+description: Preview or create a verified bundle of committed Git history and refs,
+  refusing shallow repositories and existing output files.
+category: backup-recovery
+topic: git
+language: bash
+entrypoint: scripts/backup-recovery/git/git-bundle-backup/script.sh
+platforms:
+- macos
+dependencies:
+- bash
+- git
+- python3
+- mktemp
+- rm
+- dirname
+- basename
+permissions:
+- filesystem-read
+- filesystem-write
+destructive: false
+requires_confirmation: true
+supports_dry_run: true
+parameters:
+- name: repository
+  type: string
+  required: true
+  flag: --repository
+- name: output
+  type: string
+  required: true
+  flag: --output
+- name: apply
+  type: boolean
+  required: false
+  flag: --apply
+- name: dry_run
+  type: boolean
+  required: false
+  flag: --dry-run
+tags:
+- git
+- offline
+- backup
+expected_output: Human-readable preview or path of a newly created, git-verified bundle.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Bash >=3.2, Git >=2.15 and Python >=3.10; standard OS tools
+environment_variables: []
+exit_codes:
+  '0': Preview or operation completed without report findings.
+  '1': Differences/findings, or Git backup execution failure.
+  '2': Invalid or unreadable input, unsupported behavior, limits, collisions or I/O
+    failure.
+provenance_ref: git-bundle-backup
+test_status: passed
+compatibility_notes: Verified locally on macOS. Additional operating systems are exercised
+  in CI before support declarations are expanded.
+usage_example: automation run git-bundle-backup --yes -- --repository . --output ../project.bundle

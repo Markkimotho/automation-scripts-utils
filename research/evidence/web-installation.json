@@ -1,0 +1,176 @@
+{
+  "result": "passed",
+  "catalog_entries": 65,
+  "checks": [
+    {
+      "arguments": [
+        "list",
+        "--json"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "sqlite-online-backup",
+        "--",
+        "--source",
+        "source.db",
+        "--output",
+        "backup.db",
+        "--apply"
+      ],
+      "expected_exit": 2
+    },
+    {
+      "arguments": [
+        "run",
+        "sqlite-online-backup",
+        "--yes",
+        "--",
+        "--source",
+        "source.db",
+        "--output",
+        "backup.db"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "sqlite-online-backup",
+        "--yes",
+        "--",
+        "--source",
+        "source.db",
+        "--output",
+        "backup.db",
+        "--apply"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "sqlite-online-backup",
+        "--yes",
+        "--",
+        "--source",
+        "source.db",
+        "--output",
+        "backup.db",
+        "--apply"
+      ],
+      "expected_exit": 2
+    },
+    {
+      "arguments": [
+        "run",
+        "toml-settings-diff",
+        "--",
+        "--left",
+        "left.toml",
+        "--right",
+        "right.toml"
+      ],
+      "expected_exit": 1
+    },
+    {
+      "arguments": [
+        "run",
+        "openapi-operation-inventory",
+        "--param",
+        "input=openapi.json"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "csv-formula-audit",
+        "--",
+        "--input",
+        "data.csv"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "csv-formula-audit",
+        "--",
+        "--input",
+        "data.csv"
+      ],
+      "expected_exit": 1
+    },
+    {
+      "arguments": [
+        "run",
+        "eml-attachment-extract",
+        "--yes",
+        "--",
+        "--input",
+        "message.eml",
+        "--output",
+        "attachments"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "eml-attachment-extract",
+        "--yes",
+        "--",
+        "--input",
+        "message.eml",
+        "--output",
+        "attachments",
+        "--apply"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "git-bundle-backup",
+        "--yes",
+        "--",
+        "--repository",
+        "repo",
+        "--output",
+        "backup.bundle"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "git-bundle-backup",
+        "--yes",
+        "--",
+        "--repository",
+        "repo",
+        "--output",
+        "backup.bundle",
+        "--apply"
+      ],
+      "expected_exit": 0
+    },
+    {
+      "arguments": [
+        "run",
+        "sqlite-online-backup",
+        "--dry-run",
+        "--",
+        "--source",
+        "source.db",
+        "--output",
+        "backup.db"
+      ],
+      "expected_exit": 0
+    }
+  ],
+  "note": "Installed CLI executed outside checkout; previews, write approval, restore content, findings and collisions verified."
+}

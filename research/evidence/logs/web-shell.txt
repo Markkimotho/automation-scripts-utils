@@ -1,0 +1,136 @@
+== packages/common/common.sh ==
+  PASS require_cmd finds bash
+  PASS confirm honors ASSUME_YES
+  PASS has_uncommitted is a function
+== git-conflict-helper.sh --check ==
+  PASS clean repo -> exit 0
+  PASS conflicted repo -> exit 2
+  PASS lists the conflicted file
+== git-safe-checkout.sh --check ==
+  PASS clean tree -> exit 0
+  PASS dirty tree -> exit 2
+== git-clean-branches.sh --dry-run ==
+  PASS lists merged branch in dry-run
+== dev-doctor.sh ==
+  PASS exits 0 (git+bash present)
+== proj-bootstrap.sh ==
+  PASS creates README
+  PASS creates .gitignore
+  PASS creates pre-commit
+  PASS creates CI workflow
+  PASS creates LICENSE
+  PASS git initialized
+== clean-artifacts.sh ==
+  PASS dry-run lists __pycache__
+  PASS dry-run leaves files
+  PASS apply removes __pycache__
+== snapshot.sh ==
+  PASS creates a tar.gz
+== git-split-repo.sh ==
+  PASS split creates repo
+  PASS split keeps touching commits only
+  PASS split moves path (sdk/a.py)
+  PASS split drops other paths (go/)
+  PASS split drops tags
+  PASS split leaves source untouched
+  PASS split moves dir to root (=.)
+  PASS split excludes a path in a kept dir
+  PASS manifest drop line keeps spaces
+  PASS split refuses a missing drop path
+  PASS split refuses a missing keep path
+  PASS split refuses existing target
+  PASS split refuses paths outside repo
+== git-replace.sh ==
+  PASS replace preview exits 2
+  PASS replace preview writes nothing
+  PASS replace --apply rewrites
+  PASS replace is case-sensitive
+  PASS replace skips untracked files
+  PASS replace with nothing left exits 0
+== gh-rename-org.sh --remotes-only ==
+  PASS rename-org exits 0
+  PASS rewrites ssh remote
+  PASS rewrites https remote (any case)
+  PASS leaves repo named like the org
+  PASS free name (gh 404 on stdout) -> waits and succeeds
+  PASS detects completed rename by org id
+  PASS taken name -> refuses
+  PASS refuses same name (case-insensitive)
+  PASS refuses invalid name
+== gh-org-clone.sh (local base url) ==
+  PASS clones listed repos
+  PASS missing repo -> exit 1
+  PASS dirty clone left untouched
+== gh-org-ci.sh (fake gh) ==
+  PASS org-ci exits 2 when a run failed
+  PASS org-ci prints failed run URL
+  PASS org-ci exits 0 when all succeeded
+  PASS --failed hides successes
+  PASS in-progress run shows its status, not the URL
+== bash usage/help exits 0 ==
+  PASS gh-merge-pr --help
+  PASS gh-create-repo --help
+  PASS gh-enable-pages --help
+  PASS gh-rename-repo --help
+  PASS gh-rename-org --help
+  PASS gh-org-clone --help
+  PASS git-split-repo --help
+  PASS git-replace --help
+  PASS git-conflict-helper --help
+  PASS git-safe-checkout --help
+  PASS git-clean-branches --help
+  PASS gh-pr-open --help
+  PASS git-sync --help
+  PASS dev-doctor --help
+  PASS proj-bootstrap --help
+  PASS precommit-install --help
+  PASS py-check --help
+  PASS clean-artifacts --help
+  PASS snapshot --help
+  PASS py-venv-rebuild --help
+  PASS port-kill --help
+== python lane ==
+  PASS python3 available
+  PASS common.py imports
+  PASS gh-pr-status --help
+  PASS gh-release --help
+  PASS env-check --help
+  PASS version-bump --help
+  PASS lockfile-drift --help
+  PASS deps-unused --help
+  PASS deps-outdated --help
+  PASS vuln-scan --help
+  PASS lic-audit --help
+  PASS data-convert --help
+  PASS secret-scan --help
+  PASS gh-issues-sync --help
+== data-convert.py (csv -> json) ==
+  PASS csv->json
+== secret-scan.py ==
+  PASS flags AWS key -> exit 2
+  PASS clean file -> exit 0
+== env-check.py ==
+  PASS missing key -> exit 2
+  PASS complete -> exit 0
+== version-bump.py ==
+  PASS package.json bumped to 1.2.4
+  PASS minor bump -> 1.3.0
+== lockfile-drift.py ==
+  PASS missing lock -> exit 2
+  PASS lock present+newer -> exit 0
+== deps-unused.py ==
+  PASS flags unused click
+  PASS does not flag used requests
+== empty-dir behavior (polyglot tools exit 0) ==
+  PASS lockfile-drift empty dir -> exit 0
+  PASS deps-outdated empty dir -> exit 0
+  PASS vuln-scan empty dir -> exit 0
+== gh-issues-sync.py (fake gh) ==
+  PASS issues preview exits 2
+  PASS issues preview creates nothing
+  PASS issues apply exits 0
+  PASS skips existing title (any case)
+  PASS creates only missing labels
+  PASS rejects empty body and duplicate titles
+
+Passed: 111  Failed: 0

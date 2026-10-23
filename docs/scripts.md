@@ -30,6 +30,18 @@ automation run http-status-check --dry-run
 automation run http-status-check -- --help
 ```
 
+### `openapi-operation-inventory`
+
+Inventory OpenAPI JSON operations, flag missing or duplicate IDs and report declared anonymous access without fetching references.
+
+**Language:** javascript · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run openapi-operation-inventory -- --input ./openapi.json
+```
+
+[Usage, options and troubleshooting](automations/openapi-operation-inventory.md)
+
 ## Backup Recovery
 
 ### `checksum-manifest-verify`
@@ -43,6 +55,18 @@ automation run checksum-manifest-verify -- --root ./restored --manifest ./manife
 ```
 
 [Usage, options and troubleshooting](automations/checksum-manifest-verify.md)
+
+### `git-bundle-backup`
+
+Preview or create a verified bundle of committed Git history and refs, refusing shallow repositories and existing output files.
+
+**Language:** bash · **Platforms:** macos · **Permissions:** filesystem-read, filesystem-write
+
+```bash
+automation run git-bundle-backup --yes -- --repository . --output ../project.bundle
+```
+
+[Usage, options and troubleshooting](automations/git-bundle-backup.md)
 
 ### `incremental-file-copy`
 
@@ -67,6 +91,18 @@ automation info snapshot
 automation run snapshot --dry-run
 automation run snapshot -- --help
 ```
+
+### `sqlite-online-backup`
+
+Preview or create a consistent SQLite snapshot through the online backup API, verify it and publish without overwriting files.
+
+**Language:** python · **Platforms:** macos · **Permissions:** filesystem-read, filesystem-write
+
+```bash
+automation run sqlite-online-backup --yes -- --source ./app.db --output ./backup.db
+```
+
+[Usage, options and troubleshooting](automations/sqlite-online-backup.md)
 
 ## Business Productivity
 
@@ -498,6 +534,18 @@ automation run py-venv-rebuild --dry-run
 automation run py-venv-rebuild -- --help
 ```
 
+### `toml-settings-diff`
+
+Compare parsed TOML settings and report added, removed or changed key paths while omitting configuration values.
+
+**Language:** python · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run toml-settings-diff -- --left ./development.toml --right ./production.toml
+```
+
+[Usage, options and troubleshooting](automations/toml-settings-diff.md)
+
 ### `version-bump`
 
 Bump the project version in whatever manifest(s) the repo uses, atomically.
@@ -552,6 +600,18 @@ automation run image-checksum-manifest -- --help
 
 ## Messaging Notifications
 
+### `eml-attachment-extract`
+
+Preview or extract decoded MIME attachments from one local email into sanitized, unique, non-overwriting files.
+
+**Language:** python · **Platforms:** macos · **Permissions:** filesystem-read, filesystem-write
+
+```bash
+automation run eml-attachment-extract --yes -- --input ./message.eml --output ./attachments
+```
+
+[Usage, options and troubleshooting](automations/eml-attachment-extract.md)
+
 ### `eml-headers-report`
 
 Extract email headers from local .eml files without accessing an inbox or sending messages.
@@ -603,6 +663,18 @@ automation run tcp-connect-check -- --help
 ```
 
 ## Security Compliance
+
+### `csv-formula-audit`
+
+Locate formula-like CSV cell prefixes before spreadsheet import, reporting coordinates without exposing cell values.
+
+**Language:** ruby · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run csv-formula-audit -- --input ./export.csv
+```
+
+[Usage, options and troubleshooting](automations/csv-formula-audit.md)
 
 ### `file-permission-audit`
 

@@ -1,0 +1,48 @@
+id: toml-settings-diff
+title: TOML Settings Comparison
+description: Compare parsed TOML settings and report added, removed or changed key
+  paths while omitting configuration values.
+category: developer-tools
+topic: configuration
+language: python
+entrypoint: scripts/developer-tools/configuration/toml-settings-diff/script.py
+platforms:
+- macos
+dependencies:
+- python3
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: left
+  type: string
+  required: true
+  flag: --left
+- name: right
+  type: string
+  required: true
+  flag: --right
+tags:
+- configuration
+- offline
+- report
+expected_output: JSON changes with unambiguous path arrays and added/removed/changed
+  classifications.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Python >=3.11 with tomllib; standard library only
+environment_variables: []
+exit_codes:
+  '0': Preview or operation completed without report findings.
+  '1': Differences/findings, or Git backup execution failure.
+  '2': Invalid or unreadable input, unsupported behavior, limits, collisions or I/O
+    failure.
+provenance_ref: toml-settings-diff
+test_status: passed
+compatibility_notes: Verified locally on macOS. Additional operating systems are exercised
+  in CI before support declarations are expanded.
+usage_example: automation run toml-settings-diff -- --left ./development.toml --right
+  ./production.toml

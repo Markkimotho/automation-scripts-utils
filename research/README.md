@@ -28,6 +28,8 @@ Legacy scripts are preserved under their existing metadata contract; the new evi
 
 The subsequent Go batch resumes `pem-expiry-report` and adds CIDR overlap reporting and checksum verification. Its local evidence is `evidence/2026-10-23-go-batch.json`, including native Go tests, vet and race checks. `tests/test_go_offline_automations.py` exercises the real CLI using a temporary test catalog to test every CI operating system before expanding product platform declarations. Standalone Go scripts are compiled into a temporary executable so findings and invalid-input exit codes remain distinct.
 
+The web-discovery batch records eight public reference captures in `sources/2026-10-23-web-discovery.json` (URLs, retrieval times, byte counts and SHA-256 digests; no copied page bodies). Six independently written tools cover SQLite/Git backups, TOML drift, OpenAPI inventories, CSV formula risks and email attachment extraction. `evidence/2026-10-23-web-batch.json` contains acceptance evidence; `tools/verify_web_installation.py` exercises installed tools using disposable fixtures. PostgreSQL restore verification and iCalendar recurrence handling remain reviewed opportunities, not available scripts.
+
 ## Evidence maintenance
 
 `evidence/2026-10-23-local-batch.json` identifies the tested sources by hash, includes environment and command results, and records known limits. Supporting text logs are under `evidence/logs/`. Updating any hashed file invalidates acceptance until relevant checks are rerun and the evidence regenerated. Hashes link evidence to local files; they are not an external signature or proof of independent review.
