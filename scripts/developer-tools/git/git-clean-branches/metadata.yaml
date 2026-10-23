@@ -1,0 +1,17 @@
+id: git-clean-branches
+title: "Git Clean Branches"
+description: "Delete branches already merged into the base (local, and `--remote`)."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/git-clean-branches/git-clean-branches.sh
+platforms: [linux, macos]
+dependencies: [bash, git]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, git, clean, branches]
+expected_output: "Command output; see --help and script reference."
+status: existing

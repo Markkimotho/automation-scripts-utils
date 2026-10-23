@@ -1,0 +1,17 @@
+id: git-split-repo
+title: "Git Split Repo"
+description: "Extract files or directories into a new repo, keeping their commit history (via `git-filter-repo`). Paths can be moved, including to the root; the source repo is never modified. `--publish` creates the GitHub repo and pushes."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/git-split-repo/git-split-repo.sh
+platforms: [linux, macos]
+dependencies: [bash, git]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, git, split, repo]
+expected_output: "Command output; see --help and script reference."
+status: existing

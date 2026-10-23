@@ -1,0 +1,17 @@
+id: snapshot
+title: "Snapshot"
+description: "Timestamped `tar.gz` of a directory before a risky operation."
+category: backup-recovery
+topic: snapshots
+language: bash
+entrypoint: scripts/backup-recovery/snapshots/snapshot/snapshot.sh
+platforms: [linux, macos]
+dependencies: [bash]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [backup-recovery, snapshots, snapshot]
+expected_output: "Command output; see --help and script reference."
+status: existing

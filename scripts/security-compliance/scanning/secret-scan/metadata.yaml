@@ -1,0 +1,17 @@
+id: secret-scan
+title: "Secret Scan"
+description: "Scan staged files (or given paths) for likely secrets; exits non-zero on a hit."
+category: security-compliance
+topic: scanning
+language: python
+entrypoint: scripts/security-compliance/scanning/secret-scan/secret-scan.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [security-compliance, scanning, secret, scan]
+expected_output: "Command output; see --help and script reference."
+status: existing

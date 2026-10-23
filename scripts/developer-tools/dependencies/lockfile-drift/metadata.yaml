@@ -1,0 +1,17 @@
+id: lockfile-drift
+title: "Lockfile Drift"
+description: "Flag manifests whose lockfile is missing or older than the manifest."
+category: developer-tools
+topic: dependencies
+language: python
+entrypoint: scripts/developer-tools/dependencies/lockfile-drift/lockfile-drift.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, dependencies, lockfile, drift]
+expected_output: "Command output; see --help and script reference."
+status: existing

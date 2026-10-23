@@ -1,0 +1,17 @@
+id: gh-rename-repo
+title: "Gh Rename Repo"
+description: "Rename a repo and rewrite the local `origin`."
+category: developer-tools
+topic: git
+language: bash
+entrypoint: scripts/developer-tools/git/gh-rename-repo/gh-rename-repo.sh
+platforms: [linux, macos]
+dependencies: [bash, gh]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, gh, rename, repo]
+expected_output: "Command output; see --help and script reference."
+status: existing

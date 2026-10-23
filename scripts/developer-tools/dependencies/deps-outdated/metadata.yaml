@@ -1,0 +1,17 @@
+id: deps-outdated
+title: "Deps Outdated"
+description: "Outdated packages across pip / npm / cargo / go, one table."
+category: developer-tools
+topic: dependencies
+language: python
+entrypoint: scripts/developer-tools/dependencies/deps-outdated/deps-outdated.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, dependencies, deps, outdated]
+expected_output: "Command output; see --help and script reference."
+status: existing

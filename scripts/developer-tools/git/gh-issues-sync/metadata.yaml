@@ -1,0 +1,17 @@
+id: gh-issues-sync
+title: "Gh Issues Sync"
+description: "Create issues from a JSON list of `{title, body, labels}`. Missing labels are created first (priority `P1`-`P3`, `area:*` and type labels get consistent colors); an issue whose title already exists, open or closed, is skipped, so re-runs never duplicate. Preview by default (exit 2 when there is something to create)."
+category: developer-tools
+topic: git
+language: python
+entrypoint: scripts/developer-tools/git/gh-issues-sync/gh-issues-sync.py
+platforms: [linux, macos, windows]
+dependencies: [python3, gh]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: false
+parameters: []
+tags: [developer-tools, git, gh, issues, sync]
+expected_output: "Command output; see --help and script reference."
+status: existing
