@@ -1,0 +1,17 @@
+id: organize-downloads
+title: "Organize Downloads"
+description: "Preview and optionally sort top-level files into extension-named folders without overwriting existing files."
+category: desktop-personal
+topic: organizing
+language: python
+entrypoint: scripts/desktop-personal/organizing/organize-downloads/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-write]
+destructive: true
+requires_confirmation: true
+supports_dry_run: true
+parameters: []
+tags: [desktop-personal, organizing, organize, downloads]
+expected_output: "Planned or completed moves by extension."
+status: maintained

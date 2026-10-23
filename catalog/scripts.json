@@ -33,6 +33,38 @@
       "status": "existing"
     },
     {
+      "id": "csv-dataset-profile",
+      "title": "Csv Dataset Profile",
+      "description": "Profile a CSV dataset by counting rows and missing values per column without exposing data values.",
+      "category": "ai-ml-llmops",
+      "topic": "datasets",
+      "language": "python",
+      "entrypoint": "scripts/ai-ml-llmops/datasets/csv-dataset-profile/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "ai-ml-llmops",
+        "datasets",
+        "csv",
+        "dataset"
+      ],
+      "expected_output": "JSON row count and per-column missing value counts.",
+      "status": "maintained"
+    },
+    {
       "id": "data-convert",
       "title": "Data Convert",
       "description": "Convert between CSV, JSON, and YAML (YAML needs PyYAML).",
@@ -160,6 +192,38 @@
       "status": "existing"
     },
     {
+      "id": "eml-headers-report",
+      "title": "Eml Headers Report",
+      "description": "Extract email headers from local .eml files without accessing an inbox or sending messages.",
+      "category": "messaging-notifications",
+      "topic": "email",
+      "language": "python",
+      "entrypoint": "scripts/messaging-notifications/email/eml-headers-report/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "messaging-notifications",
+        "email",
+        "eml",
+        "headers"
+      ],
+      "expected_output": "JSON list of local mail headers.",
+      "status": "maintained"
+    },
+    {
       "id": "env-check",
       "title": "Env Check",
       "description": "Diff `.env` against `.env.example`; report missing/extra keys. Language-agnostic.",
@@ -190,6 +254,70 @@
       ],
       "expected_output": "Command output; see --help and script reference.",
       "status": "existing"
+    },
+    {
+      "id": "file-permission-audit",
+      "title": "File Permission Audit",
+      "description": "Find world-writable regular files under a directory without following symlinks.",
+      "category": "security-compliance",
+      "topic": "filesystem",
+      "language": "python",
+      "entrypoint": "scripts/security-compliance/filesystem/file-permission-audit/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "security-compliance",
+        "filesystem",
+        "file",
+        "permission"
+      ],
+      "expected_output": "JSON list of world-writable files; exit 1 if found.",
+      "status": "maintained"
+    },
+    {
+      "id": "folder-inventory",
+      "title": "Folder Inventory",
+      "description": "Inventory regular files recursively with size and modification timestamps, exporting structured JSON or CSV.",
+      "category": "files-documents",
+      "topic": "folders",
+      "language": "python",
+      "entrypoint": "scripts/files-documents/folders/folder-inventory/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "files-documents",
+        "folders",
+        "folder",
+        "inventory"
+      ],
+      "expected_output": "JSON or CSV list of files and sizes.",
+      "status": "maintained"
     },
     {
       "id": "gh-create-repo",
@@ -753,6 +881,102 @@
       "status": "existing"
     },
     {
+      "id": "incremental-file-copy",
+      "title": "Incremental File Copy",
+      "description": "Preview and optionally copy changed regular files to a separate backup directory without deleting old backups.",
+      "category": "backup-recovery",
+      "topic": "filesystem",
+      "language": "python",
+      "entrypoint": "scripts/backup-recovery/filesystem/incremental-file-copy/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": true,
+      "parameters": [],
+      "tags": [
+        "backup-recovery",
+        "filesystem",
+        "incremental",
+        "file"
+      ],
+      "expected_output": "Planned or copied file paths; destination never pruned.",
+      "status": "maintained"
+    },
+    {
+      "id": "invoice-due-report",
+      "title": "Invoice Due Report",
+      "description": "Summarize unpaid invoices from a CSV with invoice_id, due_date, amount and paid columns.",
+      "category": "business-productivity",
+      "topic": "finance",
+      "language": "python",
+      "entrypoint": "scripts/business-productivity/finance/invoice-due-report/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "business-productivity",
+        "finance",
+        "invoice",
+        "due"
+      ],
+      "expected_output": "JSON overdue invoice list and total amount.",
+      "status": "maintained"
+    },
+    {
+      "id": "json-batch-validate",
+      "title": "Json Batch Validate",
+      "description": "Validate JSON syntax for a file or folder recursively and report the filename and parse errors.",
+      "category": "testing-qa",
+      "topic": "json",
+      "language": "python",
+      "entrypoint": "scripts/testing-qa/json/json-batch-validate/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [],
+      "tags": [
+        "testing-qa",
+        "json",
+        "json",
+        "batch"
+      ],
+      "expected_output": "JSON summary of valid and invalid JSON files.",
+      "status": "maintained"
+    },
+    {
       "id": "lic-audit",
       "title": "Lic Audit",
       "description": "Collect dependency licenses; flag GPL/AGPL/LGPL and unknown.",
@@ -815,6 +1039,38 @@
       ],
       "expected_output": "Command output; see --help and script reference.",
       "status": "existing"
+    },
+    {
+      "id": "organize-downloads",
+      "title": "Organize Downloads",
+      "description": "Preview and optionally sort top-level files into extension-named folders without overwriting existing files.",
+      "category": "desktop-personal",
+      "topic": "organizing",
+      "language": "python",
+      "entrypoint": "scripts/desktop-personal/organizing/organize-downloads/script.py",
+      "platforms": [
+        "linux",
+        "macos",
+        "windows"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-write"
+      ],
+      "destructive": true,
+      "requires_confirmation": true,
+      "supports_dry_run": true,
+      "parameters": [],
+      "tags": [
+        "desktop-personal",
+        "organizing",
+        "organize",
+        "downloads"
+      ],
+      "expected_output": "Planned or completed moves by extension.",
+      "status": "maintained"
     },
     {
       "id": "port-kill",

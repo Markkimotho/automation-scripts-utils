@@ -1,0 +1,17 @@
+id: folder-inventory
+title: "Folder Inventory"
+description: "Inventory regular files recursively with size and modification timestamps, exporting structured JSON or CSV."
+category: files-documents
+topic: folders
+language: python
+entrypoint: scripts/files-documents/folders/folder-inventory/script.py
+platforms: [linux, macos, windows]
+dependencies: [python3]
+permissions: [filesystem-read]
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters: []
+tags: [files-documents, folders, folder, inventory]
+expected_output: "JSON or CSV list of files and sizes."
+status: maintained
