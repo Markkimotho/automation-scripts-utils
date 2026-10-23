@@ -1,0 +1,3 @@
+#!/usr/bin/env python3
+from automation_cli import main
+raise SystemExit(main())
