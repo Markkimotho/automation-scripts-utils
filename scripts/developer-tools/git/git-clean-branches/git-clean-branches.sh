@@ -2,8 +2,8 @@
 # git-clean-branches.sh — delete local (and optionally remote) branches already merged.
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-# shellcheck source=../lib/common.sh
-source "$SCRIPT_DIR/../lib/common.sh"
+# shellcheck source=../../../../packages/common/common.sh
+source "$SCRIPT_DIR/../../../../packages/common/common.sh"
 
 usage() {
   cat <<'EOF'
