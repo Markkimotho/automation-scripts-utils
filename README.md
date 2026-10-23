@@ -1,90 +1,85 @@
-# automation scripts & utils
+# Automation Scripts & Utils
 
-Reusable automation for the everyday tasks developers repeat — creating, renaming,
-and merging repos, untangling git conflicts, rebuilding environments, freeing
-ports, and more. Not limited to git or environment chores: anything worth never
-typing by hand twice belongs here. Bash today, **Python utilities planned**.
+A community-driven, multi-language collection of practical automation for software development, operations, data, business workflows, research, and everyday computing.
 
-Every script is self-contained, has `--help`, confirms before anything
-outward-facing or destructive, runs non-interactively (`ASSUME_YES=1`) for CI,
-and works on stock macOS bash 3.2.
+**Implemented today:** 34 migrated scripts (see [catalog/scripts.json](catalog/scripts.json)). **Growth goal:** 1,200 tested scripts, with an architecture designed to accommodate 5,000–10,000. These targets are a roadmap, **not** a claim about current inventory.
 
-## Scripts
+## Get started
 
-34 scripts across four areas. Full options and examples are in the
-[script reference](docs/reference.md); per-script prerequisites in
-[docs/prerequisites.md](docs/prerequisites.md).
-
-**Git & GitHub** — `gh-merge-pr`, `gh-create-repo`, `gh-rename-repo`,
-`gh-enable-pages`, `gh-pr-open`, `gh-pr-status.py`, `gh-release.py`,
-`gh-rename-org`, `gh-org-clone`, `gh-org-ci`, `gh-issues-sync.py`, `git-split-repo`, `git-replace`,
-`git-conflict-helper`, `git-safe-checkout`, `git-clean-branches`, `git-sync`.
-
-**Dev environment** — `dev-doctor`, `proj-bootstrap`, `precommit-install`,
-`py-venv-rebuild`, `py-check`.
-
-**Cross-language dependency & library tooling** (Python, polyglot — handle pip,
-npm, cargo, go, bundler in one run) — `deps-outdated.py`, `deps-unused.py`,
-`lockfile-drift.py`, `vuln-scan.py`, `lic-audit.py`, `version-bump.py`,
-`env-check.py`.
-
-**Data & housekeeping** — `data-convert.py`, `clean-artifacts`, `secret-scan.py`,
-`snapshot`, `port-kill`.
-
-Shared helpers live in [`lib/common.sh`](lib/common.sh) (bash) and
-[`lib/common.py`](lib/common.py) (Python): logging, `confirm`, dependency checks,
-and manifest detection for the polyglot tools.
-
-## Install
-
-Clone and put `bin/` on your `PATH`:
+Prerequisites: Python 3.10+ for the catalog CLI; individual scripts declare additional dependencies.
 
 ```bash
 git clone https://github.com/Markkimotho/automation-scripts-utils.git
-export PATH="$PWD/automation-scripts-utils/bin:$PATH"   # add to ~/.zshrc to persist
+cd automation-scripts-utils
+export PATH="$PWD/cli:$PATH"
+automation list --category developer-tools
+automation search "git"
+automation info git-sync
+automation run git-sync --dry-run
+automation run git-sync -- --help
 ```
 
-Prerequisites per script — and the dev-environment edge cases worth knowing — are
-documented in [`docs/prerequisites.md`](docs/prerequisites.md). In short: `bash` +
-`git`; the `gh-*` scripts need the [GitHub CLI](https://cli.github.com/)
-(`gh auth login`); `port-kill.sh` needs `lsof`; `py-venv-rebuild.sh` needs `python3`.
+Add the PATH export to your shell profile for permanent access. The CLI works with only the Python standard library.
 
-## Usage
+**Safety:** `automation run <id> --dry-run` previews the planned command and does not run the script. Actual runs check declared dependencies and request confirmation for mutating operations. `--yes` explicitly confirms non-interactive execution. Forward script-specific options after `--`.
 
-Every script self-documents:
+To invoke a script directly without the CLI:
 
 ```bash
-gh-merge-pr.sh --help
-git-conflict-helper.sh        # interactive guide
-git-safe-checkout.sh feature -b
-port-kill.sh 8080 8090 -y
+bash scripts/developer-tools/git/git-conflict-helper/git-conflict-helper.sh --help
+python3 scripts/data-engineering/conversion/data-convert/data-convert.py --help
 ```
 
-## Conventions
+## Structure
 
-- `--help` on every script.
-- Confirmation prompt before merging, pushing, deleting, or killing. Set
-  `ASSUME_YES=1` (or `-y`) to skip in automation.
-- `NO_COLOR=1` disables color.
-- `set -euo pipefail` throughout.
+```text
+.github/workflows/       Continuous integration and documentation publishing
+catalog/categories.yaml  16 automation domains and targets
+catalog/scripts.json     Real registered scripts (machine-readable)
+scripts/<domain>/<topic>/<id>/  Implementation, metadata.yaml, README.md
+packages/common/         Shared Bash and Python utilities
+cli/                     Search, metadata inspection, and safe execution
+templates/               Contribution templates
+tests/                   Offline regression and catalog tests
+docs/                    MkDocs and contribution documentation
+examples/                Runnable examples
+```
 
-## Tests
+## Coverage roadmap
+
+| Category | Target |
+|---|---:|
+| Cloud infrastructure and DevOps | 120 |
+| Linux, Windows and macOS administration | 120 |
+| Files, folders and documents | 100 |
+| Data engineering and databases | 100 |
+| Web scraping and browser automation | 100 |
+| APIs, integrations and webhooks | 80 |
+| AI, ML and LLMOps | 100 |
+| Security, auditing and compliance | 80 |
+| Developer productivity and Git | 80 |
+| Networking and monitoring | 70 |
+| Business and office productivity | 70 |
+| Email, messaging and notifications | 50 |
+| Backup, recovery and storage | 50 |
+| Media, image, audio and video | 50 |
+| Personal and desktop automation | 50 |
+| Testing, QA and performance | 60 |
+| **Total planned** | **1,200** |
+
+See [the roadmap](docs/roadmap.md) for the four delivery phases. Existing scripts are grouped by domain and have individually documented prerequisites, security classification, and `--help` behavior.
+
+## Test and contribute
 
 ```bash
 bash tests/run_tests.sh
-```
-
-Gate tests are deterministic and offline: shared helpers, conflict detection,
-and dirty-tree detection run against throwaway git repos. Outward-facing `gh`
-calls aren't exercised here.
-
-## Docs
-
-A documentation site is built from `docs/` with MkDocs Material and published to
-GitHub Pages by [`.github/workflows/docs.yml`](.github/workflows/docs.yml).
-Preview locally:
-
-```bash
+python3 -m unittest discover -s tests -p 'test_*.py' -v
 pip install -r requirements-docs.txt
 mkdocs serve
 ```
+
+Every script requires real behavior, a stable ID, a self-contained directory, valid metadata, clear usage/outputs, appropriate tests, no embedded secrets, and confirmation for destructive behavior. See [CONTRIBUTING.md](CONTRIBUTING.md), [SECURITY.md](SECURITY.md), and the [CLI guide](docs/cli.md).
+
+## License
+
+MIT; see [LICENSE](LICENSE).

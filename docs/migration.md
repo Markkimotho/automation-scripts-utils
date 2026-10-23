@@ -1,11 +1,25 @@
-# Migration checklist
+# Migrating from the legacy layout
 
-1. Inventory all existing executables and import/sourcing dependencies.
-2. Move a coherent domain of scripts in one commit, updating imports and shell helper paths.
-3. Move shared Bash/Python helpers to `packages/common/` and update all callers.
-4. Move existing test suites to `quality/tests/` and fix fixture paths.
-5. Update Makefile, GitHub Actions, MkDocs navigation, install instructions and examples.
-6. Verify `--help` for every entry point, run offline tests and docs build.
-7. Remove old paths only after all references and compatibility decisions are reviewed.
+All 34 original executables were moved into `scripts/<domain>/<topic>/<id>/`. The original `bin/` directory is no longer the primary entry point. Shared helper code is now in `packages/common/`, and `tests/` remains the test directory.
 
-Do not treat the catalog's 1,200-script target as the number of implemented scripts.
+Old:
+```bash
+export PATH="$PWD/bin:$PATH"
+git-conflict-helper.sh --check
+```
+
+New:
+```bash
+export PATH="$PWD/cli:$PATH"
+automation info git-conflict-helper
+automation run git-conflict-helper -- --check
+```
+
+Or:
+```bash
+bash scripts/developer-tools/git/git-conflict-helper/git-conflict-helper.sh --check
+```
+
+Update shell profiles, CI, launch agents, cron jobs and any absolute paths in automation runners. Prefer `automation run` for catalog discovery and confirmation, or direct script calls when exact argument behavior is required.
+
+The existing test suite uses the relocated script paths. Changes in the library should preserve the individual scripts' original documented options where feasible.
