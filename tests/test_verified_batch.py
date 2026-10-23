@@ -4,6 +4,7 @@ import base64
 from contextlib import closing
 import hashlib
 import importlib.util
+from itertools import chain, repeat
 import json
 import os
 from pathlib import Path
@@ -152,20 +153,20 @@ class VerifiedBatchTests(unittest.TestCase):
 
     def test_sqlite_timeout_and_permission_failure(self):
         path = self.database()
-        self.run_script(
-            "sqlite-health-check",
-            "--database",
-            path,
-            "--timeout",
-            "0.000000001",
-            code=2,
-        )
         # Deterministic permission failure even when CI executes as an administrator.
         spec = importlib.util.spec_from_file_location(
             "sqlite_health", entrypoint("sqlite-health-check")
         )
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
+        # A controlled clock verifies expiry on platforms with coarse clock ticks.
+        with (
+            patch.object(sys, "argv", ["check", "--database", str(path)]),
+            patch.object(
+                module.time, "monotonic", side_effect=chain([0.0], repeat(100.0))
+            ),
+        ):
+            self.assertEqual(module.main(), 2)
         with (
             patch.object(sys, "argv", ["check", "--database", str(path)]),
             patch.object(module.sqlite3, "connect", side_effect=PermissionError),

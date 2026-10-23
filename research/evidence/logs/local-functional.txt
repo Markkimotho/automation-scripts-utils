@@ -15,12 +15,13 @@ test_sqlite_foreign_key_inconsistency (test_verified_batch.VerifiedBatchTests.te
 test_sqlite_quick_full_idempotent_and_read_only (test_verified_batch.VerifiedBatchTests.test_sqlite_quick_full_idempotent_and_read_only) ... ok
 test_sqlite_rejects_journal_sidecars (test_verified_batch.VerifiedBatchTests.test_sqlite_rejects_journal_sidecars) ... ok
 test_sqlite_timeout_and_permission_failure (test_verified_batch.VerifiedBatchTests.test_sqlite_timeout_and_permission_failure) ... sqlite-health-check: cannot check database (missing, unreadable, invalid, journal sidecars, or timed out)
+sqlite-health-check: cannot check database (missing, unreadable, invalid, journal sidecars, or timed out)
 ok
 test_zip_corrupt_and_invalid_limit (test_verified_batch.VerifiedBatchTests.test_zip_corrupt_and_invalid_limit) ... ok
 test_zip_paths_symlink_ratio_and_total_limit (test_verified_batch.VerifiedBatchTests.test_zip_paths_symlink_ratio_and_total_limit) ... ok
 test_zip_safe_empty_and_no_extraction (test_verified_batch.VerifiedBatchTests.test_zip_safe_empty_and_no_extraction) ... ok
 
 ----------------------------------------------------------------------
-Ran 20 tests in 2.689s
+Ran 20 tests in 7.326s
 
 OK

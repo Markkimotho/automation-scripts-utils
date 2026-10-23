@@ -97,7 +97,7 @@
     "scripts/data-engineering/sqlite/sqlite-health-check/script.py": "60889689faaedb49396d0661f51bfe164427cd2ad04f8744e37a8c709ef3613c",
     "scripts/data-engineering/sqlite/sqlite-health-check/metadata.yaml": "7011019c98b79bccbf7f9810311c0af86309528e81dd0e19f66412da8a634862",
     "scripts/data-engineering/sqlite/sqlite-health-check/README.md": "da1f08ee38d245185c222fa3ab874242164feb07bc76d7c36db1e9145b31b34a",
-    "tests/test_verified_batch.py": "b7c77fd297ce04df1270ba5f69275a08a672636445ad920cbf1cb7246809bbb8",
+    "tests/test_verified_batch.py": "22c81a684e1dcb2c1a5bf8a90654fe3c6a19dc51598f9e5c7d33a49f2807c8c4",
     "scripts/security-compliance/archives/zip-safety-audit/script.py": "059ad172a89fe444bbcebd60f3bff2d5a08e5a12dbe0f0aa61c5473e4c023a5a",
     "scripts/security-compliance/archives/zip-safety-audit/metadata.yaml": "2e0710673b522e85a40574f778ff3621ab415e69c00013a2612253114abd3d0a",
     "scripts/security-compliance/archives/zip-safety-audit/README.md": "352b62594f2d34840c43319a1201f812a7920dcb34449ed3a41e05d182f2f508",
@@ -120,9 +120,15 @@
     "tools/verify_installation.py": "ee7c17546ad3b9851ab1dbf025b7deec0e3b6bb7da7238ae0c2e173c67e1972f"
   },
   "limitations": [
-    "Local acceptance only: CI on Linux and Windows and release/deployment are pending.",
+    "This record certifies local macOS acceptance only. Cross-platform CI results are tracked on pull request #3; release and documentation deployment are pending.",
     "PowerShell is unavailable locally; the existing PowerShell test is skipped.",
     "No third-party implementation was downloaded or executed; new scripts depend only on runtime standard libraries. No dependency advisory database scan performed.",
     "Documentation source revisions/last maintenance are null where not verified. No upstream code or prose reused."
-  ]
+  ],
+  "ci_followup": {
+    "pull_request": "https://github.com/Markkimotho/automation-scripts-utils/pull/3",
+    "initial_run": "https://github.com/Markkimotho/automation-scripts-utils/actions/runs/39913751693",
+    "finding": "All jobs passed except the Windows timeout fixture, which assumed a one-nanosecond observable clock tick. The fixture now controls the monotonic clock to verify expiry deterministically.",
+    "new_run_status": "Pending push; see pull request for current status."
+  }
 }
