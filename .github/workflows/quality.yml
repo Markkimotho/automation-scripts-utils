@@ -1,0 +1,38 @@
+name: Automation quality checks
+
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate Python source
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for p in list(Path("scripts").rglob("*.py")) + list(Path("cli").rglob("*.py")) + list(Path("tests").rglob("test_*.py")):
+              compile(p.read_bytes(), str(p), "exec")
+          PY
+      - name: Validate Bash source
+        run: |
+          find scripts -type f -name '*.sh' -print0 | xargs -0 -r -n1 bash -n
+          bash -n tests/run_tests.sh
+      - name: Catalog and CLI tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Existing offline regressions
+        run: bash tests/run_tests.sh
+      - name: Build MkDocs documentation
+        run: |
+          pip install -r requirements-docs.txt
+          mkdocs build --strict --site-dir /tmp/automation-docs
