@@ -10,6 +10,8 @@ Contributions should solve a practical, repeatable problem. **Do not submit scri
 6. Run `bash tests/run_tests.sh` and `python3 -m unittest discover -s tests -p 'test_*.py'`. If the toolchain is installed, validate other languages with their standard tooling.
 7. Submit focused PRs. Describe use cases, security behavior, testing evidence, and platform support.
 
+New discoveries and accepted additions must follow [the discovery and evidence workflow](research/README.md). Add a provenance record, independently review licensing and security, record passing test evidence, and declare only verified platforms. Regenerate the public directory with `python tools/generate_directory.py`; `--check` detects stale output. CI validates new acceptance records separately from the legacy catalog.
+
 ## Minimum quality bar
 
 - Functionality is substantive and matches the description.

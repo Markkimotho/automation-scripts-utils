@@ -178,8 +178,152 @@
             "maintained",
             "deprecated"
           ]
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "maintainer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "runtime_requirements": {
+          "type": "string",
+          "minLength": 1
+        },
+        "compatibility_notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "usage_example": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment_variables": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "exit_codes": {
+          "type": "object",
+          "required": [
+            "0",
+            "2"
+          ],
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "provenance_ref": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+        },
+        "test_status": {
+          "const": "passed"
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "provenance_ref"
+            ]
+          },
+          "then": {
+            "required": [
+              "version",
+              "maintainer",
+              "runtime_requirements",
+              "environment_variables",
+              "exit_codes",
+              "test_status",
+              "compatibility_notes",
+              "usage_example"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "id": {
+                "not": {
+                  "$ref": "#/$defs/legacyId"
+                }
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "provenance_ref",
+              "version",
+              "maintainer",
+              "runtime_requirements",
+              "environment_variables",
+              "exit_codes",
+              "test_status",
+              "compatibility_notes",
+              "usage_example"
+            ]
+          }
+        }
+      ]
+    },
+    "legacyId": {
+      "description": "Historical entries retaining the original metadata contract; new IDs require provenance and quality fields.",
+      "enum": [
+        "clean-artifacts",
+        "csv-dataset-profile",
+        "data-convert",
+        "deps-outdated",
+        "deps-unused",
+        "dev-doctor",
+        "eml-headers-report",
+        "env-check",
+        "file-permission-audit",
+        "folder-inventory",
+        "gh-create-repo",
+        "gh-enable-pages",
+        "gh-issues-sync",
+        "gh-merge-pr",
+        "gh-org-ci",
+        "gh-org-clone",
+        "gh-pr-open",
+        "gh-pr-status",
+        "gh-release",
+        "gh-rename-org",
+        "gh-rename-repo",
+        "git-clean-branches",
+        "git-conflict-helper",
+        "git-replace",
+        "git-safe-checkout",
+        "git-split-repo",
+        "git-sync",
+        "http-status-check",
+        "image-checksum-manifest",
+        "incremental-file-copy",
+        "invoice-due-report",
+        "json-batch-validate",
+        "json-property-select",
+        "lic-audit",
+        "lockfile-drift",
+        "organize-downloads",
+        "page-link-export",
+        "port-kill",
+        "precommit-install",
+        "proj-bootstrap",
+        "py-check",
+        "py-venv-rebuild",
+        "s3-bucket-audit",
+        "secret-scan",
+        "snapshot",
+        "tcp-connect-check",
+        "terraform-workspaces",
+        "version-bump",
+        "vuln-scan",
+        "windows-services-report"
+      ]
     }
   }
 }

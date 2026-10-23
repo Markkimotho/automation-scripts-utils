@@ -32,6 +32,10 @@ jobs:
         run: python -m pip install -r requirements-quality.txt
       - name: Validate schema and YAML metadata
         run: python tests/validate_catalog.py
+      - name: Validate research evidence and generated documentation
+        run: |
+          python tools/research.py validate
+          python tools/generate_directory.py --check
       - name: Catalog and CLI tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Install test-only Git history tool
@@ -85,3 +89,30 @@ jobs:
           ruby scripts/media-processing/files/image-checksum-manifest/script.rb /tmp/automation-fixtures | grep -q sample.png
           go run scripts/networking-monitoring/tcp/tcp-connect-check/script.go -host 127.0.0.1 -port 1 -timeout 200ms > /tmp/automation-fixtures/tcp.json && exit 1 || test "$?" -eq 1
           grep -q '"reachable":false' /tmp/automation-fixtures/tcp.json
+
+  local-automations:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Syntax validation
+        run: |
+          node --check scripts/developer-tools/dependencies/npm-lock-audit/script.js
+          node --check scripts/networking-monitoring/har/har-timing-summary/script.js
+          ruby -c scripts/data-engineering/csv/csv-key-reconcile/script.rb
+      - name: Offline functional and safety checks
+        env:
+          AUTOMATION_REQUIRE_RUNTIMES: "1"
+        run: python -m unittest discover -s tests -p test_verified_batch.py -v

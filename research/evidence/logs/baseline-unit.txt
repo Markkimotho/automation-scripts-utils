@@ -1,0 +1,28 @@
+test_dry_run_does_not_execute (test_catalog_cli.CLITests.test_dry_run_does_not_execute) ... ok
+test_info (test_catalog_cli.CLITests.test_info) ... ok
+test_invalid_parameters_rejected (test_catalog_cli.CLITests.test_invalid_parameters_rejected) ... ok
+test_list_category (test_catalog_cli.CLITests.test_list_category) ... ok
+test_missing_script_rejected (test_catalog_cli.CLITests.test_missing_script_rejected) ... ok
+test_search (test_catalog_cli.CLITests.test_search) ... ok
+test_metadata_matches_files (test_catalog_cli.CatalogIntegrity.test_metadata_matches_files) ... ok
+test_unique_ids_and_entries (test_catalog_cli.CatalogIntegrity.test_unique_ids_and_entries) ... ok
+test_go_tcp_connection (test_multilanguage_automations.MultiLanguageTests.test_go_tcp_connection) ... ok
+test_node_http_status_with_local_server (test_multilanguage_automations.MultiLanguageTests.test_node_http_status_with_local_server) ... ok
+test_playwright_script_has_help_without_browser_download (test_multilanguage_automations.MultiLanguageTests.test_playwright_script_has_help_without_browser_download) ... ok
+test_powershell_help (test_multilanguage_automations.MultiLanguageTests.test_powershell_help) ... skipped 'PowerShell not installed'
+test_ruby_image_manifest (test_multilanguage_automations.MultiLanguageTests.test_ruby_image_manifest) ... ok
+test_terraform_wrapper_help_without_installation (test_multilanguage_automations.MultiLanguageTests.test_terraform_wrapper_help_without_installation) ... ok
+test_typescript_json_property_select (test_multilanguage_automations.MultiLanguageTests.test_typescript_json_property_select) ... ok
+test_dataset_missing_values (test_python_automations.PythonAutomations.test_dataset_missing_values) ... ok
+test_file_inventory_and_symlinks (test_python_automations.PythonAutomations.test_file_inventory_and_symlinks) ... ok
+test_incremental_backup_preview_and_apply (test_python_automations.PythonAutomations.test_incremental_backup_preview_and_apply) ... ok
+test_invoice_due_report (test_python_automations.PythonAutomations.test_invoice_due_report) ... ok
+test_json_validation_finds_bad_files (test_python_automations.PythonAutomations.test_json_validation_finds_bad_files) ... ok
+test_local_eml_headers (test_python_automations.PythonAutomations.test_local_eml_headers) ... ok
+test_organizer_preview_and_apply (test_python_automations.PythonAutomations.test_organizer_preview_and_apply) ... ok
+test_permission_audit (test_python_automations.PythonAutomations.test_permission_audit) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 6.483s
+
+OK (skipped=1)
