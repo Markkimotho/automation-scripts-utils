@@ -1,0 +1,48 @@
+name: Automation proposal
+description: Propose a real automation script with use-case evidence.
+title: "[automation] "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Domain
+      options:
+        - cloud-devops
+        - system-administration
+        - files-documents
+        - data-engineering
+        - web-browser
+        - api-integrations
+        - ai-ml-llmops
+        - security-compliance
+        - developer-tools
+        - networking-monitoring
+        - business-productivity
+        - messaging-notifications
+        - backup-recovery
+        - media-processing
+        - desktop-personal
+        - testing-qa
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Repetitive task to automate
+      description: Describe the current manual steps and expected result.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Inputs, outputs and safety
+      description: List permissions, runtime, dependencies, preview and confirmation behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Verification and test cases
+    validations:
+      required: true

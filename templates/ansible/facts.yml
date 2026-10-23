@@ -1,0 +1,8 @@
+---
+- name: Read Linux host operating system facts
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Show distribution and version
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts['distribution'] }} {{ ansible_facts['distribution_version'] }}"
