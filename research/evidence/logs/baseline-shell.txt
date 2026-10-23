@@ -1,0 +1,136 @@
+== packages/common/common.sh ==
+  [32mPASS[0m require_cmd finds bash
+  [32mPASS[0m confirm honors ASSUME_YES
+  [32mPASS[0m has_uncommitted is a function
+== git-conflict-helper.sh --check ==
+  [32mPASS[0m clean repo -> exit 0
+  [32mPASS[0m conflicted repo -> exit 2
+  [32mPASS[0m lists the conflicted file
+== git-safe-checkout.sh --check ==
+  [32mPASS[0m clean tree -> exit 0
+  [32mPASS[0m dirty tree -> exit 2
+== git-clean-branches.sh --dry-run ==
+  [32mPASS[0m lists merged branch in dry-run
+== dev-doctor.sh ==
+  [32mPASS[0m exits 0 (git+bash present)
+== proj-bootstrap.sh ==
+  [32mPASS[0m creates README
+  [32mPASS[0m creates .gitignore
+  [32mPASS[0m creates pre-commit
+  [32mPASS[0m creates CI workflow
+  [32mPASS[0m creates LICENSE
+  [32mPASS[0m git initialized
+== clean-artifacts.sh ==
+  [32mPASS[0m dry-run lists __pycache__
+  [32mPASS[0m dry-run leaves files
+  [32mPASS[0m apply removes __pycache__
+== snapshot.sh ==
+  [32mPASS[0m creates a tar.gz
+== git-split-repo.sh ==
+  [32mPASS[0m split creates repo
+  [32mPASS[0m split keeps touching commits only
+  [32mPASS[0m split moves path (sdk/a.py)
+  [32mPASS[0m split drops other paths (go/)
+  [32mPASS[0m split drops tags
+  [32mPASS[0m split leaves source untouched
+  [32mPASS[0m split moves dir to root (=.)
+  [32mPASS[0m split excludes a path in a kept dir
+  [32mPASS[0m manifest drop line keeps spaces
+  [32mPASS[0m split refuses a missing drop path
+  [32mPASS[0m split refuses a missing keep path
+  [32mPASS[0m split refuses existing target
+  [32mPASS[0m split refuses paths outside repo
+== git-replace.sh ==
+  [32mPASS[0m replace preview exits 2
+  [32mPASS[0m replace preview writes nothing
+  [32mPASS[0m replace --apply rewrites
+  [32mPASS[0m replace is case-sensitive
+  [32mPASS[0m replace skips untracked files
+  [32mPASS[0m replace with nothing left exits 0
+== gh-rename-org.sh --remotes-only ==
+  [32mPASS[0m rename-org exits 0
+  [32mPASS[0m rewrites ssh remote
+  [32mPASS[0m rewrites https remote (any case)
+  [32mPASS[0m leaves repo named like the org
+  [32mPASS[0m free name (gh 404 on stdout) -> waits and succeeds
+  [32mPASS[0m detects completed rename by org id
+  [32mPASS[0m taken name -> refuses
+  [32mPASS[0m refuses same name (case-insensitive)
+  [32mPASS[0m refuses invalid name
+== gh-org-clone.sh (local base url) ==
+  [32mPASS[0m clones listed repos
+  [32mPASS[0m missing repo -> exit 1
+  [32mPASS[0m dirty clone left untouched
+== gh-org-ci.sh (fake gh) ==
+  [32mPASS[0m org-ci exits 2 when a run failed
+  [32mPASS[0m org-ci prints failed run URL
+  [32mPASS[0m org-ci exits 0 when all succeeded
+  [32mPASS[0m --failed hides successes
+  [32mPASS[0m in-progress run shows its status, not the URL
+== bash usage/help exits 0 ==
+  [32mPASS[0m gh-merge-pr --help
+  [32mPASS[0m gh-create-repo --help
+  [32mPASS[0m gh-enable-pages --help
+  [32mPASS[0m gh-rename-repo --help
+  [32mPASS[0m gh-rename-org --help
+  [32mPASS[0m gh-org-clone --help
+  [32mPASS[0m git-split-repo --help
+  [32mPASS[0m git-replace --help
+  [32mPASS[0m git-conflict-helper --help
+  [32mPASS[0m git-safe-checkout --help
+  [32mPASS[0m git-clean-branches --help
+  [32mPASS[0m gh-pr-open --help
+  [32mPASS[0m git-sync --help
+  [32mPASS[0m dev-doctor --help
+  [32mPASS[0m proj-bootstrap --help
+  [32mPASS[0m precommit-install --help
+  [32mPASS[0m py-check --help
+  [32mPASS[0m clean-artifacts --help
+  [32mPASS[0m snapshot --help
+  [32mPASS[0m py-venv-rebuild --help
+  [32mPASS[0m port-kill --help
+== python lane ==
+  [32mPASS[0m python3 available
+  [32mPASS[0m common.py imports
+  [32mPASS[0m gh-pr-status --help
+  [32mPASS[0m gh-release --help
+  [32mPASS[0m env-check --help
+  [32mPASS[0m version-bump --help
+  [32mPASS[0m lockfile-drift --help
+  [32mPASS[0m deps-unused --help
+  [32mPASS[0m deps-outdated --help
+  [32mPASS[0m vuln-scan --help
+  [32mPASS[0m lic-audit --help
+  [32mPASS[0m data-convert --help
+  [32mPASS[0m secret-scan --help
+  [32mPASS[0m gh-issues-sync --help
+== data-convert.py (csv -> json) ==
+  [32mPASS[0m csv->json
+== secret-scan.py ==
+  [32mPASS[0m flags AWS key -> exit 2
+  [32mPASS[0m clean file -> exit 0
+== env-check.py ==
+  [32mPASS[0m missing key -> exit 2
+  [32mPASS[0m complete -> exit 0
+== version-bump.py ==
+  [32mPASS[0m package.json bumped to 1.2.4
+  [32mPASS[0m minor bump -> 1.3.0
+== lockfile-drift.py ==
+  [32mPASS[0m missing lock -> exit 2
+  [32mPASS[0m lock present+newer -> exit 0
+== deps-unused.py ==
+  [32mPASS[0m flags unused click
+  [32mPASS[0m does not flag used requests
+== empty-dir behavior (polyglot tools exit 0) ==
+  [32mPASS[0m lockfile-drift empty dir -> exit 0
+  [32mPASS[0m deps-outdated empty dir -> exit 0
+  [32mPASS[0m vuln-scan empty dir -> exit 0
+== gh-issues-sync.py (fake gh) ==
+  [32mPASS[0m issues preview exits 2
+  [32mPASS[0m issues preview creates nothing
+  [32mPASS[0m issues apply exits 0
+  [32mPASS[0m skips existing title (any case)
+  [32mPASS[0m creates only missing labels
+  [32mPASS[0m rejects empty body and duplicate titles
+
+Passed: 111  Failed: 0

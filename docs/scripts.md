@@ -98,6 +98,18 @@ automation run terraform-workspaces -- --help
 
 ## Data Engineering
 
+### `csv-key-reconcile`
+
+Compare exact keys in two CSV exports, reporting missing records and duplicate identifiers without comparing other values.
+
+**Language:** ruby · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run csv-key-reconcile -- --left ./before.csv --right ./after.csv --key id
+```
+
+[Usage, options and troubleshooting](automations/csv-key-reconcile.md)
+
 ### `data-convert`
 
 Convert between CSV, JSON, and YAML (YAML needs PyYAML).
@@ -109,6 +121,18 @@ automation info data-convert
 automation run data-convert --dry-run
 automation run data-convert -- --help
 ```
+
+### `sqlite-health-check`
+
+Check an offline SQLite snapshot for structural and foreign-key problems without creating journal sidecars.
+
+**Language:** python · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run sqlite-health-check -- --database ./app.db --full
+```
+
+[Usage, options and troubleshooting](automations/sqlite-health-check.md)
 
 ## Desktop Personal
 
@@ -402,6 +426,18 @@ automation run lockfile-drift --dry-run
 automation run lockfile-drift -- --help
 ```
 
+### `npm-lock-audit`
+
+Audit npm v2/v3 lock metadata for strong integrity, HTTPS sources, embedded credentials and lifecycle-script declarations offline.
+
+**Language:** javascript · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run npm-lock-audit -- --lockfile ./package-lock.json
+```
+
+[Usage, options and troubleshooting](automations/npm-lock-audit.md)
+
 ### `precommit-install`
 
 Install (and optionally scaffold) pre-commit hooks; offers to pip-install pre-commit.
@@ -518,6 +554,18 @@ automation run eml-headers-report -- --help
 
 ## Networking Monitoring
 
+### `har-timing-summary`
+
+Summarize offline HAR request timing, failures, status counts and body sizes while omitting URLs and payloads.
+
+**Language:** javascript · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run har-timing-summary -- --input ./capture.har --slow-ms 1000
+```
+
+[Usage, options and troubleshooting](automations/har-timing-summary.md)
+
 ### `tcp-connect-check`
 
 Attempt one TCP connection to a specified host and port and return reachable status and latency.
@@ -567,6 +615,18 @@ automation info vuln-scan
 automation run vuln-scan --dry-run
 automation run vuln-scan -- --help
 ```
+
+### `zip-safety-audit`
+
+Inspect ZIP member metadata for traversal, symlinks, duplicate paths, encryption and excessive declared expansion.
+
+**Language:** python · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run zip-safety-audit -- --archive ./download.zip
+```
+
+[Usage, options and troubleshooting](automations/zip-safety-audit.md)
 
 ## System Administration
 
@@ -620,6 +680,18 @@ automation run json-batch-validate --dry-run
 automation run json-batch-validate -- --help
 ```
 
+### `jsonl-key-profile`
+
+Stream JSON Lines to find invalid object records and missing top-level keys without printing record values.
+
+**Language:** python · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run jsonl-key-profile -- --input ./events.jsonl
+```
+
+[Usage, options and troubleshooting](automations/jsonl-key-profile.md)
+
 ## Web Browser
 
 ### `page-link-export`
@@ -633,4 +705,3 @@ automation info page-link-export
 automation run page-link-export --dry-run
 automation run page-link-export -- --help
 ```
-

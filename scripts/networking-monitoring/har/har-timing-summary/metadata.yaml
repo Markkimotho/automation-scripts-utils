@@ -1,0 +1,46 @@
+id: har-timing-summary
+title: HAR Timing Summary
+description: Summarize offline HAR request timing, failures, status counts and body
+  sizes while omitting URLs and payloads.
+category: networking-monitoring
+topic: har
+language: javascript
+entrypoint: scripts/networking-monitoring/har/har-timing-summary/script.js
+platforms:
+- macos
+dependencies:
+- node
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: input
+  type: string
+  required: true
+  flag: --input
+- name: slow_ms
+  type: number
+  required: false
+  flag: --slow-ms
+tags:
+- networking-monitoring
+- har
+- offline
+- report
+expected_output: JSON aggregate timing, status, slow-request and known body-size statistics.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Node.js >=18 (built-in modules only)
+environment_variables: []
+exit_codes:
+  '0': Valid capture summarized, including any failed HTTP requests.
+  '2': Invalid arguments, unreadable input, unsupported format or resource limit.
+provenance_ref: har-timing-summary
+test_status: passed
+compatibility_notes: Verified locally on macOS only. Linux and Windows verification
+  is configured in CI but pending; not advertised as supported.
+usage_example: automation run har-timing-summary -- --input ./capture.har --slow-ms
+  1000

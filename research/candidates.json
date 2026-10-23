@@ -1,0 +1,423 @@
+{
+  "schema_version": 1,
+  "candidates": [
+    {
+      "id": "sqlite-health-check",
+      "name": "SQLite Health Check",
+      "problem": "Use before accepting a local database backup or when diagnosing application data inconsistencies.",
+      "category": "data-engineering",
+      "subcategory": "sqlite",
+      "language": "python",
+      "source_url": "https://sqlite.org/pragma.html",
+      "source_repository": "https://sqlite.org/src",
+      "author": "SQLite authors",
+      "license": "public-domain",
+      "license_url": "https://www.sqlite.org/copyright.html",
+      "source_revision": null,
+      "last_maintenance": null,
+      "dependencies": [
+        "Python >=3.10 with SQLite >=3.31"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "A stable, offline SQLite snapshot without adjacent WAL/SHM/journal files; zero-byte files are valid empty databases.",
+      "outputs": "JSON healthy flag, structural check results and up to 1000 foreign-key violations.",
+      "existing_tests": "New independent implementation: tests/test_verified_batch.py; no upstream tests reused.",
+      "limitations": [
+        "Checks trusted local databases; not a hardened parser for hostile SQLite files.",
+        "The SQLite VM progress callback and lock timeout cannot forcibly interrupt stalled operating-system I/O.",
+        "Rejects adjacent WAL/SHM/journal files; use the SQLite backup API to create a consistent offline snapshot first.",
+        "Foreign-key findings are capped at 1000; truncated=true means more exist."
+      ],
+      "security_considerations": [
+        "Immutable read-only connection; no locks, journal writes, repairs, supplied SQL or extension loading. Requires a stable trusted offline snapshot. Never remove active journals to bypass checks."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "Original implementation under repository MIT license. Reference APIs/formats only; no upstream source or prose copied. Unknown documentation licenses are not permission to copy. Source revision/maintenance timestamps are null when not verified.",
+      "security_review": "Reviewed local implementation and standard-library dependencies. No downloaded code executed; no external endpoints, third-party installs, shell execution, privilege escalation or production credentials. Bounded inputs/output as documented.",
+      "test_file": "tests/test_verified_batch.py",
+      "test_evidence": "research/evidence/2026-10-23-local-batch.json",
+      "decision": "Accepted after offline behavioral tests on macOS; not published or released."
+    },
+    {
+      "id": "zip-safety-audit",
+      "name": "ZIP Safety Audit",
+      "problem": "Inspect downloaded archives before choosing a trusted extraction tool.",
+      "category": "security-compliance",
+      "subcategory": "archives",
+      "language": "python",
+      "source_url": "https://docs.python.org/3/library/zipfile.html",
+      "source_repository": "https://github.com/python/cpython",
+      "author": "Python Software Foundation",
+      "license": "PSF-2.0",
+      "license_url": "https://docs.python.org/3.11/license.html",
+      "source_revision": "Python zipfile documentation (rolling; no code copied)",
+      "last_maintenance": null,
+      "dependencies": [
+        "Python >=3.10 (standard library only)"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "One ZIP archive no larger than 64 MiB; contents are never decompressed.",
+      "outputs": "JSON member count, declared size and indexed hazard findings.",
+      "existing_tests": "New independent implementation: tests/test_verified_batch.py; no upstream tests reused.",
+      "limitations": [
+        "Metadata-only heuristic: does not verify CRCs, actual compressed streams, malware, recursive archives, or every filesystem collision.",
+        "Case-insensitive duplicate detection can flag harmless names on case-sensitive filesystems.",
+        "Memory is proportional to the ZIP central directory, bounded indirectly by the 64 MiB input limit."
+      ],
+      "security_considerations": [
+        "Never extracts or decompresses entries. Flags absolute and parent paths, Windows path hazards, special files, symlinks, encrypted members and suspicious metadata. A report without findings is not an assurance that extraction is safe."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "Original implementation under repository MIT license. Reference APIs/formats only; no upstream source or prose copied. Unknown documentation licenses are not permission to copy. Source revision/maintenance timestamps are null when not verified.",
+      "security_review": "Reviewed local implementation and standard-library dependencies. No downloaded code executed; no external endpoints, third-party installs, shell execution, privilege escalation or production credentials. Bounded inputs/output as documented.",
+      "test_file": "tests/test_verified_batch.py",
+      "test_evidence": "research/evidence/2026-10-23-local-batch.json",
+      "decision": "Accepted after offline behavioral tests on macOS; not published or released."
+    },
+    {
+      "id": "jsonl-key-profile",
+      "name": "JSON Lines Key Profile",
+      "problem": "Detect schema drift and malformed records in event streams or dataset exports before ingestion.",
+      "category": "testing-qa",
+      "subcategory": "jsonl",
+      "language": "python",
+      "source_url": "https://docs.python.org/3.11/library/json.html",
+      "source_repository": "https://github.com/python/cpython",
+      "author": "Python Software Foundation",
+      "license": "PSF-2.0",
+      "license_url": "https://docs.python.org/3.11/license.html",
+      "source_revision": "Python 3.11 documentation; no code copied",
+      "last_maintenance": null,
+      "dependencies": [
+        "Python >=3.10 (standard library only)"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "UTF-8 JSON Lines; one object per nonblank physical line. A final newline is optional.",
+      "outputs": "JSON record counts, invalid line numbers, and top-level key coverage.",
+      "existing_tests": "New independent implementation: tests/test_verified_batch.py; no upstream tests reused.",
+      "limitations": [
+        "Counts top-level keys only; null values count as present.",
+        "Rejects duplicate object keys at any depth, non-object records, malformed UTF-8, NaN and Infinity constants.",
+        "At most 10000 distinct keys and 1000 invalid line numbers are retained. Blank lines are counted separately."
+      ],
+      "security_considerations": [
+        "Streams with a bounded line buffer. Reports key names and line numbers, never values. Key names may themselves be sensitive. Reaching a resource limit emits no partial success report."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "Original implementation under repository MIT license. Reference APIs/formats only; no upstream source or prose copied. Unknown documentation licenses are not permission to copy. Source revision/maintenance timestamps are null when not verified.",
+      "security_review": "Reviewed local implementation and standard-library dependencies. No downloaded code executed; no external endpoints, third-party installs, shell execution, privilege escalation or production credentials. Bounded inputs/output as documented.",
+      "test_file": "tests/test_verified_batch.py",
+      "test_evidence": "research/evidence/2026-10-23-local-batch.json",
+      "decision": "Accepted after offline behavioral tests on macOS; not published or released."
+    },
+    {
+      "id": "csv-key-reconcile",
+      "name": "CSV Key Reconciliation",
+      "problem": "Reconcile customer exports, migration results or inventory snapshots using one identifier column.",
+      "category": "data-engineering",
+      "subcategory": "csv",
+      "language": "ruby",
+      "source_url": "https://docs.ruby-lang.org/en/2.6.0/CSV.html",
+      "source_repository": "https://github.com/ruby/ruby",
+      "author": "Ruby contributors",
+      "license": null,
+      "license_url": null,
+      "source_revision": "Ruby 2.6 API documentation; no code copied",
+      "last_maintenance": null,
+      "dependencies": [
+        "Ruby >=2.6 with csv, json, optparse and set standard libraries"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Two comma-delimited UTF-8 CSV files with unique nonempty headers, consistent row widths and a common named key column. UTF-8 BOM and quoted multiline fields are supported.",
+      "outputs": "JSON row counts, common-key count, keys unique to each file and duplicate keys.",
+      "existing_tests": "New independent implementation: tests/test_verified_batch.py; no upstream tests reused.",
+      "limitations": [
+        "Exact string comparison preserves case and surrounding whitespace; no numeric normalization or value comparison.",
+        "Files are limited to 32 MiB each; memory grows with unique key count.",
+        "Header-only CSVs are valid empty datasets; zero-byte files are invalid."
+      ],
+      "security_considerations": [
+        "Reads both files and writes only to stdout. Output contains key values, which can be personal or confidential; handle the report accordingly. Does not merge or alter exports."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "Original implementation under repository MIT license. Reference APIs/formats only; no upstream source or prose copied. Unknown documentation licenses are not permission to copy. Source revision/maintenance timestamps are null when not verified.",
+      "security_review": "Reviewed local implementation and standard-library dependencies. No downloaded code executed; no external endpoints, third-party installs, shell execution, privilege escalation or production credentials. Bounded inputs/output as documented.",
+      "test_file": "tests/test_verified_batch.py",
+      "test_evidence": "research/evidence/2026-10-23-local-batch.json",
+      "decision": "Accepted after offline behavioral tests on macOS; not published or released."
+    },
+    {
+      "id": "npm-lock-audit",
+      "name": "npm Lockfile Policy Audit",
+      "problem": "Review supply-chain metadata before permitting a dependency installation in CI.",
+      "category": "developer-tools",
+      "subcategory": "dependencies",
+      "language": "javascript",
+      "source_url": "https://docs.npmjs.com/cli/v11/configuring-npm/package-lock-json/",
+      "source_repository": "https://github.com/npm/documentation",
+      "author": "npm contributors",
+      "license": "CC-BY-4.0 (reference documentation)",
+      "license_url": "https://github.com/npm/documentation/blob/main/LICENSE",
+      "source_revision": "npm CLI v11 documentation; no code or prose copied",
+      "last_maintenance": null,
+      "dependencies": [
+        "Node.js >=18 (built-in modules only)"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "npm package-lock.json lockfileVersion 2 or 3 with a packages object, at most 32 MiB and 100000 entries.",
+      "outputs": "JSON checked/skipped counts and per-package policy findings.",
+      "existing_tests": "New independent implementation: tests/test_verified_batch.py; no upstream tests reused.",
+      "limitations": [
+        "Metadata policy only: does not verify downloaded content, package safety, advisories or manifest consistency.",
+        "Root, link and bundled records are skipped. Git/file sources and SHA-1-only integrity are deliberately flagged.",
+        "Lifecycle-script findings identify declarations, not maliciousness; a missing flag does not prove a package has no scripts."
+      ],
+      "security_considerations": [
+        "Never runs npm, installs dependencies, fetches URLs or executes hooks. Source URLs and embedded URL credentials are omitted from reports and errors. Package paths are included."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "Original implementation under repository MIT license. Reference APIs/formats only; no upstream source or prose copied. Unknown documentation licenses are not permission to copy. Source revision/maintenance timestamps are null when not verified.",
+      "security_review": "Reviewed local implementation and standard-library dependencies. No downloaded code executed; no external endpoints, third-party installs, shell execution, privilege escalation or production credentials. Bounded inputs/output as documented.",
+      "test_file": "tests/test_verified_batch.py",
+      "test_evidence": "research/evidence/2026-10-23-local-batch.json",
+      "decision": "Accepted after offline behavioral tests on macOS; not published or released."
+    },
+    {
+      "id": "har-timing-summary",
+      "name": "HAR Timing Summary",
+      "problem": "Inspect browser network captures for slow requests or failing responses before sharing aggregate diagnostics.",
+      "category": "networking-monitoring",
+      "subcategory": "har",
+      "language": "javascript",
+      "source_url": "https://webperfwg.org/specs/HAR/Overview.html",
+      "source_repository": "https://github.com/w3c/web-performance",
+      "author": "HAR specification authors / Web Performance Working Group",
+      "license": null,
+      "license_url": null,
+      "source_revision": "HAR 1.2 specification; no code or prose copied",
+      "last_maintenance": null,
+      "dependencies": [
+        "Node.js >=18 (built-in modules only)"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "HAR 1.2 JSON with log.entries; entries need finite nonnegative time, response status/bodySize and a timings object. At most 32 MiB and 100000 entries.",
+      "outputs": "JSON aggregate timing, status, slow-request and known body-size statistics.",
+      "existing_tests": "New independent implementation: tests/test_verified_batch.py; no upstream tests reused.",
+      "limitations": [
+        "An aggregate reader, not full HAR schema validation; optional/missing timing components are ignored.",
+        "Summed durations include overlapping requests and are not page-load wall time; SSL timing overlaps connect timing.",
+        "Failure counts use status 0 or >=400; redirects are not classified as failures. Unknown body sizes (-1) are counted separately."
+      ],
+      "security_considerations": [
+        "Reads locally without network access. Report and errors omit URLs, headers, cookies, query parameters and response bodies. Original HAR files often contain secrets; this tool does not redact the original file."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "Original implementation under repository MIT license. Reference APIs/formats only; no upstream source or prose copied. Unknown documentation licenses are not permission to copy. Source revision/maintenance timestamps are null when not verified.",
+      "security_review": "Reviewed local implementation and standard-library dependencies. No downloaded code executed; no external endpoints, third-party installs, shell execution, privilege escalation or production credentials. Bounded inputs/output as documented.",
+      "test_file": "tests/test_verified_batch.py",
+      "test_evidence": "research/evidence/2026-10-23-local-batch.json",
+      "decision": "Accepted after offline behavioral tests on macOS; not published or released."
+    },
+    {
+      "id": "dabs-sqlite-backup",
+      "name": "DABS SQLite backup",
+      "problem": "DABS SQLite backup",
+      "category": "backup-recovery",
+      "subcategory": "research",
+      "language": "bash",
+      "source_url": "https://github.com/kayaman78/dabs",
+      "source_repository": null,
+      "author": "See linked source; not independently verified",
+      "license": null,
+      "license_url": null,
+      "source_revision": null,
+      "last_maintenance": null,
+      "dependencies": [
+        "bash runtime; detailed dependency review pending"
+      ],
+      "platforms": [],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Not finalized; reference linked source.",
+      "outputs": "Not finalized; not registered in catalog.",
+      "existing_tests": "Not verified.",
+      "limitations": [
+        "Not available in the product."
+      ],
+      "security_considerations": [
+        "Do not execute downloaded implementations; license, dependencies and behavior require review."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "rejected",
+      "reuse": "none",
+      "license_review": "No upstream code copied; reuse is not authorized until license and revision are verified.",
+      "security_review": "Preliminary review only; no external code executed.",
+      "test_file": null,
+      "test_evidence": null,
+      "decision": "Not selected: Docker-specific backup wrapper adds infrastructure and destructive retention requirements; source license and pinned revision not verified. No code copied."
+    },
+    {
+      "id": "zipwalk-audit",
+      "name": "Zipwalk archive audit",
+      "problem": "Zipwalk archive audit",
+      "category": "security-compliance",
+      "subcategory": "research",
+      "language": "go",
+      "source_url": "https://github.com/efealtiparmakoglu/zipwalk",
+      "source_repository": null,
+      "author": "See linked source; not independently verified",
+      "license": null,
+      "license_url": null,
+      "source_revision": null,
+      "last_maintenance": null,
+      "dependencies": [
+        "go runtime; detailed dependency review pending"
+      ],
+      "platforms": [],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Not finalized; reference linked source.",
+      "outputs": "Not finalized; not registered in catalog.",
+      "existing_tests": "Not verified.",
+      "limitations": [
+        "Not available in the product."
+      ],
+      "security_considerations": [
+        "Do not execute downloaded implementations; license, dependencies and behavior require review."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "rejected",
+      "reuse": "none",
+      "license_review": "No upstream code copied; reuse is not authorized until license and revision are verified.",
+      "security_review": "Preliminary review only; no external code executed.",
+      "test_file": null,
+      "test_evidence": null,
+      "decision": "Not selected: overlaps the independently implemented metadata audit; broader extraction behavior and upstream license/revision remain unreviewed. No code copied."
+    },
+    {
+      "id": "windows-event-export",
+      "name": "Windows event log export",
+      "problem": "Windows event log export",
+      "category": "system-administration",
+      "subcategory": "research",
+      "language": "powershell",
+      "source_url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent?view=powershell-7.6",
+      "source_repository": null,
+      "author": "See linked source; not independently verified",
+      "license": null,
+      "license_url": null,
+      "source_revision": null,
+      "last_maintenance": null,
+      "dependencies": [
+        "powershell runtime; detailed dependency review pending"
+      ],
+      "platforms": [
+        "windows"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Not finalized; reference linked source.",
+      "outputs": "Not finalized; not registered in catalog.",
+      "existing_tests": "Not verified.",
+      "limitations": [
+        "Not available in the product."
+      ],
+      "security_considerations": [
+        "Do not execute downloaded implementations; license, dependencies and behavior require review."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "reviewed",
+      "reuse": "none",
+      "license_review": "No upstream code copied; reuse is not authorized until license and revision are verified.",
+      "security_review": "Preliminary review only; no external code executed.",
+      "test_file": null,
+      "test_evidence": null,
+      "decision": "Deferred: Windows event APIs and PowerShell are unavailable locally; needs Windows fixtures, privilege checks and sensitive log handling."
+    },
+    {
+      "id": "pem-expiry-report",
+      "name": "Local PEM certificate expiry report",
+      "problem": "Local PEM certificate expiry report",
+      "category": "security-compliance",
+      "subcategory": "research",
+      "language": "go",
+      "source_url": "https://pkg.go.dev/crypto/x509",
+      "source_repository": null,
+      "author": "See linked source; not independently verified",
+      "license": null,
+      "license_url": null,
+      "source_revision": null,
+      "last_maintenance": null,
+      "dependencies": [
+        "go runtime; detailed dependency review pending"
+      ],
+      "platforms": [],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Not finalized; reference linked source.",
+      "outputs": "Not finalized; not registered in catalog.",
+      "existing_tests": "Not verified.",
+      "limitations": [
+        "Not available in the product."
+      ],
+      "security_considerations": [
+        "Do not execute downloaded implementations; license, dependencies and behavior require review."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "reviewed",
+      "reuse": "none",
+      "license_review": "No upstream code copied; reuse is not authorized until license and revision are verified.",
+      "security_review": "Preliminary review only; no external code executed.",
+      "test_file": null,
+      "test_evidence": null,
+      "decision": "Deferred to a focused Go batch with generated certificate fixtures, clock control and expired/malformed PEM tests."
+    }
+  ],
+  "source_state": {}
+}

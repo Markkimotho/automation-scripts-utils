@@ -1,0 +1,27 @@
+test_csv_bom_multiline_and_utf8 (test_verified_batch.VerifiedBatchTests.test_csv_bom_multiline_and_utf8) ... ok
+test_csv_empty_malformed_missing_key_and_limits (test_verified_batch.VerifiedBatchTests.test_csv_empty_malformed_missing_key_and_limits) ... ok
+test_csv_reconcile_quotes_duplicates_and_exact_keys (test_verified_batch.VerifiedBatchTests.test_csv_reconcile_quotes_duplicates_and_exact_keys) ... ok
+test_har_aggregate_status_timings_and_privacy (test_verified_batch.VerifiedBatchTests.test_har_aggregate_status_timings_and_privacy) ... ok
+test_har_empty_invalid_entry_and_thresholds (test_verified_batch.VerifiedBatchTests.test_har_empty_invalid_entry_and_thresholds) ... ok
+test_help_missing_arguments_and_missing_file_for_every_script (test_verified_batch.VerifiedBatchTests.test_help_missing_arguments_and_missing_file_for_every_script) ... ok
+test_jsonl_coverage_blanks_and_no_values (test_verified_batch.VerifiedBatchTests.test_jsonl_coverage_blanks_and_no_values) ... ok
+test_jsonl_empty_limits_and_truncated_findings (test_verified_batch.VerifiedBatchTests.test_jsonl_empty_limits_and_truncated_findings) ... ok
+test_jsonl_rejects_nonstandard_duplicate_deep_and_invalid_utf8 (test_verified_batch.VerifiedBatchTests.test_jsonl_rejects_nonstandard_duplicate_deep_and_invalid_utf8) ... ok
+test_npm_flags_insecure_and_lifecycle_metadata_without_leaking_credentials (test_verified_batch.VerifiedBatchTests.test_npm_flags_insecure_and_lifecycle_metadata_without_leaking_credentials) ... ok
+test_npm_invalid_formats_empty_and_oversize (test_verified_batch.VerifiedBatchTests.test_npm_invalid_formats_empty_and_oversize) ... ok
+test_npm_strong_integrity_links_bundles_and_determinism (test_verified_batch.VerifiedBatchTests.test_npm_strong_integrity_links_bundles_and_determinism) ... ok
+test_sqlite_corrupt_empty_and_bad_timeouts (test_verified_batch.VerifiedBatchTests.test_sqlite_corrupt_empty_and_bad_timeouts) ... ok
+test_sqlite_foreign_key_inconsistency (test_verified_batch.VerifiedBatchTests.test_sqlite_foreign_key_inconsistency) ... ok
+test_sqlite_quick_full_idempotent_and_read_only (test_verified_batch.VerifiedBatchTests.test_sqlite_quick_full_idempotent_and_read_only) ... ok
+test_sqlite_rejects_journal_sidecars (test_verified_batch.VerifiedBatchTests.test_sqlite_rejects_journal_sidecars) ... ok
+test_sqlite_timeout_and_permission_failure (test_verified_batch.VerifiedBatchTests.test_sqlite_timeout_and_permission_failure) ... sqlite-health-check: cannot check database (missing, unreadable, invalid, journal sidecars, or timed out)
+sqlite-health-check: cannot check database (missing, unreadable, invalid, journal sidecars, or timed out)
+ok
+test_zip_corrupt_and_invalid_limit (test_verified_batch.VerifiedBatchTests.test_zip_corrupt_and_invalid_limit) ... ok
+test_zip_paths_symlink_ratio_and_total_limit (test_verified_batch.VerifiedBatchTests.test_zip_paths_symlink_ratio_and_total_limit) ... ok
+test_zip_safe_empty_and_no_extraction (test_verified_batch.VerifiedBatchTests.test_zip_safe_empty_and_no_extraction) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 7.326s
+
+OK

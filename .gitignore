@@ -11,3 +11,8 @@ _site/
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Local packaging outputs
+build/
+dist/
+*.egg-info/

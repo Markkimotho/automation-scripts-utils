@@ -1,0 +1,60 @@
+test_dry_run_does_not_execute (test_catalog_cli.CLITests.test_dry_run_does_not_execute) ... ok
+test_info (test_catalog_cli.CLITests.test_info) ... ok
+test_invalid_parameters_rejected (test_catalog_cli.CLITests.test_invalid_parameters_rejected) ... ok
+test_list_category (test_catalog_cli.CLITests.test_list_category) ... ok
+test_missing_script_rejected (test_catalog_cli.CLITests.test_missing_script_rejected) ... ok
+test_search (test_catalog_cli.CLITests.test_search) ... ok
+test_metadata_matches_files (test_catalog_cli.CatalogIntegrity.test_metadata_matches_files) ... ok
+test_unique_ids_and_entries (test_catalog_cli.CatalogIntegrity.test_unique_ids_and_entries) ... ok
+test_go_tcp_connection (test_multilanguage_automations.MultiLanguageTests.test_go_tcp_connection) ... ok
+test_node_http_status_with_local_server (test_multilanguage_automations.MultiLanguageTests.test_node_http_status_with_local_server) ... ok
+test_playwright_script_has_help_without_browser_download (test_multilanguage_automations.MultiLanguageTests.test_playwright_script_has_help_without_browser_download) ... ok
+test_powershell_help (test_multilanguage_automations.MultiLanguageTests.test_powershell_help) ... skipped 'PowerShell not installed'
+test_ruby_image_manifest (test_multilanguage_automations.MultiLanguageTests.test_ruby_image_manifest) ... ok
+test_terraform_wrapper_help_without_installation (test_multilanguage_automations.MultiLanguageTests.test_terraform_wrapper_help_without_installation) ... ok
+test_typescript_json_property_select (test_multilanguage_automations.MultiLanguageTests.test_typescript_json_property_select) ... ok
+test_dataset_missing_values (test_python_automations.PythonAutomations.test_dataset_missing_values) ... ok
+test_file_inventory_and_symlinks (test_python_automations.PythonAutomations.test_file_inventory_and_symlinks) ... ok
+test_incremental_backup_preview_and_apply (test_python_automations.PythonAutomations.test_incremental_backup_preview_and_apply) ... ok
+test_invoice_due_report (test_python_automations.PythonAutomations.test_invoice_due_report) ... ok
+test_json_validation_finds_bad_files (test_python_automations.PythonAutomations.test_json_validation_finds_bad_files) ... ok
+test_local_eml_headers (test_python_automations.PythonAutomations.test_local_eml_headers) ... ok
+test_organizer_preview_and_apply (test_python_automations.PythonAutomations.test_organizer_preview_and_apply) ... ok
+test_permission_audit (test_python_automations.PythonAutomations.test_permission_audit) ... ok
+test_catalog_cannot_reference_unaccepted_candidate (test_research_workflow.ResearchWorkflowTests.test_catalog_cannot_reference_unaccepted_candidate) ... ok
+test_copied_code_requires_license_and_pinned_revision (test_research_workflow.ResearchWorkflowTests.test_copied_code_requires_license_and_pinned_revision) ... ok
+test_evidence_path_traversal_is_rejected (test_research_workflow.ResearchWorkflowTests.test_evidence_path_traversal_is_rejected) ... ok
+test_generated_docs_match_catalog_and_script_readmes (test_research_workflow.ResearchWorkflowTests.test_generated_docs_match_catalog_and_script_readmes) ... ok
+test_import_deduplicates_urls_and_rejects_identifier_collisions (test_research_workflow.ResearchWorkflowTests.test_import_deduplicates_urls_and_rejects_identifier_collisions) ... ok
+test_inventory_and_acceptance_evidence (test_research_workflow.ResearchWorkflowTests.test_inventory_and_acceptance_evidence) ... ok
+test_new_import_cannot_self_promote (test_research_workflow.ResearchWorkflowTests.test_new_import_cannot_self_promote) ... ok
+test_new_metadata_requires_quality_fields (test_research_workflow.ResearchWorkflowTests.test_new_metadata_requires_quality_fields) ... ok
+test_repeated_import_preserves_completed_reviews (test_research_workflow.ResearchWorkflowTests.test_repeated_import_preserves_completed_reviews) ... ok
+test_stale_evidence_and_unverified_platform_claim_are_rejected (test_research_workflow.ResearchWorkflowTests.test_stale_evidence_and_unverified_platform_claim_are_rejected) ... ok
+test_csv_bom_multiline_and_utf8 (test_verified_batch.VerifiedBatchTests.test_csv_bom_multiline_and_utf8) ... ok
+test_csv_empty_malformed_missing_key_and_limits (test_verified_batch.VerifiedBatchTests.test_csv_empty_malformed_missing_key_and_limits) ... ok
+test_csv_reconcile_quotes_duplicates_and_exact_keys (test_verified_batch.VerifiedBatchTests.test_csv_reconcile_quotes_duplicates_and_exact_keys) ... ok
+test_har_aggregate_status_timings_and_privacy (test_verified_batch.VerifiedBatchTests.test_har_aggregate_status_timings_and_privacy) ... ok
+test_har_empty_invalid_entry_and_thresholds (test_verified_batch.VerifiedBatchTests.test_har_empty_invalid_entry_and_thresholds) ... ok
+test_help_missing_arguments_and_missing_file_for_every_script (test_verified_batch.VerifiedBatchTests.test_help_missing_arguments_and_missing_file_for_every_script) ... ok
+test_jsonl_coverage_blanks_and_no_values (test_verified_batch.VerifiedBatchTests.test_jsonl_coverage_blanks_and_no_values) ... ok
+test_jsonl_empty_limits_and_truncated_findings (test_verified_batch.VerifiedBatchTests.test_jsonl_empty_limits_and_truncated_findings) ... ok
+test_jsonl_rejects_nonstandard_duplicate_deep_and_invalid_utf8 (test_verified_batch.VerifiedBatchTests.test_jsonl_rejects_nonstandard_duplicate_deep_and_invalid_utf8) ... ok
+test_npm_flags_insecure_and_lifecycle_metadata_without_leaking_credentials (test_verified_batch.VerifiedBatchTests.test_npm_flags_insecure_and_lifecycle_metadata_without_leaking_credentials) ... ok
+test_npm_invalid_formats_empty_and_oversize (test_verified_batch.VerifiedBatchTests.test_npm_invalid_formats_empty_and_oversize) ... ok
+test_npm_strong_integrity_links_bundles_and_determinism (test_verified_batch.VerifiedBatchTests.test_npm_strong_integrity_links_bundles_and_determinism) ... ok
+test_sqlite_corrupt_empty_and_bad_timeouts (test_verified_batch.VerifiedBatchTests.test_sqlite_corrupt_empty_and_bad_timeouts) ... ok
+test_sqlite_foreign_key_inconsistency (test_verified_batch.VerifiedBatchTests.test_sqlite_foreign_key_inconsistency) ... ok
+test_sqlite_quick_full_idempotent_and_read_only (test_verified_batch.VerifiedBatchTests.test_sqlite_quick_full_idempotent_and_read_only) ... ok
+test_sqlite_rejects_journal_sidecars (test_verified_batch.VerifiedBatchTests.test_sqlite_rejects_journal_sidecars) ... ok
+test_sqlite_timeout_and_permission_failure (test_verified_batch.VerifiedBatchTests.test_sqlite_timeout_and_permission_failure) ... sqlite-health-check: cannot check database (missing, unreadable, invalid, journal sidecars, or timed out)
+sqlite-health-check: cannot check database (missing, unreadable, invalid, journal sidecars, or timed out)
+ok
+test_zip_corrupt_and_invalid_limit (test_verified_batch.VerifiedBatchTests.test_zip_corrupt_and_invalid_limit) ... ok
+test_zip_paths_symlink_ratio_and_total_limit (test_verified_batch.VerifiedBatchTests.test_zip_paths_symlink_ratio_and_total_limit) ... ok
+test_zip_safe_empty_and_no_extraction (test_verified_batch.VerifiedBatchTests.test_zip_safe_empty_and_no_extraction) ... ok
+
+----------------------------------------------------------------------
+Ran 53 tests in 5.543s
+
+OK (skipped=1)

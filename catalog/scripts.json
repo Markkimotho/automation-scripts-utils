@@ -4,7 +4,7 @@
     {
       "id": "clean-artifacts",
       "title": "Clean Artifacts",
-      "description": "Delete build/cache junk (`__pycache__`, `dist`, caches, `.DS_Store`, …). Dry-run by default.",
+      "description": "Delete build/cache junk (`__pycache__`, `dist`, caches, `.DS_Store`, \u2026). Dry-run by default.",
       "category": "system-administration",
       "topic": "maintenance",
       "language": "bash",
@@ -1613,6 +1613,365 @@
       ],
       "expected_output": "JSON service status records.",
       "status": "maintained"
+    },
+    {
+      "id": "sqlite-health-check",
+      "title": "SQLite Health Check",
+      "description": "Check an offline SQLite snapshot for structural and foreign-key problems without creating journal sidecars.",
+      "category": "data-engineering",
+      "topic": "sqlite",
+      "language": "python",
+      "entrypoint": "scripts/data-engineering/sqlite/sqlite-health-check/script.py",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "database",
+          "type": "string",
+          "required": true,
+          "flag": "--database"
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "required": false,
+          "flag": "--full"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "flag": "--timeout"
+        }
+      ],
+      "tags": [
+        "data-engineering",
+        "sqlite",
+        "offline",
+        "report"
+      ],
+      "expected_output": "JSON healthy flag, structural check results and up to 1000 foreign-key violations.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Python >=3.10 with SQLite >=3.31",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Report completed without policy findings or differences.",
+        "1": "Findings, invalid records, differences or unhealthy data.",
+        "2": "Invalid arguments, unreadable input, unsupported format or resource limit."
+      },
+      "provenance_ref": "sqlite-health-check",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS only. Linux and Windows verification is configured in CI but pending; not advertised as supported.",
+      "usage_example": "automation run sqlite-health-check -- --database ./app.db --full"
+    },
+    {
+      "id": "zip-safety-audit",
+      "title": "ZIP Safety Audit",
+      "description": "Inspect ZIP member metadata for traversal, symlinks, duplicate paths, encryption and excessive declared expansion.",
+      "category": "security-compliance",
+      "topic": "archives",
+      "language": "python",
+      "entrypoint": "scripts/security-compliance/archives/zip-safety-audit/script.py",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "archive",
+          "type": "string",
+          "required": true,
+          "flag": "--archive"
+        },
+        {
+          "name": "max_bytes",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-bytes"
+        },
+        {
+          "name": "max_ratio",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-ratio"
+        }
+      ],
+      "tags": [
+        "security-compliance",
+        "archives",
+        "offline",
+        "audit"
+      ],
+      "expected_output": "JSON member count, declared size and indexed hazard findings.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Python >=3.10 (standard library only)",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Report completed without policy findings or differences.",
+        "1": "Findings, invalid records, differences or unhealthy data.",
+        "2": "Invalid arguments, unreadable input, unsupported format or resource limit."
+      },
+      "provenance_ref": "zip-safety-audit",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS only. Linux and Windows verification is configured in CI but pending; not advertised as supported.",
+      "usage_example": "automation run zip-safety-audit -- --archive ./download.zip"
+    },
+    {
+      "id": "jsonl-key-profile",
+      "title": "JSON Lines Key Profile",
+      "description": "Stream JSON Lines to find invalid object records and missing top-level keys without printing record values.",
+      "category": "testing-qa",
+      "topic": "jsonl",
+      "language": "python",
+      "entrypoint": "scripts/testing-qa/jsonl/jsonl-key-profile/script.py",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string",
+          "required": true,
+          "flag": "--input"
+        },
+        {
+          "name": "max_line_bytes",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-line-bytes"
+        },
+        {
+          "name": "max_records",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-records"
+        }
+      ],
+      "tags": [
+        "testing-qa",
+        "jsonl",
+        "offline",
+        "report"
+      ],
+      "expected_output": "JSON record counts, invalid line numbers, and top-level key coverage.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Python >=3.10 (standard library only)",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Report completed without policy findings or differences.",
+        "1": "Findings, invalid records, differences or unhealthy data.",
+        "2": "Invalid arguments, unreadable input, unsupported format or resource limit."
+      },
+      "provenance_ref": "jsonl-key-profile",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS only. Linux and Windows verification is configured in CI but pending; not advertised as supported.",
+      "usage_example": "automation run jsonl-key-profile -- --input ./events.jsonl"
+    },
+    {
+      "id": "csv-key-reconcile",
+      "title": "CSV Key Reconciliation",
+      "description": "Compare exact keys in two CSV exports, reporting missing records and duplicate identifiers without comparing other values.",
+      "category": "data-engineering",
+      "topic": "csv",
+      "language": "ruby",
+      "entrypoint": "scripts/data-engineering/csv/csv-key-reconcile/script.rb",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "ruby"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "left",
+          "type": "string",
+          "required": true,
+          "flag": "--left"
+        },
+        {
+          "name": "right",
+          "type": "string",
+          "required": true,
+          "flag": "--right"
+        },
+        {
+          "name": "key",
+          "type": "string",
+          "required": true,
+          "flag": "--key"
+        },
+        {
+          "name": "max_rows",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-rows"
+        }
+      ],
+      "tags": [
+        "data-engineering",
+        "csv",
+        "offline",
+        "report"
+      ],
+      "expected_output": "JSON row counts, common-key count, keys unique to each file and duplicate keys.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Ruby >=2.6 with csv, json, optparse and set standard libraries",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Report completed without policy findings or differences.",
+        "1": "Findings, invalid records, differences or unhealthy data.",
+        "2": "Invalid arguments, unreadable input, unsupported format or resource limit."
+      },
+      "provenance_ref": "csv-key-reconcile",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS only. Linux and Windows verification is configured in CI but pending; not advertised as supported.",
+      "usage_example": "automation run csv-key-reconcile -- --left ./before.csv --right ./after.csv --key id"
+    },
+    {
+      "id": "npm-lock-audit",
+      "title": "npm Lockfile Policy Audit",
+      "description": "Audit npm v2/v3 lock metadata for strong integrity, HTTPS sources, embedded credentials and lifecycle-script declarations offline.",
+      "category": "developer-tools",
+      "topic": "dependencies",
+      "language": "javascript",
+      "entrypoint": "scripts/developer-tools/dependencies/npm-lock-audit/script.js",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "lockfile",
+          "type": "string",
+          "required": true,
+          "flag": "--lockfile"
+        }
+      ],
+      "tags": [
+        "developer-tools",
+        "dependencies",
+        "offline",
+        "audit"
+      ],
+      "expected_output": "JSON checked/skipped counts and per-package policy findings.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Node.js >=18 (built-in modules only)",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Report completed without policy findings or differences.",
+        "1": "Findings, invalid records, differences or unhealthy data.",
+        "2": "Invalid arguments, unreadable input, unsupported format or resource limit."
+      },
+      "provenance_ref": "npm-lock-audit",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS only. Linux and Windows verification is configured in CI but pending; not advertised as supported.",
+      "usage_example": "automation run npm-lock-audit -- --lockfile ./package-lock.json"
+    },
+    {
+      "id": "har-timing-summary",
+      "title": "HAR Timing Summary",
+      "description": "Summarize offline HAR request timing, failures, status counts and body sizes while omitting URLs and payloads.",
+      "category": "networking-monitoring",
+      "topic": "har",
+      "language": "javascript",
+      "entrypoint": "scripts/networking-monitoring/har/har-timing-summary/script.js",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string",
+          "required": true,
+          "flag": "--input"
+        },
+        {
+          "name": "slow_ms",
+          "type": "number",
+          "required": false,
+          "flag": "--slow-ms"
+        }
+      ],
+      "tags": [
+        "networking-monitoring",
+        "har",
+        "offline",
+        "report"
+      ],
+      "expected_output": "JSON aggregate timing, status, slow-request and known body-size statistics.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Node.js >=18 (built-in modules only)",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Valid capture summarized, including any failed HTTP requests.",
+        "2": "Invalid arguments, unreadable input, unsupported format or resource limit."
+      },
+      "provenance_ref": "har-timing-summary",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS only. Linux and Windows verification is configured in CI but pending; not advertised as supported.",
+      "usage_example": "automation run har-timing-summary -- --input ./capture.har --slow-ms 1000"
     }
   ]
 }

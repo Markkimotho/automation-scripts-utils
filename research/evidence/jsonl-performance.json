@@ -1,0 +1,10 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.9",
+  "records": 100000,
+  "input_bytes": 2588890,
+  "elapsed_seconds": 0.22870691599382553,
+  "child_peak_rss_bytes": 16220160,
+  "result": "passed",
+  "note": "One local measurement; not a cross-platform performance guarantee."
+}

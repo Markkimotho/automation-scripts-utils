@@ -1,0 +1,15 @@
+test_catalog_cannot_reference_unaccepted_candidate (test_research_workflow.ResearchWorkflowTests.test_catalog_cannot_reference_unaccepted_candidate) ... ok
+test_copied_code_requires_license_and_pinned_revision (test_research_workflow.ResearchWorkflowTests.test_copied_code_requires_license_and_pinned_revision) ... ok
+test_evidence_path_traversal_is_rejected (test_research_workflow.ResearchWorkflowTests.test_evidence_path_traversal_is_rejected) ... ok
+test_generated_docs_match_catalog_and_script_readmes (test_research_workflow.ResearchWorkflowTests.test_generated_docs_match_catalog_and_script_readmes) ... ok
+test_import_deduplicates_urls_and_rejects_identifier_collisions (test_research_workflow.ResearchWorkflowTests.test_import_deduplicates_urls_and_rejects_identifier_collisions) ... ok
+test_inventory_and_acceptance_evidence (test_research_workflow.ResearchWorkflowTests.test_inventory_and_acceptance_evidence) ... ok
+test_new_import_cannot_self_promote (test_research_workflow.ResearchWorkflowTests.test_new_import_cannot_self_promote) ... ok
+test_new_metadata_requires_quality_fields (test_research_workflow.ResearchWorkflowTests.test_new_metadata_requires_quality_fields) ... ok
+test_repeated_import_preserves_completed_reviews (test_research_workflow.ResearchWorkflowTests.test_repeated_import_preserves_completed_reviews) ... ok
+test_stale_evidence_and_unverified_platform_claim_are_rejected (test_research_workflow.ResearchWorkflowTests.test_stale_evidence_and_unverified_platform_claim_are_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.205s
+
+OK
