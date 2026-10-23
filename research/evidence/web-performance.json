@@ -1,0 +1,22 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.9",
+  "results": [
+    {
+      "tool": "sqlite-online-backup",
+      "rows": 10000,
+      "source_bytes": 5140480,
+      "output_bytes": 5140480,
+      "elapsed_seconds": 0.06054824999591801,
+      "result": "passed"
+    },
+    {
+      "tool": "csv-formula-audit",
+      "records_including_header": 10001,
+      "input_bytes": 148901,
+      "elapsed_seconds": 0.14535808299842756,
+      "result": "passed"
+    }
+  ],
+  "note": "Single local end-to-end measurements, including runtime startup; not cross-platform performance guarantees."
+}

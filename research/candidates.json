@@ -510,6 +510,357 @@
       "test_file": "scripts/backup-recovery/integrity/checksum-manifest-verify/script_test.go",
       "test_evidence": "research/evidence/2026-10-23-go-batch.json",
       "decision": "Accepted after native Go/vet/race checks and CLI integration on macOS. Not published; cross-platform CI results tracked separately."
+    },
+    {
+      "id": "sqlite-online-backup",
+      "name": "SQLite Online Backup",
+      "problem": "Back up a local application database while SQLite manages consistency, including committed data still in WAL files.",
+      "category": "backup-recovery",
+      "subcategory": "sqlite",
+      "language": "python",
+      "source_url": "https://www.sqlite.org/backup.html",
+      "source_repository": "https://sqlite.org/src",
+      "author": "SQLite authors",
+      "license": "public-domain",
+      "license_url": "https://www.sqlite.org/copyright.html",
+      "source_revision": "Documentation snapshot SHA-256 306b6cca5c7c2f93b648040ae139f14d7d3221c0d16d79b5749e69d808382e04 (reference only; not a source commit)",
+      "last_maintenance": null,
+      "dependencies": [
+        "Python >=3.10 with SQLite >=3.31; standard library only"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read",
+        "filesystem-write"
+      ],
+      "inputs": "Existing trusted local SQLite database and a new output filename whose parent directory exists.",
+      "outputs": "JSON preview plan, or completed snapshot path, byte count and quick-check result.",
+      "existing_tests": "Independent fixtures in tests/test_web_adapted_automations.py; no upstream test code reused.",
+      "limitations": [
+        "Preview checks paths without opening SQLite or creating staging files; it does not certify database contents.",
+        "The source connection is read-only, but SQLite may create or update WAL shared-memory sidecars. No source tables are modified.",
+        "Backups use private staging files and hard-link publication. The filesystem must support hard links; outputs are never replaced.",
+        "Deadlines are checked between SQLite work steps and cannot interrupt stalled operating-system I/O. Size checks can overshoot temporarily by a work chunk before aborting.",
+        "Use trusted local database files and a stable output parent. quick_check does not validate application invariants or foreign keys."
+      ],
+      "security_considerations": [
+        "Default is preview only. Add --apply to write; the library CLI also requires --yes. The snapshot is private (0600 on POSIX). Source files are not copied byte-for-byte with filesystem tools. Staging is removed on failure; an already published, complete snapshot is retained if a later reporting error occurs."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "New implementation is MIT under repository LICENSE. Only documented behavior/API ideas were referenced; no upstream source or prose copied. Reference licensing remains separate. Snapshot digest and HTTP metadata are in research/sources/2026-10-23-web-discovery.json; maintenance date is unverified.",
+      "security_review": "Reviewed local source and standard runtime dependencies. No downloaded code executed, shell interpolation of untrusted input, production credentials, remote endpoint calls or privilege changes. Write tools require explicit application, confined planned outputs and no-overwrite publication.",
+      "test_file": "tests/test_web_adapted_automations.py",
+      "test_evidence": "research/evidence/2026-10-23-web-batch.json",
+      "decision": "Accepted after local functional/safety tests and static review on macOS. Packaging and cross-platform CI evidence is recorded separately; not published."
+    },
+    {
+      "id": "git-bundle-backup",
+      "name": "Git Bundle Backup",
+      "problem": "Create a portable backup of committed repository history for offline storage or transfer.",
+      "category": "backup-recovery",
+      "subcategory": "git",
+      "language": "bash",
+      "source_url": "https://git-scm.com/docs/git-bundle",
+      "source_repository": "https://github.com/git/git",
+      "author": "Git project contributors",
+      "license": "GPL-2.0-only (Git project reference; no code reused)",
+      "license_url": "https://github.com/git/git/blob/master/COPYING",
+      "source_revision": "Documentation snapshot SHA-256 b6aa107d35c18a9adea664170905dfe8eac625d3e094b6078f5aea27b628b449 (reference only; not a source commit)",
+      "last_maintenance": null,
+      "dependencies": [
+        "Bash >=3.2, Git >=2.15 and Python >=3.10; standard OS tools"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read",
+        "filesystem-write"
+      ],
+      "inputs": "A trusted local Git repository with a committed HEAD and complete local history; a new output path in an existing parent directory.",
+      "outputs": "Human-readable preview or path of a newly created, git-verified bundle.",
+      "existing_tests": "Independent fixtures in tests/test_web_adapted_automations.py; no upstream test code reused.",
+      "limitations": [
+        "Bundles contain refs and reachable committed objects, not uncommitted working files, index state, configuration, hooks or general filesystem metadata.",
+        "Shallow repositories are refused. Partial clones must already contain needed objects; transports and lazy fetching are disabled during the operation.",
+        "Verification uses git bundle verify; a full restore is not performed by the tool. Integration tests restore fixture bundles.",
+        "Publication uses Python os.link rather than ln directory semantics; the destination cannot be replaced or redirected into an existing directory.",
+        "Requires a stable, trusted repository and output parent. Large histories need adequate disk space and may take time."
+      ],
+      "security_considerations": [
+        "Default is preview. Add --apply to create a private archive; the CLI requires --yes. The repository is not changed, no remote is contacted and staging is cleaned up. Restore deliberately with git clone /path/to/project.bundle /path/to/new-directory."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "New implementation is MIT under repository LICENSE. Only documented behavior/API ideas were referenced; no upstream source or prose copied. Reference licensing remains separate. Snapshot digest and HTTP metadata are in research/sources/2026-10-23-web-discovery.json; maintenance date is unverified.",
+      "security_review": "Reviewed local source and standard runtime dependencies. No downloaded code executed, shell interpolation of untrusted input, production credentials, remote endpoint calls or privilege changes. Write tools require explicit application, confined planned outputs and no-overwrite publication.",
+      "test_file": "tests/test_web_adapted_automations.py",
+      "test_evidence": "research/evidence/2026-10-23-web-batch.json",
+      "decision": "Accepted after local functional/safety tests and static review on macOS. Packaging and cross-platform CI evidence is recorded separately; not published."
+    },
+    {
+      "id": "toml-settings-diff",
+      "name": "TOML Settings Comparison",
+      "problem": "Review configuration drift between environments without displaying secret values in logs.",
+      "category": "developer-tools",
+      "subcategory": "configuration",
+      "language": "python",
+      "source_url": "https://docs.python.org/3.11/library/tomllib.html",
+      "source_repository": "https://github.com/python/cpython",
+      "author": "Python Software Foundation",
+      "license": "PSF-2.0",
+      "license_url": "https://docs.python.org/3.11/license.html",
+      "source_revision": "Documentation snapshot SHA-256 f27f5f71aa89fcaac2af9a83564cdf7e996e80067db2dc0d58056dbbaf34e2fb (reference only; not a source commit)",
+      "last_maintenance": null,
+      "dependencies": [
+        "Python >=3.11 with tomllib; standard library only"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Two UTF-8 TOML 1.0 files, each no larger than 2 MiB.",
+      "outputs": "JSON changes with unambiguous path arrays and added/removed/changed classifications.",
+      "existing_tests": "Independent fixtures in tests/test_web_adapted_automations.py; no upstream test code reused.",
+      "limitations": [
+        "Key names and paths are reported and may themselves be sensitive; values and parse-error details are omitted.",
+        "Compares parsed meaning: whitespace, key order, numeric spelling and equivalent timezone instants are ignored.",
+        "Arrays are compared as whole values with type-sensitive elements. NaN values compare consistently; booleans and integers remain distinct.",
+        "At most 10000 changed paths are emitted; excessive nesting or changes fail without a partial report.",
+        "Added/removed tables are reported at the table path. This is a comparator, not a configuration merger or validator for application-specific settings."
+      ],
+      "security_considerations": [
+        "Reads local files only and never imports or executes configuration content. Input files are unchanged. Use the library-level --dry-run to preview the command without parsing."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "New implementation is MIT under repository LICENSE. Only documented behavior/API ideas were referenced; no upstream source or prose copied. Reference licensing remains separate. Snapshot digest and HTTP metadata are in research/sources/2026-10-23-web-discovery.json; maintenance date is unverified.",
+      "security_review": "Reviewed local source and standard runtime dependencies. No downloaded code executed, shell interpolation of untrusted input, production credentials, remote endpoint calls or privilege changes. Write tools require explicit application, confined planned outputs and no-overwrite publication.",
+      "test_file": "tests/test_web_adapted_automations.py",
+      "test_evidence": "research/evidence/2026-10-23-web-batch.json",
+      "decision": "Accepted after local functional/safety tests and static review on macOS. Packaging and cross-platform CI evidence is recorded separately; not published."
+    },
+    {
+      "id": "openapi-operation-inventory",
+      "name": "OpenAPI Operation Inventory",
+      "problem": "Build API endpoint inventories and review documentation-level authentication declarations before deployment or integration.",
+      "category": "api-integrations",
+      "subcategory": "openapi",
+      "language": "javascript",
+      "source_url": "https://spec.openapis.org/oas/v3.1.0.html",
+      "source_repository": "https://github.com/OAI/OpenAPI-Specification",
+      "author": "OpenAPI Initiative / Linux Foundation",
+      "license": "Apache-2.0 (reference specification)",
+      "license_url": "https://github.com/OAI/OpenAPI-Specification/blob/main/LICENSE",
+      "source_revision": "Documentation snapshot SHA-256 156788f23f0e3be376b9635f70451535e4280c3227747dbdd1dd6a0e50f61f1b (reference only; not a source commit)",
+      "last_maintenance": null,
+      "dependencies": [
+        "Node.js >=18; built-in modules only"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "OpenAPI 3.0.x or 3.1.x JSON with a paths object; UTF-8, maximum 8 MiB and 10000 operations.",
+      "outputs": "JSON operation rows, ID findings and unresolved path-reference locations.",
+      "existing_tests": "Independent fixtures in tests/test_web_adapted_automations.py; no upstream test code reused.",
+      "limitations": [
+        "Not a complete OpenAPI validator. YAML, OpenAPI 2.0/3.2, callbacks and webhooks are outside this tool\u2019s contract.",
+        "No local or remote $ref is resolved. Path-item references are listed and cause exit 1, so an incomplete inventory is visible.",
+        "The anonymous flag follows root/operation security declarations, including empty alternatives; it does not prove a live endpoint permits access.",
+        "Includes standard HTTP operation fields only. Vendor extensions and descriptions are ignored; no request/response examples are printed.",
+        "Node JSON parsing uses the last occurrence of duplicate JSON object keys; use a full schema/parser validation workflow when validating source specifications."
+      ],
+      "security_considerations": [
+        "No network access, endpoint calls, schema execution or generated code. Reads bounded local JSON and emits operation metadata. Route names and operation IDs may still be sensitive."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "New implementation is MIT under repository LICENSE. Only documented behavior/API ideas were referenced; no upstream source or prose copied. Reference licensing remains separate. Snapshot digest and HTTP metadata are in research/sources/2026-10-23-web-discovery.json; maintenance date is unverified.",
+      "security_review": "Reviewed local source and standard runtime dependencies. No downloaded code executed, shell interpolation of untrusted input, production credentials, remote endpoint calls or privilege changes. Write tools require explicit application, confined planned outputs and no-overwrite publication.",
+      "test_file": "tests/test_web_adapted_automations.py",
+      "test_evidence": "research/evidence/2026-10-23-web-batch.json",
+      "decision": "Accepted after local functional/safety tests and static review on macOS. Packaging and cross-platform CI evidence is recorded separately; not published."
+    },
+    {
+      "id": "csv-formula-audit",
+      "name": "CSV Formula Risk Audit",
+      "problem": "Review untrusted CSV exports before opening them in spreadsheet applications.",
+      "category": "security-compliance",
+      "subcategory": "csv",
+      "language": "ruby",
+      "source_url": "https://community.owasp.org/attacks/CSV_Injection",
+      "source_repository": "https://github.com/OWASP/www-community",
+      "author": "OWASP Foundation; CSV Injection contributors",
+      "license": "CC-BY-SA-4.0 (reference guidance)",
+      "license_url": "https://community.owasp.org/attacks/CSV_Injection",
+      "source_revision": "Documentation snapshot SHA-256 4cb90797ddbbb996377ac40a253b96b02ae582d7c93bedd0938e92cf809946f2 (reference only; not a source commit)",
+      "last_maintenance": null,
+      "dependencies": [
+        "Ruby >=2.6 with csv, json and optparse libraries"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Comma-delimited UTF-8 CSV, optional BOM; maximum 16 MiB, 100000 records and 1000000 cells. Headers are scanned as ordinary cells.",
+      "outputs": "JSON row/cell counts, risky cell coordinates, total findings and truncation state.",
+      "existing_tests": "Independent fixtures in tests/test_web_adapted_automations.py; no upstream test code reused.",
+      "limitations": [
+        "A heuristic risk audit, not a guarantee of safe spreadsheet import or a malware verdict. Different applications and locales interpret data differently.",
+        "Flags leading =, +, -, @ after whitespace/Unicode compatibility normalization, and leading tab/CR/LF. Negative numeric values can be legitimate false positives.",
+        "Quoted CSV fields are parsed before inspection; quoted line breaks and delimiters are supported. Other delimiters are not detected automatically.",
+        "At most 1000 coordinates are emitted, but all findings within resource limits are counted. Row numbers identify CSV records, not physical lines."
+      ],
+      "security_considerations": [
+        "Never executes formulas, starts a spreadsheet, rewrites data or prints cell contents. Fix exports at their source using an application-appropriate policy; this tool does not sanitize them."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "New implementation is MIT under repository LICENSE. Only documented behavior/API ideas were referenced; no upstream source or prose copied. Reference licensing remains separate. Snapshot digest and HTTP metadata are in research/sources/2026-10-23-web-discovery.json; maintenance date is unverified.",
+      "security_review": "Reviewed local source and standard runtime dependencies. No downloaded code executed, shell interpolation of untrusted input, production credentials, remote endpoint calls or privilege changes. Write tools require explicit application, confined planned outputs and no-overwrite publication.",
+      "test_file": "tests/test_web_adapted_automations.py",
+      "test_evidence": "research/evidence/2026-10-23-web-batch.json",
+      "decision": "Accepted after local functional/safety tests and static review on macOS. Packaging and cross-platform CI evidence is recorded separately; not published."
+    },
+    {
+      "id": "eml-attachment-extract",
+      "name": "Email Attachment Extraction",
+      "problem": "Save attachments from local .eml exports without opening an inbox or manually downloading individual files.",
+      "category": "messaging-notifications",
+      "subcategory": "email",
+      "language": "python",
+      "source_url": "https://docs.python.org/3.11/library/email.message.html",
+      "source_repository": "https://github.com/python/cpython",
+      "author": "Python Software Foundation",
+      "license": "PSF-2.0",
+      "license_url": "https://docs.python.org/3.11/license.html",
+      "source_revision": "Documentation snapshot SHA-256 a5494545076d179fca2974a655b086580aa7bd8910d8f7926859eaf9c996ecfb (reference only; not a source commit)",
+      "last_maintenance": null,
+      "dependencies": [
+        "Python >=3.10; standard library only"
+      ],
+      "platforms": [
+        "macos"
+      ],
+      "permissions": [
+        "filesystem-read",
+        "filesystem-write"
+      ],
+      "inputs": "One regular EML file up to 16 MiB. Non-multipart parts with a filename or attachment disposition are selected. Output must be a new or existing non-symlink directory in a trusted existing parent.",
+      "outputs": "JSON plan or completed attachment metadata: generated names, MIME types, byte counts and SHA-256 values.",
+      "existing_tests": "Independent fixtures in tests/test_web_adapted_automations.py; no upstream test code reused.",
+      "limitations": [
+        "Filenames use deterministic numbered prefixes and sanitized basenames. Original directory components cannot select extraction paths; existing final files and symlinks are refused.",
+        "Rejects multipart/embedded-message attachments, malformed MIME/transfer encodings, more than 1000 parts, more than 2000 boundary-like lines, or decoded data above 16 MiB.",
+        "The boundary-line preflight is deliberately conservative and can reject text containing many lines beginning with --.",
+        "No attachments is a successful empty plan and creates no directory. No decryption or remote resource retrieval is performed.",
+        "Uses private staging and hard-link publication. Requires hard-link support and a trusted, stable output directory; hostile concurrent directory replacement is outside the contract.",
+        "On a later publication failure, already completed files are retained and named on stderr; incomplete staging files are removed. Inspect those files before retrying."
+      ],
+      "security_considerations": [
+        "Preview is the default. --apply writes new files and the library CLI requires --yes. No email bodies or attachment bytes are printed, and content is never executed or opened. Extracted files remain untrusted; filename/type/hash are metadata, not a security verdict."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "accepted",
+      "reuse": "independent",
+      "license_review": "New implementation is MIT under repository LICENSE. Only documented behavior/API ideas were referenced; no upstream source or prose copied. Reference licensing remains separate. Snapshot digest and HTTP metadata are in research/sources/2026-10-23-web-discovery.json; maintenance date is unverified.",
+      "security_review": "Reviewed local source and standard runtime dependencies. No downloaded code executed, shell interpolation of untrusted input, production credentials, remote endpoint calls or privilege changes. Write tools require explicit application, confined planned outputs and no-overwrite publication.",
+      "test_file": "tests/test_web_adapted_automations.py",
+      "test_evidence": "research/evidence/2026-10-23-web-batch.json",
+      "decision": "Accepted after local functional/safety tests and static review on macOS. Packaging and cross-platform CI evidence is recorded separately; not published."
+    },
+    {
+      "id": "postgres-verified-backup",
+      "name": "PostgreSQL backup with restore verification",
+      "problem": "PostgreSQL backup with restore verification",
+      "category": "backup-recovery",
+      "subcategory": "research",
+      "language": "python",
+      "source_url": "https://www.postgresql.org/docs/current/backup-dump.html",
+      "source_repository": null,
+      "author": "See reference source; authorship not independently reviewed",
+      "license": null,
+      "license_url": null,
+      "source_revision": "Documentation snapshot SHA-256 1205add4527208ae16c487d02b0970eab6863bcd03c26af91fa929c285270efd",
+      "last_maintenance": null,
+      "dependencies": [
+        "Not finalized"
+      ],
+      "platforms": [],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Not finalized; no catalog implementation.",
+      "outputs": "Not finalized.",
+      "existing_tests": "Not implemented or tested.",
+      "limitations": [
+        "Deferred to a focused PostgreSQL batch with disposable database restore/permission tests. PostgreSQL tools were found locally, but no server or dump was executed."
+      ],
+      "security_considerations": [
+        "No source code copied or executed; credentials and private data were not accessed."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "reviewed",
+      "reuse": "none",
+      "license_review": "Reference only; no reuse authorized until license/revision review.",
+      "security_review": "Preliminary scope review only.",
+      "test_file": null,
+      "test_evidence": null,
+      "decision": "Deferred to a focused PostgreSQL batch with disposable database restore/permission tests. PostgreSQL tools were found locally, but no server or dump was executed."
+    },
+    {
+      "id": "ics-upcoming-events",
+      "name": "Upcoming iCalendar events",
+      "problem": "Upcoming iCalendar events",
+      "category": "business-productivity",
+      "subcategory": "research",
+      "language": "python",
+      "source_url": "https://www.rfc-editor.org/rfc/rfc5545.txt",
+      "source_repository": null,
+      "author": "See reference source; authorship not independently reviewed",
+      "license": null,
+      "license_url": null,
+      "source_revision": "Documentation snapshot SHA-256 c256f809479d98aa23d71bbd1658b3800ea9f13f41ca56e59c8d2de1b31cbfcb",
+      "last_maintenance": null,
+      "dependencies": [
+        "Not finalized"
+      ],
+      "platforms": [],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "inputs": "Not finalized; no catalog implementation.",
+      "outputs": "Not finalized.",
+      "existing_tests": "Not implemented or tested.",
+      "limitations": [
+        "Deferred until recurrence, timezone and all-day-event behavior can be verified with a suitable parser and fixtures. No calendar implementation is accepted."
+      ],
+      "security_considerations": [
+        "No source code copied or executed; credentials and private data were not accessed."
+      ],
+      "discovered_on": "2026-10-23",
+      "status": "reviewed",
+      "reuse": "none",
+      "license_review": "Reference only; no reuse authorized until license/revision review.",
+      "security_review": "Preliminary scope review only.",
+      "test_file": null,
+      "test_evidence": null,
+      "decision": "Deferred until recurrence, timezone and all-day-event behavior can be verified with a suitable parser and fixtures. No calendar implementation is accepted."
     }
   ],
   "source_state": {}

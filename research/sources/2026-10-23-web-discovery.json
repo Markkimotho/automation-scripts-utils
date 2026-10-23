@@ -1,0 +1,101 @@
+{
+  "notes": "Only public reference digests and metadata are stored. HTTP last-modified is not a verified maintenance/commit date. No downloaded code was executed.",
+  "sources": [
+    {
+      "candidate": "sqlite-online-backup",
+      "url": "https://www.sqlite.org/backup.html",
+      "retrieved_at": "2026-10-23T08:36:58.081223+00:00",
+      "purpose": "Functionality/API reference only; no source code or prose copied.",
+      "status": "fetched",
+      "resolved_url": "https://www.sqlite.org/backup.html",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 28195,
+      "sha256": "306b6cca5c7c2f93b648040ae139f14d7d3221c0d16d79b5749e69d808382e04",
+      "http_last_modified": "Thu, 22 Oct 2026 16:45:56 GMT"
+    },
+    {
+      "candidate": "git-bundle-backup",
+      "url": "https://git-scm.com/docs/git-bundle",
+      "retrieved_at": "2026-10-23T08:36:58.082679+00:00",
+      "purpose": "Functionality/API reference only; no source code or prose copied.",
+      "status": "fetched",
+      "resolved_url": "https://git-scm.com/docs/git-bundle",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 51528,
+      "sha256": "b6aa107d35c18a9adea664170905dfe8eac625d3e094b6078f5aea27b628b449",
+      "http_last_modified": "Wed, 21 Oct 2026 15:55:43 GMT"
+    },
+    {
+      "candidate": "openapi-operation-inventory",
+      "url": "https://spec.openapis.org/oas/v3.1.0.html",
+      "retrieved_at": "2026-10-23T08:36:58.082976+00:00",
+      "purpose": "Functionality/API reference only; no source code or prose copied.",
+      "status": "fetched",
+      "resolved_url": "https://spec.openapis.org/oas/v3.1.0.html",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 408180,
+      "sha256": "156788f23f0e3be376b9635f70451535e4280c3227747dbdd1dd6a0e50f61f1b",
+      "http_last_modified": "Thu, 22 Oct 2026 09:20:16 GMT"
+    },
+    {
+      "candidate": "csv-formula-audit",
+      "url": "https://community.owasp.org/attacks/CSV_Injection",
+      "retrieved_at": "2026-10-23T08:36:58.083164+00:00",
+      "purpose": "Functionality/API reference only; no source code or prose copied.",
+      "status": "fetched",
+      "resolved_url": "https://community.owasp.org/attacks/CSV_Injection",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 34812,
+      "sha256": "4cb90797ddbbb996377ac40a253b96b02ae582d7c93bedd0938e92cf809946f2",
+      "http_last_modified": "Thu, 22 Oct 2026 17:16:34 GMT"
+    },
+    {
+      "candidate": "eml-attachment-extract",
+      "url": "https://docs.python.org/3.11/library/email.message.html",
+      "retrieved_at": "2026-10-23T08:36:59.146987+00:00",
+      "purpose": "Functionality/API reference only; no source code or prose copied.",
+      "status": "fetched",
+      "resolved_url": "https://docs.python.org/3.11/library/email.message.html",
+      "content_type": "text/html",
+      "bytes": 105008,
+      "sha256": "a5494545076d179fca2974a655b086580aa7bd8910d8f7926859eaf9c996ecfb",
+      "http_last_modified": "Thu, 01 Oct 2026 16:54:18 GMT"
+    },
+    {
+      "candidate": "toml-settings-diff",
+      "url": "https://docs.python.org/3.11/library/tomllib.html",
+      "retrieved_at": "2026-10-23T08:36:59.158683+00:00",
+      "purpose": "Functionality/API reference only; no source code or prose copied.",
+      "status": "fetched",
+      "resolved_url": "https://docs.python.org/3.11/library/tomllib.html",
+      "content_type": "text/html",
+      "bytes": 24713,
+      "sha256": "f27f5f71aa89fcaac2af9a83564cdf7e996e80067db2dc0d58056dbbaf34e2fb",
+      "http_last_modified": "Thu, 01 Oct 2026 16:54:18 GMT"
+    },
+    {
+      "candidate": "postgres-verified-backup",
+      "url": "https://www.postgresql.org/docs/current/backup-dump.html",
+      "retrieved_at": "2026-10-23T08:36:59.959118+00:00",
+      "purpose": "Functionality/API reference only; no source code or prose copied.",
+      "status": "fetched",
+      "resolved_url": "https://www.postgresql.org/docs/current/backup-dump.html",
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 29843,
+      "sha256": "1205add4527208ae16c487d02b0970eab6863bcd03c26af91fa929c285270efd",
+      "http_last_modified": null
+    },
+    {
+      "candidate": "ics-upcoming-events",
+      "url": "https://www.rfc-editor.org/rfc/rfc5545.txt",
+      "retrieved_at": "2026-10-23T08:37:00.321519+00:00",
+      "purpose": "Functionality/API reference only; no source code or prose copied.",
+      "status": "fetched",
+      "resolved_url": "https://www.rfc-editor.org/rfc/rfc5545.txt",
+      "content_type": "text/plain;charset=utf-8",
+      "bytes": 345537,
+      "sha256": "c256f809479d98aa23d71bbd1658b3800ea9f13f41ca56e59c8d2de1b31cbfcb",
+      "http_last_modified": null
+    }
+  ]
+}

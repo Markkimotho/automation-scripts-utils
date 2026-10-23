@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "date": "2026-10-23",
+  "result": "passed",
+  "scripts": [
+    "sqlite-online-backup",
+    "git-bundle-backup",
+    "toml-settings-diff",
+    "openapi-operation-inventory",
+    "csv-formula-audit",
+    "eml-attachment-extract"
+  ],
+  "verified_platforms": [
+    "macos"
+  ],
+  "environment": {
+    "os": "macOS-26.6.2-arm64-arm-64bit",
+    "python": "3.11.9",
+    "node": "v24.4.0",
+    "ruby": "ruby 2.6.10p210 (2022-04-12 revision 67958) [universal.arm64e-darwin25]",
+    "git": "git version 2.54.0",
+    "sqlite": "3.51.0"
+  },
+  "commands": [
+    {
+      "command": "AUTOMATION_REQUIRE_WEB_RUNTIMES=1 python3 -m unittest discover -s tests -p test_web_adapted_automations.py -v",
+      "result": "passed",
+      "tests": 25,
+      "skipped": 0,
+      "log": "research/evidence/logs/web-functional.txt"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+      "result": "passed",
+      "tests": 87,
+      "skipped": 1,
+      "log": "research/evidence/logs/web-full-regression.txt"
+    },
+    {
+      "command": "bash tests/run_tests.sh",
+      "result": "passed",
+      "checks": 111,
+      "log": "research/evidence/logs/web-shell.txt"
+    },
+    {
+      "command": "ruff check scripts/backup-recovery/sqlite/sqlite-online-backup/script.py scripts/developer-tools/configuration/toml-settings-diff/script.py scripts/messaging-notifications/email/eml-attachment-extract/script.py tests/test_web_adapted_automations.py tools/verify_web_installation.py tools/benchmark_web_tools.py",
+      "result": "passed",
+      "log": "research/evidence/logs/web-static.txt"
+    },
+    {
+      "command": "bash -n scripts/backup-recovery/git/git-bundle-backup/script.sh; node --check scripts/api-integrations/openapi/openapi-operation-inventory/script.js; ruby -c scripts/security-compliance/csv/csv-formula-audit/script.rb",
+      "result": "passed"
+    },
+    {
+      "command": "python3 tests/validate_catalog.py; python3 tools/research.py validate; python3 tools/generate_directory.py --check",
+      "result": "passed",
+      "note": "65 entries, 20 candidate records, generated directory and six new usage pages match."
+    },
+    {
+      "command": "mkdocs build --strict --site-dir /tmp/automation-web-docs",
+      "result": "passed",
+      "log": "research/evidence/logs/web-documentation.txt"
+    },
+    {
+      "command": "python3 -m venv /tmp/automation-web-package; /tmp/automation-web-package/bin/python -m pip install --no-cache-dir .",
+      "result": "passed",
+      "log": "research/evidence/logs/web-package-install.txt"
+    },
+    {
+      "command": "python3 tools/verify_web_installation.py /tmp/automation-web-package/bin/automation",
+      "result": "passed",
+      "details": "research/evidence/web-installation.json"
+    },
+    {
+      "command": "python3 tools/benchmark_web_tools.py",
+      "result": "passed",
+      "details": "research/evidence/web-performance.json"
+    }
+  ],
+  "sha256": {
+    "scripts/backup-recovery/sqlite/sqlite-online-backup/script.py": "dc9b36011b0ca5d0f12c3a19231463c02a54a85f71b033018a72b0a514c14d01",
+    "scripts/backup-recovery/sqlite/sqlite-online-backup/metadata.yaml": "1f3c4266728dec5a115d19ed155aadb3b91d12e77682126a4752bfbf55eda3e0",
+    "scripts/backup-recovery/sqlite/sqlite-online-backup/README.md": "78eead7be3611e02d4fef514b63793824d8f0628afab8861df794dabbbf63e4c",
+    "scripts/backup-recovery/git/git-bundle-backup/script.sh": "3316934fffc7bba30113e4f6abd873c042f0f93328682f5f31d6b160d9faef42",
+    "scripts/backup-recovery/git/git-bundle-backup/metadata.yaml": "06ae3bef3f62468c4e7b4c183f9f6dcb636ea0405cc0d7906fb65bac1cd0b2fe",
+    "scripts/backup-recovery/git/git-bundle-backup/README.md": "0a4559c6daf88a2f779fce4dc589a423b805158dd654d16ffd7e436a45d8302c",
+    "scripts/developer-tools/configuration/toml-settings-diff/script.py": "bd1d4f84e77145a556b5eb91cf002eee1391429ac2d5c2cfbda57d129d104627",
+    "scripts/developer-tools/configuration/toml-settings-diff/metadata.yaml": "7cb76412808d1f37e0f11bf47551887e4fe7b8255198cf8d54fae95fa82dc29d",
+    "scripts/developer-tools/configuration/toml-settings-diff/README.md": "693856091ee77164c9e6277ed1bbc2335786a74a6eeb8800558b58926de134cc",
+    "scripts/api-integrations/openapi/openapi-operation-inventory/script.js": "e34c71c1ed8c38827302f8f0799cd4772139b97b304b0be8a1daf9b2b2787e35",
+    "scripts/api-integrations/openapi/openapi-operation-inventory/metadata.yaml": "380a201371b637514412beb780b85df8c12fb4a328fe84e874bbbd2e052739df",
+    "scripts/api-integrations/openapi/openapi-operation-inventory/README.md": "ff729f0a7e97ce1188fdb1a02050d24f72abc6a799fed5b418e48900e3c6036e",
+    "scripts/security-compliance/csv/csv-formula-audit/script.rb": "5d004c5b6df71fd92e214e5beb35e365571f9277e3af6a145308b43560ff5995",
+    "scripts/security-compliance/csv/csv-formula-audit/metadata.yaml": "e1fa9f7d5fc12ff49eb7bb34ce6205d6a9e8c44b61c95a62084731f5d2b519ff",
+    "scripts/security-compliance/csv/csv-formula-audit/README.md": "eae9dfd75da2b82d006dbab650c258362993d143f528432a796c281c24247db1",
+    "scripts/messaging-notifications/email/eml-attachment-extract/script.py": "34a426d2f31fe4d66f5fd4671835aa55b4682b6b81e125c9fcfa938b3d78f8b7",
+    "scripts/messaging-notifications/email/eml-attachment-extract/metadata.yaml": "4596ed2cd08363c2910e038af375a772169d7ec6a13aff380ec025b40225e40f",
+    "scripts/messaging-notifications/email/eml-attachment-extract/README.md": "a9ed42509ad179f01ce9b2bb79f41d8559acdda38e8696b14490cdc77eb165df",
+    "tests/test_web_adapted_automations.py": "7014b3a1a64d26f0ba0a17946944db4cbdf984596552469a672e0f6ea8c33850",
+    "tools/verify_web_installation.py": "39eb617e94245607af832dc78f3869cf1d7b0482a3e3dcedd53fe1049bdcfb04",
+    "research/sources/2026-10-23-web-discovery.json": "77a606506ee70cb35fc5990dd798d2e6aa21d35664578281d171eaa4529e4f09",
+    "tools/benchmark_web_tools.py": "dd05fcf2311f434726e15faaec768ae2f7282396e07cabd154f1049d58358c92"
+  },
+  "limitations": [
+    "Local macOS acceptance only. Linux/macOS/Windows CI is configured; Bash Git backup tests intentionally skip Windows.",
+    "All new code is independently written under MIT; reference licenses remain separate. No third-party source was executed or copied.",
+    "No third-party script packages are required. Runtime patch/advisory status is not certified; no vulnerability database scan was performed.",
+    "Write tools require trusted stable directories and hard-link support; email extraction reports completed files on partial batch failure.",
+    "OpenAPI inventories are not full schema/authentication validation; CSV risk detection is heuristic.",
+    "No merge, release, or documentation deployment is claimed."
+  ],
+  "baseline": {
+    "commit": "2956f7da848cd1f1f4db7637348a9c9c88db70b0",
+    "command": "python3 -m unittest discover -s tests -p 'test_*.py' -v",
+    "tests": 62,
+    "skipped": 1,
+    "result": "passed",
+    "log": "research/evidence/logs/web-baseline.txt"
+  }
+}

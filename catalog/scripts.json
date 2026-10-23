@@ -2152,6 +2152,379 @@
       "test_status": "passed",
       "compatibility_notes": "Verified locally on macOS with Go 1.26.4. Cross-platform CI is configured separately; only macOS is declared supported.",
       "usage_example": "automation run checksum-manifest-verify -- --root ./restored --manifest ./manifest.json"
+    },
+    {
+      "id": "sqlite-online-backup",
+      "title": "SQLite Online Backup",
+      "description": "Preview or create a consistent SQLite snapshot through the online backup API, verify it and publish without overwriting files.",
+      "category": "backup-recovery",
+      "topic": "sqlite",
+      "language": "python",
+      "entrypoint": "scripts/backup-recovery/sqlite/sqlite-online-backup/script.py",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read",
+        "filesystem-write"
+      ],
+      "destructive": false,
+      "requires_confirmation": true,
+      "supports_dry_run": true,
+      "parameters": [
+        {
+          "name": "source",
+          "type": "string",
+          "required": true,
+          "flag": "--source"
+        },
+        {
+          "name": "output",
+          "type": "string",
+          "required": true,
+          "flag": "--output"
+        },
+        {
+          "name": "timeout",
+          "type": "number",
+          "required": false,
+          "flag": "--timeout"
+        },
+        {
+          "name": "max_bytes",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-bytes"
+        },
+        {
+          "name": "apply",
+          "type": "boolean",
+          "required": false,
+          "flag": "--apply"
+        },
+        {
+          "name": "dry_run",
+          "type": "boolean",
+          "required": false,
+          "flag": "--dry-run"
+        }
+      ],
+      "tags": [
+        "sqlite",
+        "offline",
+        "backup"
+      ],
+      "expected_output": "JSON preview plan, or completed snapshot path, byte count and quick-check result.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Python >=3.10 with SQLite >=3.31; standard library only",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Preview or operation completed without report findings.",
+        "2": "Invalid or unreadable input, unsupported behavior, limits, collisions or I/O failure."
+      },
+      "provenance_ref": "sqlite-online-backup",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS. Additional operating systems are exercised in CI before support declarations are expanded.",
+      "usage_example": "automation run sqlite-online-backup --yes -- --source ./app.db --output ./backup.db"
+    },
+    {
+      "id": "git-bundle-backup",
+      "title": "Git Bundle Backup",
+      "description": "Preview or create a verified bundle of committed Git history and refs, refusing shallow repositories and existing output files.",
+      "category": "backup-recovery",
+      "topic": "git",
+      "language": "bash",
+      "entrypoint": "scripts/backup-recovery/git/git-bundle-backup/script.sh",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "bash",
+        "git",
+        "python3",
+        "mktemp",
+        "rm",
+        "dirname",
+        "basename"
+      ],
+      "permissions": [
+        "filesystem-read",
+        "filesystem-write"
+      ],
+      "destructive": false,
+      "requires_confirmation": true,
+      "supports_dry_run": true,
+      "parameters": [
+        {
+          "name": "repository",
+          "type": "string",
+          "required": true,
+          "flag": "--repository"
+        },
+        {
+          "name": "output",
+          "type": "string",
+          "required": true,
+          "flag": "--output"
+        },
+        {
+          "name": "apply",
+          "type": "boolean",
+          "required": false,
+          "flag": "--apply"
+        },
+        {
+          "name": "dry_run",
+          "type": "boolean",
+          "required": false,
+          "flag": "--dry-run"
+        }
+      ],
+      "tags": [
+        "git",
+        "offline",
+        "backup"
+      ],
+      "expected_output": "Human-readable preview or path of a newly created, git-verified bundle.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Bash >=3.2, Git >=2.15 and Python >=3.10; standard OS tools",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Preview or operation completed without report findings.",
+        "1": "Differences/findings, or Git backup execution failure.",
+        "2": "Invalid or unreadable input, unsupported behavior, limits, collisions or I/O failure."
+      },
+      "provenance_ref": "git-bundle-backup",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS. Additional operating systems are exercised in CI before support declarations are expanded.",
+      "usage_example": "automation run git-bundle-backup --yes -- --repository . --output ../project.bundle"
+    },
+    {
+      "id": "toml-settings-diff",
+      "title": "TOML Settings Comparison",
+      "description": "Compare parsed TOML settings and report added, removed or changed key paths while omitting configuration values.",
+      "category": "developer-tools",
+      "topic": "configuration",
+      "language": "python",
+      "entrypoint": "scripts/developer-tools/configuration/toml-settings-diff/script.py",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "left",
+          "type": "string",
+          "required": true,
+          "flag": "--left"
+        },
+        {
+          "name": "right",
+          "type": "string",
+          "required": true,
+          "flag": "--right"
+        }
+      ],
+      "tags": [
+        "configuration",
+        "offline",
+        "report"
+      ],
+      "expected_output": "JSON changes with unambiguous path arrays and added/removed/changed classifications.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Python >=3.11 with tomllib; standard library only",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Preview or operation completed without report findings.",
+        "1": "Differences/findings, or Git backup execution failure.",
+        "2": "Invalid or unreadable input, unsupported behavior, limits, collisions or I/O failure."
+      },
+      "provenance_ref": "toml-settings-diff",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS. Additional operating systems are exercised in CI before support declarations are expanded.",
+      "usage_example": "automation run toml-settings-diff -- --left ./development.toml --right ./production.toml"
+    },
+    {
+      "id": "openapi-operation-inventory",
+      "title": "OpenAPI Operation Inventory",
+      "description": "Inventory OpenAPI JSON operations, flag missing or duplicate IDs and report declared anonymous access without fetching references.",
+      "category": "api-integrations",
+      "topic": "openapi",
+      "language": "javascript",
+      "entrypoint": "scripts/api-integrations/openapi/openapi-operation-inventory/script.js",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "node"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string",
+          "required": true,
+          "flag": "--input"
+        }
+      ],
+      "tags": [
+        "openapi",
+        "offline",
+        "report"
+      ],
+      "expected_output": "JSON operation rows, ID findings and unresolved path-reference locations.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Node.js >=18; built-in modules only",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Preview or operation completed without report findings.",
+        "1": "Differences/findings, or Git backup execution failure.",
+        "2": "Invalid or unreadable input, unsupported behavior, limits, collisions or I/O failure."
+      },
+      "provenance_ref": "openapi-operation-inventory",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS. Additional operating systems are exercised in CI before support declarations are expanded.",
+      "usage_example": "automation run openapi-operation-inventory -- --input ./openapi.json"
+    },
+    {
+      "id": "csv-formula-audit",
+      "title": "CSV Formula Risk Audit",
+      "description": "Locate formula-like CSV cell prefixes before spreadsheet import, reporting coordinates without exposing cell values.",
+      "category": "security-compliance",
+      "topic": "csv",
+      "language": "ruby",
+      "entrypoint": "scripts/security-compliance/csv/csv-formula-audit/script.rb",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "ruby"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string",
+          "required": true,
+          "flag": "--input"
+        }
+      ],
+      "tags": [
+        "csv",
+        "offline",
+        "report"
+      ],
+      "expected_output": "JSON row/cell counts, risky cell coordinates, total findings and truncation state.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Ruby >=2.6 with csv, json and optparse libraries",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Preview or operation completed without report findings.",
+        "1": "Differences/findings, or Git backup execution failure.",
+        "2": "Invalid or unreadable input, unsupported behavior, limits, collisions or I/O failure."
+      },
+      "provenance_ref": "csv-formula-audit",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS. Additional operating systems are exercised in CI before support declarations are expanded.",
+      "usage_example": "automation run csv-formula-audit -- --input ./export.csv"
+    },
+    {
+      "id": "eml-attachment-extract",
+      "title": "Email Attachment Extraction",
+      "description": "Preview or extract decoded MIME attachments from one local email into sanitized, unique, non-overwriting files.",
+      "category": "messaging-notifications",
+      "topic": "email",
+      "language": "python",
+      "entrypoint": "scripts/messaging-notifications/email/eml-attachment-extract/script.py",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "python3"
+      ],
+      "permissions": [
+        "filesystem-read",
+        "filesystem-write"
+      ],
+      "destructive": false,
+      "requires_confirmation": true,
+      "supports_dry_run": true,
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string",
+          "required": true,
+          "flag": "--input"
+        },
+        {
+          "name": "output",
+          "type": "string",
+          "required": true,
+          "flag": "--output"
+        },
+        {
+          "name": "apply",
+          "type": "boolean",
+          "required": false,
+          "flag": "--apply"
+        },
+        {
+          "name": "dry_run",
+          "type": "boolean",
+          "required": false,
+          "flag": "--dry-run"
+        }
+      ],
+      "tags": [
+        "email",
+        "offline",
+        "report"
+      ],
+      "expected_output": "JSON plan or completed attachment metadata: generated names, MIME types, byte counts and SHA-256 values.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Python >=3.10; standard library only",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Preview or operation completed without report findings.",
+        "2": "Invalid or unreadable input, unsupported behavior, limits, collisions or I/O failure."
+      },
+      "provenance_ref": "eml-attachment-extract",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS. Additional operating systems are exercised in CI before support declarations are expanded.",
+      "usage_example": "automation run eml-attachment-extract --yes -- --input ./message.eml --output ./attachments"
     }
   ]
 }

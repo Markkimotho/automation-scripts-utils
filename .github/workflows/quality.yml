@@ -140,3 +140,29 @@ jobs:
         env:
           AUTOMATION_REQUIRE_GO: "1"
         run: python -m unittest discover -s tests -p test_go_offline_automations.py -v
+
+  web-adapted-automations:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Validate JavaScript and Ruby syntax
+        run: |
+          node --check scripts/api-integrations/openapi/openapi-operation-inventory/script.js
+          ruby -c scripts/security-compliance/csv/csv-formula-audit/script.rb
+      - name: Offline backup, data and security fixtures
+        env:
+          AUTOMATION_REQUIRE_WEB_RUNTIMES: "1"
+        run: python -m unittest discover -s tests -p test_web_adapted_automations.py -v
