@@ -41,7 +41,7 @@ jobs:
       - name: Install package and smoke-test installed CLI
         run: |
           python -m venv /tmp/automation-package-test
-          /tmp/automation-package-test/bin/python -m pip install --no-build-isolation .
+          /tmp/automation-package-test/bin/python -m pip install .
           /tmp/automation-package-test/bin/automation list --json > /tmp/automation-installed-catalog.json
           /tmp/automation-package-test/bin/automation info git-conflict-helper
           /tmp/automation-package-test/bin/automation run git-conflict-helper --dry-run
