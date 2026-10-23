@@ -2,7 +2,7 @@
 """Read local EML headers; never connects to a mail server."""
 import argparse
 from email import policy
-from email.parser import BytesParser
+from email.parser import BytesHeaderParser
 import json
 from pathlib import Path
 
@@ -18,7 +18,7 @@ def main():
             continue
         try:
             with path.open("rb") as f:
-                message = BytesParser(policy=policy.default, headersonly=True).parse(f)
+                message = BytesHeaderParser(policy=policy.default).parse(f)
             results.append({"file": path.name, "from": str(message.get("From", "")), "to": str(message.get("To", "")), "subject": str(message.get("Subject", "")), "date": str(message.get("Date", ""))})
         except OSError as error:
             ap.exit(2, f"Failed to read {path}: {error}\n")
