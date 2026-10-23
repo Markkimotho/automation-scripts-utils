@@ -1,0 +1,14 @@
+test_cli_checksum_roundtrip_and_mismatch (test_go_offline_automations.GoOfflineAutomations.test_cli_checksum_roundtrip_and_mismatch) ... ok
+test_cli_cidr_valid_findings_and_invalid_exit_codes (test_go_offline_automations.GoOfflineAutomations.test_cli_cidr_valid_findings_and_invalid_exit_codes) ... ok
+test_cli_pem_help_and_invalid_input (test_go_offline_automations.GoOfflineAutomations.test_cli_pem_help_and_invalid_input) ... ok
+test_existing_go_script_help (test_go_offline_automations.GoOfflineAutomations.test_existing_go_script_help) ... ok
+test_go_build_failure_is_an_execution_error (test_go_offline_automations.GoOfflineAutomations.test_go_build_failure_is_an_execution_error) ... ok
+test_go_source_formatting (test_go_offline_automations.GoOfflineAutomations.test_go_source_formatting) ... ok
+test_missing_go_compiler_is_rejected (test_go_offline_automations.GoOfflineAutomations.test_missing_go_compiler_is_rejected) ... ok
+test_native_suites (test_go_offline_automations.GoOfflineAutomations.test_native_suites) ... ok
+test_python_passthrough_and_named_validation (test_go_offline_automations.GoOfflineAutomations.test_python_passthrough_and_named_validation) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 8.879s
+
+OK

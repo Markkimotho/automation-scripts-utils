@@ -1,0 +1,22 @@
+Processing /Users/ktinega/Projects/automation-scripts-utils
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: automation-scripts-utils
+  Building wheel for automation-scripts-utils (pyproject.toml): started
+  Building wheel for automation-scripts-utils (pyproject.toml): finished with status 'done'
+  Created wheel for automation-scripts-utils: filename=automation_scripts_utils-0.1.0-py3-none-any.whl size=252334 sha256=ec1cf104623be8f7b2322a73873d08275a46b30e56cf105e1ee50e9b33abda2c
+  Stored in directory: /private/var/folders/zg/180yhxbd6w365ss4h5c6725m0000gn/T/pip-ephem-wheel-cache-llae4f0q/wheels/99/f0/96/abb82e6b0ec88d20682008f4da933ba65755abee5b0ddba2b5
+Successfully built automation-scripts-utils
+Installing collected packages: automation-scripts-utils
+  Attempting uninstall: automation-scripts-utils
+    Found existing installation: automation-scripts-utils 0.1.0
+    Uninstalling automation-scripts-utils-0.1.0:
+      Successfully uninstalled automation-scripts-utils-0.1.0
+Successfully installed automation-scripts-utils-0.1.0
+
+[notice] A new release of pip is available: 24.0 -> 26.2.2
+[notice] To update, run: /tmp/automation-go-package/bin/python -m pip install --upgrade pip

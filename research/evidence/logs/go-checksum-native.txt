@@ -1,0 +1,28 @@
+=== RUN   TestValidManifestAndUnchangedInputs
+--- PASS: TestValidManifestAndUnchangedInputs (0.00s)
+=== RUN   TestMissingChangedAndDirectoryFindings
+=== RUN   TestMissingChangedAndDirectoryFindings/missing
+=== RUN   TestMissingChangedAndDirectoryFindings/changed
+=== RUN   TestMissingChangedAndDirectoryFindings/directory
+--- PASS: TestMissingChangedAndDirectoryFindings (0.01s)
+    --- PASS: TestMissingChangedAndDirectoryFindings/missing (0.00s)
+    --- PASS: TestMissingChangedAndDirectoryFindings/changed (0.00s)
+    --- PASS: TestMissingChangedAndDirectoryFindings/directory (0.00s)
+=== RUN   TestUnsafeManifestPathsAndDuplicateFields
+--- PASS: TestUnsafeManifestPathsAndDuplicateFields (0.02s)
+=== RUN   TestDuplicatePathsRejected
+--- PASS: TestDuplicatePathsRejected (0.00s)
+=== RUN   TestRootConfinesSymlinkTargets
+--- PASS: TestRootConfinesSymlinkTargets (0.00s)
+=== RUN   TestInternalRelativeSymlinksAreAllowed
+--- PASS: TestInternalRelativeSymlinksAreAllowed (0.01s)
+=== RUN   TestTotalReadBudgetAndEmptyManifest
+--- PASS: TestTotalReadBudgetAndEmptyManifest (0.01s)
+=== RUN   TestInvalidArgumentsAndHelp
+--- PASS: TestInvalidArgumentsAndHelp (0.00s)
+=== RUN   TestManifestEntryLimit
+--- PASS: TestManifestEntryLimit (0.83s)
+=== RUN   TestBudgetIsSharedAcrossFiles
+--- PASS: TestBudgetIsSharedAcrossFiles (0.00s)
+PASS
+ok  	command-line-arguments	2.640s

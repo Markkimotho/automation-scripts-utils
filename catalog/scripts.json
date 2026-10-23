@@ -1972,6 +1972,186 @@
       "test_status": "passed",
       "compatibility_notes": "Verified locally on macOS only. Linux and Windows verification is configured in CI but pending; not advertised as supported.",
       "usage_example": "automation run har-timing-summary -- --input ./capture.har --slow-ms 1000"
+    },
+    {
+      "id": "pem-expiry-report",
+      "title": "PEM Certificate Expiry Report",
+      "description": "Report expired, not-yet-valid and soon-expiring certificates in a local PEM bundle without contacting remote services.",
+      "category": "security-compliance",
+      "topic": "certificates",
+      "language": "go",
+      "entrypoint": "scripts/security-compliance/certificates/pem-expiry-report/script.go",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "go"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string",
+          "required": true,
+          "flag": "--input"
+        },
+        {
+          "name": "as_of",
+          "type": "string",
+          "required": false,
+          "flag": "--as-of"
+        },
+        {
+          "name": "warn_days",
+          "type": "integer",
+          "required": false,
+          "flag": "--warn-days"
+        }
+      ],
+      "tags": [
+        "certificates",
+        "offline",
+        "audit",
+        "go"
+      ],
+      "expected_output": "JSON observation time, certificate SHA-256 fingerprints, validity dates, remaining seconds and statuses.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Go >=1.24; standard library only. Maintained Go releases recommended.",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Inspection completed without findings.",
+        "1": "Validity, overlap or file-integrity findings.",
+        "2": "Invalid input, unreadable input, resource limit or compilation/execution error."
+      },
+      "provenance_ref": "pem-expiry-report",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS with Go 1.26.4. Cross-platform CI is configured separately; only macOS is declared supported.",
+      "usage_example": "automation run pem-expiry-report -- --input ./certificates.pem --warn-days 30"
+    },
+    {
+      "id": "cidr-overlap-report",
+      "title": "CIDR Overlap Report",
+      "description": "Find duplicate and nested IPv4 or IPv6 CIDR allocations offline, preserving input line numbers and normalizing host bits.",
+      "category": "networking-monitoring",
+      "topic": "ip-addressing",
+      "language": "go",
+      "entrypoint": "scripts/networking-monitoring/ip-addressing/cidr-overlap-report/script.go",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "go"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "input",
+          "type": "string",
+          "required": true,
+          "flag": "--input"
+        },
+        {
+          "name": "max_findings",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-findings"
+        }
+      ],
+      "tags": [
+        "ip-addressing",
+        "offline",
+        "audit",
+        "go"
+      ],
+      "expected_output": "JSON normalized networks, overlap count, overlapping line-number pairs and truncation status.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Go >=1.24; standard library only. Maintained Go releases recommended.",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Inspection completed without findings.",
+        "1": "Validity, overlap or file-integrity findings.",
+        "2": "Invalid input, unreadable input, resource limit or compilation/execution error."
+      },
+      "provenance_ref": "cidr-overlap-report",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS with Go 1.26.4. Cross-platform CI is configured separately; only macOS is declared supported.",
+      "usage_example": "automation run cidr-overlap-report -- --input ./networks.txt"
+    },
+    {
+      "id": "checksum-manifest-verify",
+      "title": "SHA-256 Manifest Verification",
+      "description": "Verify local restored or transferred files against SHA-256 JSON manifests while confining file access to a selected directory.",
+      "category": "backup-recovery",
+      "topic": "integrity",
+      "language": "go",
+      "entrypoint": "scripts/backup-recovery/integrity/checksum-manifest-verify/script.go",
+      "platforms": [
+        "macos"
+      ],
+      "dependencies": [
+        "go"
+      ],
+      "permissions": [
+        "filesystem-read"
+      ],
+      "destructive": false,
+      "requires_confirmation": false,
+      "supports_dry_run": false,
+      "parameters": [
+        {
+          "name": "manifest",
+          "type": "string",
+          "required": true,
+          "flag": "--manifest"
+        },
+        {
+          "name": "root",
+          "type": "string",
+          "required": true,
+          "flag": "--root"
+        },
+        {
+          "name": "max_bytes",
+          "type": "integer",
+          "required": false,
+          "flag": "--max-bytes"
+        }
+      ],
+      "tags": [
+        "integrity",
+        "offline",
+        "audit",
+        "go"
+      ],
+      "expected_output": "JSON verified count and per-path missing, unsafe, unreadable or changed findings.",
+      "status": "maintained",
+      "version": "1.0.0",
+      "maintainer": "Automation Scripts & Utils contributors",
+      "runtime_requirements": "Go >=1.24; standard library only. Maintained Go releases recommended.",
+      "environment_variables": [],
+      "exit_codes": {
+        "0": "Inspection completed without findings.",
+        "1": "Validity, overlap or file-integrity findings.",
+        "2": "Invalid input, unreadable input, resource limit or compilation/execution error."
+      },
+      "provenance_ref": "checksum-manifest-verify",
+      "test_status": "passed",
+      "compatibility_notes": "Verified locally on macOS with Go 1.26.4. Cross-platform CI is configured separately; only macOS is declared supported.",
+      "usage_example": "automation run checksum-manifest-verify -- --root ./restored --manifest ./manifest.json"
     }
   ]
 }

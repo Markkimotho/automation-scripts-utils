@@ -1,0 +1,52 @@
+id: checksum-manifest-verify
+title: SHA-256 Manifest Verification
+description: Verify local restored or transferred files against SHA-256 JSON manifests
+  while confining file access to a selected directory.
+category: backup-recovery
+topic: integrity
+language: go
+entrypoint: scripts/backup-recovery/integrity/checksum-manifest-verify/script.go
+platforms:
+- macos
+dependencies:
+- go
+permissions:
+- filesystem-read
+destructive: false
+requires_confirmation: false
+supports_dry_run: false
+parameters:
+- name: manifest
+  type: string
+  required: true
+  flag: --manifest
+- name: root
+  type: string
+  required: true
+  flag: --root
+- name: max_bytes
+  type: integer
+  required: false
+  flag: --max-bytes
+tags:
+- integrity
+- offline
+- audit
+- go
+expected_output: JSON verified count and per-path missing, unsafe, unreadable or changed
+  findings.
+status: maintained
+version: 1.0.0
+maintainer: Automation Scripts & Utils contributors
+runtime_requirements: Go >=1.24; standard library only. Maintained Go releases recommended.
+environment_variables: []
+exit_codes:
+  '0': Inspection completed without findings.
+  '1': Validity, overlap or file-integrity findings.
+  '2': Invalid input, unreadable input, resource limit or compilation/execution error.
+provenance_ref: checksum-manifest-verify
+test_status: passed
+compatibility_notes: Verified locally on macOS with Go 1.26.4. Cross-platform CI is
+  configured separately; only macOS is declared supported.
+usage_example: automation run checksum-manifest-verify -- --root ./restored --manifest
+  ./manifest.json

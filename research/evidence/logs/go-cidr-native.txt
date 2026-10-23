@@ -1,0 +1,18 @@
+=== RUN   TestNormalizationAndLineNumbers
+--- PASS: TestNormalizationAndLineNumbers (0.00s)
+=== RUN   TestOverlapCountsTruncationAndFamilies
+--- PASS: TestOverlapCountsTruncationAndFamilies (0.00s)
+=== RUN   TestDuplicateClassificationAndAdjacentNetworks
+--- PASS: TestDuplicateClassificationAndAdjacentNetworks (0.00s)
+=== RUN   TestEmptyInputIsValid
+--- PASS: TestEmptyInputIsValid (0.00s)
+=== RUN   TestInvalidPrefixesAndResourceLimits
+--- PASS: TestInvalidPrefixesAndResourceLimits (0.00s)
+=== RUN   TestInvalidArgumentsHaveNoPartialReport
+--- PASS: TestInvalidArgumentsHaveNoPartialReport (0.00s)
+=== RUN   TestHelpAndInputImmutability
+--- PASS: TestHelpAndInputImmutability (0.00s)
+=== RUN   TestOversizeFileRejected
+--- PASS: TestOversizeFileRejected (0.00s)
+PASS
+ok  	command-line-arguments	1.547s

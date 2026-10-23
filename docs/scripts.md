@@ -32,6 +32,18 @@ automation run http-status-check -- --help
 
 ## Backup Recovery
 
+### `checksum-manifest-verify`
+
+Verify local restored or transferred files against SHA-256 JSON manifests while confining file access to a selected directory.
+
+**Language:** go · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run checksum-manifest-verify -- --root ./restored --manifest ./manifest.json
+```
+
+[Usage, options and troubleshooting](automations/checksum-manifest-verify.md)
+
 ### `incremental-file-copy`
 
 Preview and optionally copy changed regular files to a separate backup directory without deleting old backups.
@@ -554,6 +566,18 @@ automation run eml-headers-report -- --help
 
 ## Networking Monitoring
 
+### `cidr-overlap-report`
+
+Find duplicate and nested IPv4 or IPv6 CIDR allocations offline, preserving input line numbers and normalizing host bits.
+
+**Language:** go · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run cidr-overlap-report -- --input ./networks.txt
+```
+
+[Usage, options and troubleshooting](automations/cidr-overlap-report.md)
+
 ### `har-timing-summary`
 
 Summarize offline HAR request timing, failures, status counts and body sizes while omitting URLs and payloads.
@@ -591,6 +615,18 @@ automation info file-permission-audit
 automation run file-permission-audit --dry-run
 automation run file-permission-audit -- --help
 ```
+
+### `pem-expiry-report`
+
+Report expired, not-yet-valid and soon-expiring certificates in a local PEM bundle without contacting remote services.
+
+**Language:** go · **Platforms:** macos · **Permissions:** filesystem-read
+
+```bash
+automation run pem-expiry-report -- --input ./certificates.pem --warn-days 30
+```
+
+[Usage, options and troubleshooting](automations/pem-expiry-report.md)
 
 ### `secret-scan`
 
