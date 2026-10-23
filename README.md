@@ -1,5 +1,7 @@
 # Automation Scripts & Utils
 
+[![Available scripts](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FMarkkimotho%2Fautomation-scripts-utils%2Fmain%2Fcatalog%2Fscripts.json&query=%24.scripts.length&label=scripts&color=0d9488&logo=github&style=flat-square&cacheSeconds=300)](https://markkimotho.github.io/automation-scripts-utils/scripts/)
+
 **Discover useful automations. Install once. Run from anywhere.**
 
 Automation Scripts & Utils is a multi-language command-line library for files, Git, cloud infrastructure, data, systems, security, networking, business and personal productivity.
