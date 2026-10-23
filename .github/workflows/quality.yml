@@ -38,6 +38,14 @@ jobs:
         run: python -m pip install git-filter-repo
       - name: AWS audit stub tests
         run: python scripts/cloud-devops/aws/s3-bucket-audit/test_script.py
+      - name: Install package and smoke-test installed CLI
+        run: |
+          python -m venv /tmp/automation-package-test
+          /tmp/automation-package-test/bin/python -m pip install .
+          /tmp/automation-package-test/bin/automation list --json > /tmp/automation-installed-catalog.json
+          /tmp/automation-package-test/bin/automation info git-conflict-helper
+          /tmp/automation-package-test/bin/automation run git-conflict-helper --dry-run
+          /tmp/automation-package-test/bin/automation run git-conflict-helper -- --help
       - name: Existing offline regressions
         run: bash tests/run_tests.sh
       - name: Build MkDocs documentation

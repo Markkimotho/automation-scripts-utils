@@ -33,14 +33,12 @@ theme:
 
 nav:
   - Home: index.md
-  - Architecture: architecture.md
-  - CLI and catalog: cli.md
-  - Roadmap: roadmap.md
-  - Contributing: contributing.md
-  - Migration: migration.md
-  - Prerequisites: prerequisites.md
-  - Script reference: reference.md
-  - Resolving conflicts: conflicts.md
+  - Installation: install.md
+  - Script directory: scripts.md
+  - CLI reference: cli.md
+  - Requirements: prerequisites.md
+  - Safety: safety.md
+  - Git conflict helper: conflicts.md
 
 markdown_extensions:
   - admonition

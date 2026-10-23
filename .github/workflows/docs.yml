@@ -9,6 +9,8 @@ on:
     branches: [main]
     paths:
       - docs/**
+      - catalog/scripts.json
+      - README.md
       - mkdocs.yml
       - requirements-docs.txt
       - .github/workflows/docs.yml

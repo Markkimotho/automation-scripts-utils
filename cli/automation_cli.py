@@ -14,7 +14,16 @@ import shutil
 import subprocess
 import sys
 
-ROOT = Path(os.environ.get("AUTOMATION_ROOT", Path(__file__).resolve().parent.parent)).resolve()
+def resolve_root() -> Path:
+    """Prefer explicitly configured data, then the installed package, then source checkout."""
+    if os.environ.get("AUTOMATION_ROOT"):
+        return Path(os.environ["AUTOMATION_ROOT"]).expanduser().resolve()
+    installed = Path(sys.prefix) / "share" / "automation-scripts-utils"
+    if (installed / "catalog" / "scripts.json").is_file():
+        return installed.resolve()
+    return Path(__file__).resolve().parent.parent
+
+ROOT = resolve_root()
 CATALOG = ROOT / "catalog" / "scripts.json"
 VALID_TYPES = {"string", "integer", "number", "boolean"}
 
