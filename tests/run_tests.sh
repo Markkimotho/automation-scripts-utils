@@ -21,7 +21,7 @@ export GIT_AUTHOR_NAME=test GIT_AUTHOR_EMAIL=test@test \
        ASSUME_YES=1 NO_COLOR=1
 
 echo "== lib/common.sh =="
-# shellcheck source=../lib/common.sh
+# shellcheck source=../packages/common/common.sh
 source "$ROOT/packages/common/common.sh"
 check "require_cmd finds bash"              "require_cmd bash"
 check "confirm honors ASSUME_YES"           "confirm 'x'"
@@ -242,7 +242,7 @@ for s in gh-merge-pr gh-create-repo gh-enable-pages gh-rename-repo \
          git-conflict-helper git-safe-checkout git-clean-branches gh-pr-open git-sync \
          dev-doctor proj-bootstrap precommit-install py-check \
          clean-artifacts snapshot py-venv-rebuild port-kill; do
-  ( "$BIN/$s.sh" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
+  ( "$(find "$BIN" -type f -name "$s.sh" -print -quit)" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
 done
 
 echo "== python lane =="
@@ -254,7 +254,7 @@ else
   check "common.py imports"  "$PY -c 'import sys;sys.path.insert(0,\"$ROOT/packages/common\");import common'"
   for s in gh-pr-status gh-release env-check version-bump lockfile-drift \
            deps-unused deps-outdated vuln-scan lic-audit data-convert secret-scan gh-issues-sync; do
-    ( "$PY" "$BIN/$s.py" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
+    ( "$PY" "$(find "$BIN" -type f -name "$s.py" -print -quit)" --help >/dev/null 2>&1 ); check "$s --help" "[ $? -eq 0 ]"
   done
 
   echo "== data-convert.py (csv -> json) =="
@@ -305,7 +305,7 @@ else
   echo "== empty-dir behavior (polyglot tools exit 0) =="
   TMP9="$(mktemp -d)"
   for s in lockfile-drift deps-outdated vuln-scan; do
-    ( cd "$TMP9"; "$PY" "$BIN/$s.py" >/dev/null 2>&1 ); check "$s empty dir -> exit 0" "[ $? -eq 0 ]"
+    ( cd "$TMP9"; "$PY" "$(find "$BIN" -type f -name "$s.py" -print -quit)" >/dev/null 2>&1 ); check "$s empty dir -> exit 0" "[ $? -eq 0 ]"
   done
   echo "== gh-issues-sync.py (fake gh) =="
   TMPI="$(mktemp -d)"; mkdir -p "$TMPI/bin"
